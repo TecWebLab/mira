@@ -2,11 +2,11 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'router'
+    'jsynth/router'
 ], function($, _, Backbone, Router){
 
-    var interface_select_rules = {
-        "ticket/:id" : {
+    var interface_select_rules = [{
+            url: "ticket/:id",
             endpoint : '/api/tickets/:id',
             rules: [{
                 when: 't: Ticket',
@@ -15,12 +15,11 @@ define([
                 when: 't: Issue',
                 abstract: 'interface_issue'
             }]
-        },
-        "data/:id" : {
+        },{
+            url: "data/:id",
             endpoint : '/api/data/:id',
             abstract: 'interface_data'
-        }
-    };
+    }];
 
     var interface_abstracts = {
         interface_data : {
