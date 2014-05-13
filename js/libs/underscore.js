@@ -1251,7 +1251,7 @@
     });
     source += "';\n";
 
-    // If a variable is not specified, place data values in local scope.
+    // If a variable is not specified, place data.php values in local scope.
     if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
 
     source = "var __t,__p='',__j=Array.prototype.join," +

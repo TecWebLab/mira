@@ -1932,7 +1932,7 @@ var requirejs, require, define;
         return interactiveScript;
     }
 
-    //Look for a data-main script attribute, which could also adjust the baseUrl.
+    //Look for a data.php-main script attribute, which could also adjust the baseUrl.
     if (isBrowser && !cfg.skipDataMain) {
         //Figure out baseUrl. Get it from the script tag with require.js in it.
         eachReverse(scripts(), function (script) {
@@ -1942,8 +1942,8 @@ var requirejs, require, define;
                 head = script.parentNode;
             }
 
-            //Look for a data-main attribute to set main script for the page
-            //to load. If it is there, the path to data main becomes the
+            //Look for a data.php-main attribute to set main script for the page
+            //to load. If it is there, the path to data.php main becomes the
             //baseUrl, if it is not already set.
             dataMain = script.getAttribute('data-main');
             if (dataMain) {
@@ -1952,7 +1952,7 @@ var requirejs, require, define;
 
                 //Set final baseUrl if there is not already an explicit one.
                 if (!cfg.baseUrl) {
-                    //Pull off the directory of data-main for use as the
+                    //Pull off the directory of data.php-main for use as the
                     //baseUrl.
                     src = mainScript.split('/');
                     mainScript = src.pop();
@@ -1970,7 +1970,7 @@ var requirejs, require, define;
                     mainScript = dataMain;
                 }
 
-                //Put the data-main script in the files to load.
+                //Put the data.php-main script in the files to load.
                 cfg.deps = cfg.deps ? cfg.deps.concat(mainScript) : [mainScript];
 
                 return true;

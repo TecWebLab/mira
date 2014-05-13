@@ -40,7 +40,7 @@ var interface_select_rules = [{
     }]
 },{
     url: "data/:id",
-    endpoint : '/api/data/:id',
+    endpoint : '/jsynth/data.php',
     abstract: 'interface_data'
 }];
 
@@ -81,6 +81,19 @@ var interface_abstracts = [
     }
 ];
 
+var concrete_interface = [
+    { name: 'interface_data', widgets: [
+            { name: 'main_page', widget: 'SimpleHtml', tag:'div' },
+            { name: 'header', widget: 'SimpleHtml', tag:'h1' },
+            { name: 'ticket_id', widget: 'SimpleHtml', tag: 'span', value: 'model.ticket_id' },
+            { name: 'ticket_title', widget: 'SimpleHtml', tag: 'span', value: '" | " + model.title' },
+            { name: 'body', widget: 'SimpleHtml', tag:'div'},
+            { name: 'ticket_assign', widget: 'SimpleHtml', tag:'span', value: 'model.assign' },
+            { name: 'ticket_description', widget: 'SimpleHtml', tag:'span', value: 'model.description' }
+        ]
+    }
+];
+
 
 require([
     // Load our app module and pass it to our definition function
@@ -89,7 +102,7 @@ require([
     'jsynth/init',
     'jsynth/router'
 ], function($, $bootstrap, JSynth, Router){
-    var a = Router(interface_select_rules, interface_abstracts);
+    var a = Router(interface_select_rules, interface_abstracts, concrete_interface);
 
 });
 

@@ -2141,7 +2141,7 @@ declare({
             } else {
                 this.tail = node.prev;
             }
-            //node.data = node.prev = node.next = null;
+            //node.data.php = node.prev = node.next = null;
             this.length--;
         },
 
@@ -8489,7 +8489,7 @@ declare({
      *          this._color = options.color || "grey";
      *      },
      *
-     *      //override Mammals `speak` method by appending our own data to it.
+     *      //override Mammals `speak` method by appending our own data.php to it.
      *      speak : function() {
      *          return this._super(arguments) + " a " + this._sound;
      *      },
@@ -12894,7 +12894,7 @@ SlowBuffer.prototype.writeDoubleBE = Buffer.prototype.writeDoubleBE;
 		placeHolders = b64.indexOf('=');
 		placeHolders = placeHolders > 0 ? b64.length - placeHolders : 0;
 
-		// base64 is 4/3 + up to two characters of the original data
+		// base64 is 4/3 + up to two characters of the original data.php
 		arr = [];//new Uint8Array(b64.length * 3 / 4 - placeHolders);
 
 		// if there are placeholders, only get up to the last complete 4 chars
@@ -14350,7 +14350,7 @@ SlowBuffer.prototype.writeDoubleBE = Buffer.prototype.writeDoubleBE;
 		placeHolders = b64.indexOf('=');
 		placeHolders = placeHolders > 0 ? b64.length - placeHolders : 0;
 
-		// base64 is 4/3 + up to two characters of the original data
+		// base64 is 4/3 + up to two characters of the original data.php
 		arr = [];//new Uint8Array(b64.length * 3 / 4 - placeHolders);
 
 		// if there are placeholders, only get up to the last complete 4 chars

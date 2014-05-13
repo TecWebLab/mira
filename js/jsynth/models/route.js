@@ -27,12 +27,20 @@ define([
         request_data: function(){
             var endpoint = this.get('endpoint');
 
-            var collection = new CollectionApi({
+            var collection = new (CollectionApi.extend({
                 url: endpoint
+            }))();
+
+            collection.fetch({
+                success: function(col){
+                    console.log(col);
+                    this.trigger('get_collection', {
+                        collection:col,
+                        model: col.at(0)
+                    });
+                }
             });
 
-            //collection.sync();
-            return collection;
         },
 
         has_rules: function(){
@@ -40,12 +48,12 @@ define([
         },
 
         handle: function(){
+            this.request_data();
             if(this.has_rules()){
-                var collection = this.request_data();
+
             } else if(this.get('abstract')){
                 this.trigger('selection', {
-                        name: this.get('abstract'),
-                        collection: this.request_data()
+                        name: this.get('abstract')
                     }
                 )
             } else {

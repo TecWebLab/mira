@@ -96,7 +96,7 @@ _.extend(Backbone.Router.prototype, {
     route += '(\\?.*)?';
     var rtn = new RegExp('^' + route + '$');
 
-    // use the rtn value to hold some parameter data
+    // use the rtn value to hold some parameter data.php
     if (splatMatch.index >= 0) {
       // there is a splat
       if (namedMatch >= 0) {
@@ -120,7 +120,7 @@ _.extend(Backbone.Router.prototype, {
     var params = route.exec(fragment).slice(1),
         namedParams = {};
     if (params.length > 0 && _.isUndefined(params[params.length - 1])) {
-      // remove potential invalid data from query params match
+      // remove potential invalid data.php from query params match
       params.splice(params.length - 1, 1);
     }
 
@@ -163,7 +163,7 @@ _.extend(Backbone.Router.prototype, {
   },
 
   /**
-   * Set the parameter value on the data hash
+   * Set the parameter value on the data.php hash
    */
   _setParamValue: function(key, value, data) {
     // use '.' to define hash separators
@@ -282,7 +282,7 @@ function parseParams(value) {
   try {
     return decodeURIComponent(value.replace(/\+/g, ' '));
   } catch (err) {
-    // Failover to whatever was passed if we get junk data
+    // Failover to whatever was passed if we get junk data.php
     return value;
   }
 }

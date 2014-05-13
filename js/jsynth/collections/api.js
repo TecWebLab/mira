@@ -4,11 +4,13 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'jsynth/base/model'
-], function ($, _, Backbone, ModelBase) {
+    'jsynth/base/collection',
+    'jsynth/models/api'
+], function ($, _, Backbone, CollectionBase, ModelApi) {
 
-    return ModelBase.extend({
-
+    return CollectionBase.extend({
+        model:ModelApi,
+        name: "Cooool"
     });
 
 });

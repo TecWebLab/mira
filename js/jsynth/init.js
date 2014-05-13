@@ -4,6 +4,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'jsynth/widgets/render',
     'jsynth/base/model',
     'jsynth/base/collection',
     'jsynth/models/api',
@@ -15,8 +16,13 @@ define([
     'jsynth/models/interface-abstract',
     'jsynth/collections/interface-abstract',
     'jsynth/models/widget-abstract',
-    'jsynth/collections/widget-abstract'
+    'jsynth/collections/widget-abstract',
+    'jsynth/models/widget-concrete',
+    'jsynth/collections/widget-concrete',
+    'jsynth/models/interface-concrete',
+    'jsynth/collections/interface-concrete'
 ], function($, _, Backbone,
+        Widget,
         ModelBase,
         CollectionBase,
         ModelApi,
@@ -28,7 +34,11 @@ define([
         ModelInterfaceAbstract,
         CollectionInterfaceAbstract,
         ModelWidgetAbstract,
-        CollectionWidgetAbstract
+        CollectionWidgetAbstract,
+        ModelWidgetConcrete,
+        CollectionWidgetConcrete,
+        ModelInterfaceConcrete,
+        CollectionInterfaceConcrete
     ) {
 
     return {
@@ -53,6 +63,15 @@ define([
                 Model: ModelWidgetAbstract,
                 Collection: CollectionWidgetAbstract
             }
-        }
+        },
+        InterfaceConcrete :{
+            Model: ModelInterfaceConcrete,
+            Collection: CollectionInterfaceConcrete,
+            Widget: {
+                Model: ModelWidgetConcrete,
+                Collection: CollectionWidgetConcrete
+            }
+        },
+        Widget : Widget
     }
 });
