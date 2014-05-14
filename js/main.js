@@ -42,11 +42,32 @@ var interface_select_rules = [{
     url: "data/:id",
     endpoint : '/jsynth/data.php',
     abstract: 'interface_data'
+},{
+    url: "outro",
+    endpoint : '/jsynth/data.php',
+    abstract: 'interface_outro'
 }];
 
 var interface_abstracts = [
     {
         name: 'interface_data' ,
+        widgets : {
+            name:"main_page", widget_type: "AbstractInterface",
+            children: [{
+                name: "header", widget_type: "CompositeInterfaceElement",
+                children: [
+                    { name:"ticket_id", widget_type: "ElementExhibitor" },
+                    { name:"ticket_title", widget_type: "ElementExhibitor" }
+                ]},{
+                name: "body", widget_type: "CompositeInterfaceElement",
+                children: [
+                    { name:"ticket_assign", widget_type: "ElementExhibitor" },
+                    { name:"ticket_description", widget_type: "ElementExhibitor" }
+                ]}
+            ]
+        }
+    },{
+        name: 'interface_outro' ,
         widgets : {
             name:"main_page", widget_type: "AbstractInterface",
             children: [{
@@ -90,6 +111,13 @@ var concrete_interface = [
             { name: 'body', widget: 'SimpleHtml', tag:'div'},
             { name: 'ticket_assign', widget: 'SimpleHtml', tag:'span', value: 'model.assign' },
             { name: 'ticket_description', widget: 'SimpleHtml', tag:'span', value: 'model.description' }
+        ]
+    },{   name: 'interface_outro', widgets: [
+        { name: 'main_page', widget: 'SimpleHtml', tag:'div' },
+        { name: 'header', widget: 'SimpleHtml', tag:'h2', value: 'model.ticket_id + " | " + model.title' },
+        { name: 'body', widget: 'SimpleHtml', tag:'div'},
+        { name: 'ticket_assign', widget: 'SimpleHtml', tag:'p', value: 'model.assign' },
+        { name: 'ticket_description', widget: 'SimpleHtml', tag:'p', value: 'model.description' }
         ]
     }
 ];

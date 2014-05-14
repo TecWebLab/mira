@@ -19,13 +19,13 @@ define([
         },
 
         getAllChildren: function(){
-            if(!this.get('AllChildren')){
+            if(!this.allChildren){
                 var children = new CollectionWidgetAbstract();
                 var parent = this.get('widgets');
                 parent.getAllChildren(children);
-                this.set('AllChildren', children);
+                this.allChildren = children;
             }
-            return this.get('AllChildren');
+            return this.allChildren;
         },
 
         getHtml: function($parent, model){

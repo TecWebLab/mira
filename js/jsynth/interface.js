@@ -25,15 +25,18 @@ define([
 
         },
 
-        render: function(abstract){
-            abstract.getHtml(this.$el, this.model);
+        render: function(options){
+            this.$el.empty();
+            this.model = options.model;
+            this.abstract.getHtml(this.$el, this.model);
+
         },
 
         abstract_selection: function(options){
-            var abstract = this.abstracts.get(options.name);
-            var concrete = this.concrets.get(options.name);
-            var widgets_abstract = abstract.getAllChildren();
-            concrete.mapWidgets(widgets_abstract);
+            this.abstract = this.abstracts.get(options.name);
+            this.concrete = this.concrets.get(options.name);
+            var widgets_abstract = this.abstract.getAllChildren();
+            this.concrete.mapWidgets(widgets_abstract);
         }
 
     });

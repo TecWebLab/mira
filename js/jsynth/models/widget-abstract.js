@@ -34,11 +34,14 @@ define([
         },
 
         getHtml: function($parent, model){
-            var ret = this.get('concrete').getHtml($parent, model);
-            this.get('children').each(function (widget) {
-                widget.getHtml(ret.$children, model);
-            }, this);
-            return ret
+            if(this.get('concrete')) {
+                var ret = this.get('concrete').getHtml($parent, model);
+                this.get('children').each(function (widget) {
+                    widget.getHtml(ret.$children, model);
+                }, this);
+                return ret;
+            }
+
         }
     });
 

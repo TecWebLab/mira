@@ -12,7 +12,7 @@ define([
         element.id = name;
         if(options.value) {
             var template = "<%= " + options.value + '%>';
-            element.innerHTML = _.template(template, _.extend({}, options, {model:model}));
+            element.innerHTML = _.template(template, _.extend({}, options, {model:model.attributes}));
         }
         $parent.append(element);
         return {

@@ -31,16 +31,16 @@ define([
                 url: endpoint
             }))();
 
+            var esse = this;
+
             collection.fetch({
                 success: function(col){
-                    console.log(col);
-                    this.trigger('get_collection', {
+                    esse.trigger('get_collection', {
                         collection:col,
                         model: col.at(0)
                     });
                 }
             });
-
         },
 
         has_rules: function(){
