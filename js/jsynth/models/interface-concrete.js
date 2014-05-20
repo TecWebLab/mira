@@ -5,15 +5,16 @@ define([
     'underscore',
     'backbone',
     'jsynth/base/model',
-    'jsynth/collections/widget-concrete'
-], function ($, _, Backbone, ModelBase, CollectionWidgetConcrete) {
+    'jsynth/base/collection',
+    'jsynth/models/widget-concrete'
+], function ($, _, Backbone, ModelBase, CollectionBase, WidgetConcrete) {
 
-    return ModelBase.extend({
+    var Model = ModelBase.extend({
 
         idAttribute: 'name',
 
         parse: function(data){
-            data.widgets = new CollectionWidgetConcrete(data.widgets, {parse:true});
+            data.widgets = new WidgetConcrete.Collection(data.widgets, {parse:true});
             return data;
         },
 
@@ -29,12 +30,22 @@ define([
                 var map_to = widget_concrete.get('name');
                 var widget_abstract = widgets_abstract.get(map_to);
                 if(widget_abstract) {
-                    widget_abstract.set('concrete', widget_concrete);
+                    widget_abstract.concrete = widget_concrete;
                 } else {
                     console.log('WidgetAbstract "' + map_to + '" not founded on AbstractInterface "' + this.get('name') + '"')
                 }
             }, this);
         }
     });
+
+    var Collection =  CollectionBase.extend({
+        model:Model
+    });
+
+    return {
+        Model : Model,
+        Collection: Collection,
+        Widget: WidgetConcrete
+    }
 
 });

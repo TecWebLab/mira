@@ -4,16 +4,17 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'jsynth/base/model'
-], function ($, _, Backbone, ModelBase) {
+    'jsynth/base/model',
+    'jsynth/base/collection'
+], function ($, _, Backbone, ModelBase, CollectionBase) {
 
-    return ModelBase.extend({
+    var Model = ModelBase.extend({
 
         idAttribute: 'name',
 
         parse: function(data){
-            var CollectionWidgetAbstract = require('jsynth/collections/widget-abstract');
-            data.children = new CollectionWidgetAbstract(data.children || [], {parse:true});
+            var WidgetAbstract = require('jsynth/models/widget-abstract');
+            data.children = new WidgetAbstract.Collection(data.children || [], {parse:true});
             return data;
         },
 
@@ -23,8 +24,8 @@ define([
         
         getAllChildren: function (children) {
             if(!children){
-                var CollectionWidgetAbstract = require('jsynth/collections/widget-abstract');
-                children = new CollectionWidgetAbstract();
+                var WidgetAbstract = require('jsynth/models/widget-abstract');
+                children = new WidgetAbstract.Collection();
             }
             children.add(this);
             this.get('children').each(function(widget){
@@ -34,8 +35,8 @@ define([
         },
 
         getHtml: function($parent, model){
-            if(this.get('concrete')) {
-                var ret = this.get('concrete').getHtml($parent, model);
+            if(this.concrete) {
+                var ret = this.concrete.getHtml($parent, model);
                 this.get('children').each(function (widget) {
                     widget.getHtml(ret.$children, model);
                 }, this);
@@ -44,5 +45,14 @@ define([
 
         }
     });
+
+    var Collection =  CollectionBase.extend({
+        model:Model
+    });
+
+    return {
+        Model : Model,
+        Collection: Collection
+    }
 
 });

@@ -5,61 +5,96 @@ define([
     'underscore',
     'backbone',
     'jsynth/base/model',
-    'jsynth/collections/route-rule',
-    'jsynth/collections/api'
-], function($, _, Backbone, ModelBase, CollectionRouteRule, CollectionApi) {
+    'jsynth/base/collection',
+    'jsynth/models/route-rule',
+    'jsynth/models/api'
+], function($, _, Backbone, ModelBase, CollectionBase, RouteRule, Api) {
 
-    return ModelBase.extend({
+    var Model = ModelBase.extend({
 
         idAttribute: 'url',
 
-        initialize: function(){
+        initialize: function(inter){
+            this.interface = inter;
             _.bindAll(this, 'handle');
         },
 
         parse: function(data){
             if(_.isArray(data.rules)){
-                data.rules = new CollectionRouteRule(data.rules);
+                data.rules = new RouteRule.Collection(data.rules);
             }
             return data;
         },
 
-        request_data: function(){
+        request_data: function(callback){
             var endpoint = this.get('endpoint');
 
-            var collection = new (CollectionApi.extend({
+            var collection = new (Api.Collection.extend({
                 url: endpoint
             }))();
 
-            var esse = this;
-
             collection.fetch({
                 success: function(col){
-                    esse.trigger('get_collection', {
-                        collection:col,
-                        model: col.at(0)
-                    });
+                    callback(col);
                 }
             });
         },
 
         has_rules: function(){
-            return this.get('rules') && _.isArray(this.get('rules').rules)
+            return this.get('rules') != undefined;
         },
 
-        handle: function(){
-            this.request_data();
-            if(this.has_rules()){
-
-            } else if(this.get('abstract')){
-                this.trigger('selection', {
-                        name: this.get('abstract')
+        abstract_selection_by_rule: function(model, request, device){
+            var name = null;
+            if(_.isArray(this.get('rules'))){
+                _.each(this.get(rules), function(rule){
+                    var when = this.interface.rules.get(rule.when);
+                    if(name) return; // se um nome já for definido, n valida mais
+                    if(when.evaluate(model, request, device)){
+                        name = rule.abstract;
                     }
-                )
-            } else {
-                throw new Error("rules ou abstract não foram definidos corretamente na regra.")
+                }, this);
             }
+            return name;
+        },
+
+        handle: function(request, device){
+            var esse = this;
+            this.request_data(function(collection){
+                var model = collection.at(0);
+                var name = null;
+                if(esse.has_rules()){
+                    name = esse.abstract_selection_by_rule(model, request, device);
+                } else if(esse.get('abstract')){
+                    name = esse.get('abstract');
+                }
+                if(!name){
+                    throw new Error("rules ou abstract não foram definidos corretamente na regra.")
+                }
+                esse.trigger('selection', { name: name });
+            });
+
         }
 
     });
+
+    var Collection =  CollectionBase.extend({
+        model:Model,
+
+        register_route: function(backbone_route){
+            this.each(function(route){
+                backbone_route.route(
+                    route.get('url'),
+                        route.get('name') || route.get('url'),
+                    route.handle
+                )
+            });
+        }
+    });
+
+    return {
+        Model : Model,
+        Collection: Collection,
+        Rule: RouteRule
+    }
 });

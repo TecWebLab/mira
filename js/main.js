@@ -28,6 +28,11 @@ require.config({
     }
 });
 
+var rules = [{
+    name: 'BigTitle',
+    validate: 'model.title.length > 10'
+}];
+
 var interface_select_rules = [{
     url: "ticket/:id",
     endpoint : '/api/tickets/:id',
@@ -130,7 +135,7 @@ require([
     'jsynth/init',
     'jsynth/router'
 ], function($, $bootstrap, JSynth, Router){
-    var a = Router(interface_select_rules, interface_abstracts, concrete_interface);
+    var a = Router(interface_select_rules, interface_abstracts, concrete_interface, rules);
 
 });
 

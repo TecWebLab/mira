@@ -5,10 +5,11 @@ define([
     'underscore',
     'backbone',
     'jsynth/base/model',
+    'jsynth/base/collection',
     'jsynth/widgets/render'
-], function ($, _, Backbone, ModelBase, Render) {
+], function ($, _, Backbone, ModelBase, CollectionBase, Render) {
 
-    return ModelBase.extend({
+    var Model = ModelBase.extend({
 
         idAttribute: 'name',
 
@@ -34,5 +35,14 @@ define([
         }
 
     });
+
+    var Collection =  CollectionBase.extend({
+        model:Model
+    });
+
+    return {
+        Model : Model,
+        Collection: Collection
+    }
 
 });
