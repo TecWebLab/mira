@@ -11,8 +11,6 @@ define([
 
     var Model = ModelBase.extend({
 
-        idAttribute: 'name',
-
         initialize: function(){
             _.bindAll(this, 'bindRender')
         },
@@ -32,6 +30,17 @@ define([
 
         getHtml: function($parent, model){
             return this.render($parent, this.get('name'), model, this.attributes)
+        },
+
+        has_rule: function () {
+            return this.get('when') != undefined;
+        },
+
+        evaluate: function(options){
+            var rule = router.interface.rules.get(this.get('when'));
+            var ret = rule.evaluate(options.model.attributes, options.request, options.device);
+            debugger;
+            return ret
         }
 
     });

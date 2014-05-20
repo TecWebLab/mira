@@ -49,8 +49,7 @@ define([
             if(_.isArray(this.get('rules'))){
                 _.each(this.get(rules), function(rule){
                     var when = this.interface.rules.get(rule.when);
-                    if(name) return; // se um nome já for definido, n valida mais
-                    if(when.evaluate(model, request, device)){
+                    if(when.evaluate(model.attributes, request, device)){
                         name = rule.abstract;
                     }
                 }, this);
@@ -71,7 +70,13 @@ define([
                 if(!name){
                     throw new Error("rules ou abstract não foram definidos corretamente na regra.")
                 }
-                esse.trigger('selection', { name: name });
+                esse.trigger('selection', {
+                    name: name,
+                    model:model,
+                    collection:collection,
+                    request: request,
+                    device: device
+                });
             });
 
         }

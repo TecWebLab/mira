@@ -29,8 +29,8 @@ require.config({
 });
 
 var rules = [{
-    name: 'BigTitle',
-    validate: 'model.title.length > 10'
+    name: 'DescricaoPequena',
+    validate: 'model.description.length < 10'
 }];
 
 var interface_select_rules = [{
@@ -122,7 +122,8 @@ var concrete_interface = [
         { name: 'header', widget: 'SimpleHtml', tag:'h2', value: 'model.ticket_id + " | " + model.title' },
         { name: 'body', widget: 'SimpleHtml', tag:'div'},
         { name: 'ticket_assign', widget: 'SimpleHtml', tag:'p', value: 'model.assign' },
-        { name: 'ticket_description', widget: 'SimpleHtml', tag:'p', value: 'model.description' }
+        { name: 'ticket_description', widget: 'SimpleHtml', tag:'p', value: 'model.description' },
+        { name: 'ticket_description', widget: 'SimpleHtml', tag:'h1', value: 'model.description', when: 'DescricaoPequena' }
         ]
     }
 ];

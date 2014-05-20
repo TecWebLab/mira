@@ -11,8 +11,9 @@ define([
     var Model = Backbone.Model.extend({
         idAttribute: 'name',
 
-        evaludate: function(model, request, device){
+        evaluate: function(model, request, device){
             try {
+                console.log(this, model, request, device);
                 return eval(this.get('validate')) == true;
             } catch (e){
                 console.log("Error on rule" + this.get('name'), this, model, request, device);
