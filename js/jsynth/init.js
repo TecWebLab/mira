@@ -11,7 +11,9 @@ define([
     'jsynth/models/route',
     'jsynth/models/interface-abstract',
     'jsynth/models/interface-concrete',
-    'jsynth/models/rule'
+    'jsynth/models/rule',
+    'jsynth/application',
+    'jsynth/interface'
 ], function($, _, Backbone,
         Widget,
         ModelBase,
@@ -20,7 +22,9 @@ define([
         Route,
         InterfaceAbstract,
         InterfaceConcrete,
-        Rule
+        Rule,
+        Application,
+        Interface
     ) {
 
     return {
@@ -31,6 +35,8 @@ define([
         Route: Route,
         InterfaceAbstract: InterfaceAbstract,
         InterfaceConcrete : InterfaceConcrete,
-        Widget : Widget
+        Widget : Widget,
+        Application : Application,
+        Interface: Interface
     }
 });

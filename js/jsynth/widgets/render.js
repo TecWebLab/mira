@@ -1,8 +1,10 @@
 "use strict";
 
 define([
-    'jsynth/widgets/simple-html'
-    ],function (SimpleHtml) {
+    'jsynth/widgets/simple-html',
+    'jsynth/widgets/image-html',
+    'jsynth/widgets/bootstrap-image-box'
+    ],function (SimpleHtml, ImageHtml, BootstrapImageBox) {
 
     var pathToWidget = function(name){
         var root = 'jsynth/widgets/';
@@ -10,7 +12,9 @@ define([
         return root + file;
     };
     var widget = {
-        SimpleHtml:SimpleHtml
+        SimpleHtml:SimpleHtml,
+        ImageHtml:ImageHtml,
+        BootstrapImageBox: BootstrapImageBox
     };
 
     return  {
@@ -26,6 +30,9 @@ define([
         },
         get: function(name){
             return widget[name];
+        },
+        build_string: function(template, model, request, device){
+            return
         }
     };
 });

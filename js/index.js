@@ -11,7 +11,9 @@ require.config({
         underscore: 'libs/underscore',
         jquery: 'libs/jquery-2.1.0',
         "bootstrap": 'libs/bootstrap',
-        text: 'libs/text'
+        text: 'libs/text',
+        'string-format': 'libs/string-format',
+        'backbone_cache': 'libs/backbone.fetch-cache'
     },
     shim: {
         "underscore": {
@@ -133,10 +135,10 @@ require([
     // Load our app module and pass it to our definition function
     "jquery",
     "bootstrap",
-    'jsynth/init',
-    'jsynth/router'
-], function($, $bootstrap, JSynth, Router){
-    var a = Router(interface_select_rules, interface_abstracts, concrete_interface, rules);
+    'jsynth/init'
+], function($, $bootstrap, JSynth){
+
+    var a = new JSynth.Application(interface_select_rules, interface_abstracts, concrete_interface, rules);
 
 });
 

@@ -4,11 +4,12 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'string-format',
     'jsynth/base/model',
     'jsynth/base/collection',
     'jsynth/models/route-rule',
     'jsynth/models/api'
-], function($, _, Backbone, ModelBase, CollectionBase, RouteRule, Api) {
+], function($, _, Backbone, StringFormat, ModelBase, CollectionBase, RouteRule, Api) {
 
     var Model = ModelBase.extend({
 
@@ -26,14 +27,38 @@ define([
             return data;
         },
 
-        request_data: function(callback){
+        build_url_request: function(request, device){
             var endpoint = this.get('endpoint');
+            var endpoint_build = endpoint.format(request.args);
+            return endpoint_build;
+        },
+
+        request_data: function(request, device, callback){
+            var esse = this;
+            var endpoint = this.build_url_request(request, device);
+
+            var parse;
+            if(!_.isFunction(this.get('parse'))){
+                parse = function(data){
+                    try {
+                        return eval(esse.get('parse'));
+                    } catch (ex){
+                        console.log('erro na funcao do parser da rota ' + esse.get('url'), esse);
+                        return data
+                    }
+                }
+            } else {
+                parse = this.get('parse')
+            }
 
             var collection = new (Api.Collection.extend({
-                url: endpoint
+                url: endpoint,
+                parse: parse
             }))();
 
             collection.fetch({
+                cache: this.get('cache') || true,
+                expires: this.get('expires') || 3600000, //1h
                 success: function(col){
                     callback(col);
                 }
@@ -57,9 +82,31 @@ define([
             return name;
         },
 
-        handle: function(request, device){
+        request_builder: function(args){
+            var ar = Array.prototype.slice.call(args, 0);
+            var request = _.pick(Backbone.history.location,
+            'hash', 'host', 'hostname', 'href', 'origin', 'pathname', 'port', 'protocol', 'search');
+            if(args.length && _.isObject(ar[ar.length - 1])){
+                request.args = ar.slice(0, ar.length - 1);
+                request.params = ar[ar.length - 1];
+            } else {
+                request.args = ar;
+                request.params = null;
+            }
+            return request;
+        },
+
+        device_builder: function(){
+            return {};
+        },
+
+        handle: function(){
+
+            var request = this.request_builder(arguments);
+            var device = this.device_builder();
+
             var esse = this;
-            this.request_data(function(collection){
+            this.request_data(request, device, function(collection){
                 var model = collection.at(0);
                 var name = null;
                 if(esse.has_rules()){
@@ -90,7 +137,7 @@ define([
             this.each(function(route){
                 backbone_route.route(
                     route.get('url'),
-                        route.get('name') || route.get('url'),
+                    route.get('name') || route.get('url'),
                     route.handle
                 )
             });

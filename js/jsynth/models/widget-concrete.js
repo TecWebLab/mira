@@ -37,9 +37,8 @@ define([
         },
 
         evaluate: function(options){
-            var rule = router.interface.rules.get(this.get('when'));
+            var rule = Gus.interface.rules.get(this.get('when'));
             var ret = rule.evaluate(options.model.attributes, options.request, options.device);
-            debugger;
             return ret
         }
 
