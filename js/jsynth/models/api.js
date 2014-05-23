@@ -1,17 +1,13 @@
 "use strict";
 
 define([
-    'jquery',
-    'underscore',
-    'backbone',
-    'jsynth/base/model',
-    'jsynth/base/collection'
-], function ($, _, Backbone, ModelBase, CollectionBase) {
-    var Model = ModelBase.extend({
+    'jsynth/base/init'
+], function (Base) {
+    var Model = Base.Model.extend({
 
     });
 
-    var Collection =  CollectionBase.extend({
+    var Collection =  Base.Collection.extend({
         model:Model
     });
 

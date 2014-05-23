@@ -1,15 +1,12 @@
 "use strict";
 
 define([
-    'jquery',
     'underscore',
-    'backbone',
-    'jsynth/base/model',
-    'jsynth/base/collection',
+    'jsynth/base/init',
     'jsynth/widgets/render'
-], function ($, _, Backbone, ModelBase, CollectionBase, Render) {
+], function (_, Base, Render) {
 
-    var Model = ModelBase.extend({
+    var Model = Base.Model.extend({
 
         initialize: function(){
             _.bindAll(this, 'bindRender')
@@ -44,7 +41,7 @@ define([
 
     });
 
-    var Collection =  CollectionBase.extend({
+    var Collection =  Base.Collection.extend({
         model:Model
     });
 

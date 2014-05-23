@@ -132,11 +132,8 @@ var concrete_interface = [
 
 
 require([
-    // Load our app module and pass it to our definition function
-    "jquery",
-    "bootstrap",
     'jsynth/init'
-], function($, $bootstrap, JSynth){
+], function(JSynth){
 
     var a = new JSynth.Application(interface_select_rules, interface_abstracts, concrete_interface, rules);
 

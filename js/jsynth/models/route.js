@@ -1,17 +1,14 @@
 "use strict";
 
 define([
-    'jquery',
     'underscore',
-    'backbone',
-    'string-format',
-    'jsynth/base/model',
-    'jsynth/base/collection',
+    'jsynth/helper',
+    'jsynth/base/init',
     'jsynth/models/route-rule',
     'jsynth/models/api'
-], function($, _, Backbone, StringFormat, ModelBase, CollectionBase, RouteRule, Api) {
+], function(_, Helper, Base, RouteRule, Api) {
 
-    var Model = ModelBase.extend({
+    var Model = Base.Model.extend({
 
         idAttribute: 'url',
 
@@ -37,23 +34,11 @@ define([
             var esse = this;
             var endpoint = this.build_url_request(request, device);
 
-            var parse;
-            if(!_.isFunction(this.get('parse'))){
-                parse = function(data){
-                    try {
-                        return eval(esse.get('parse'));
-                    } catch (ex){
-                        console.log('erro na funcao do parser da rota ' + esse.get('url'), esse);
-                        return data
-                    }
-                }
-            } else {
-                parse = this.get('parse')
-            }
+            var parse = Helper.buildFunction(this.get('parse'), this);
 
             var collection = new (Api.Collection.extend({
                 url: endpoint,
-                parse: parse
+                parse: parse  || Api.Collection.prototype.parse
             }))();
 
             collection.fetch({
@@ -130,7 +115,7 @@ define([
 
     });
 
-    var Collection =  CollectionBase.extend({
+    var Collection =  Base.Collection.extend({
         model:Model,
 
         register_route: function(backbone_route){

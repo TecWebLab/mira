@@ -1,12 +1,8 @@
 "use strict";
 
 define([
-    'jquery',
-    'underscore',
-    'backbone',
     'jsynth/widgets/render',
-    'jsynth/base/model',
-    'jsynth/base/collection',
+    'jsynth/base/init',
     'jsynth/models/api',
     'jsynth/models/route',
     'jsynth/models/interface-abstract',
@@ -14,10 +10,9 @@ define([
     'jsynth/models/rule',
     'jsynth/application',
     'jsynth/interface'
-], function($, _, Backbone,
+], function(
         Widget,
-        ModelBase,
-        CollectionBase,
+        Base,
         Api,
         Route,
         InterfaceAbstract,
@@ -28,8 +23,7 @@ define([
     ) {
 
     return {
-        ModelBase: ModelBase,
-        CollectionBase: CollectionBase,
+        Base: Base,
         Api: Api,
         Rule: Rule,
         Route: Route,

@@ -1,13 +1,11 @@
 "use strict";
 
 define([
-    'jquery',
     'underscore',
-    'backbone',
-    'jsynth/base/view'
-], function ($, _, Backbone, BaseView) {
+    'jsynth/base/init'
+], function (_, Base) {
 
-    return BaseView.extend({
+    return Base.View.extend({
 
         el: '#qualquer_lugar',
 

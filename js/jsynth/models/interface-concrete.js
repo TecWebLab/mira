@@ -1,15 +1,12 @@
 "use strict";
 
 define([
-    'jquery',
     'underscore',
-    'backbone',
-    'jsynth/base/model',
-    'jsynth/base/collection',
+    'jsynth/base/init',
     'jsynth/models/widget-concrete'
-], function ($, _, Backbone, ModelBase, CollectionBase, WidgetConcrete) {
+], function (_, Base, WidgetConcrete) {
 
-    var Model = ModelBase.extend({
+    var Model = Base.Model.extend({
 
         idAttribute: 'name',
 
@@ -42,7 +39,7 @@ define([
         }
     });
 
-    var Collection =  CollectionBase.extend({
+    var Collection =  Base.Collection.extend({
         model:Model
     });
 

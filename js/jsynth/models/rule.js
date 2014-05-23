@@ -1,14 +1,11 @@
 "use strict";
 
 define([
-    'jquery',
     'underscore',
-    'backbone',
-    'jsynth/base/model',
-    'jsynth/base/collection'
-], function ($, _, Backbone, ModelBase, CollectionBase) {
+    'jsynth/base/init'
+], function (_, Base) {
 
-    var Model = Backbone.Model.extend({
+    var Model = Base.Model.extend({
         idAttribute: 'name',
 
         evaluate: function(model, request, device){
@@ -22,7 +19,7 @@ define([
         }
     });
 
-    var Collection =  CollectionBase.extend({
+    var Collection =  Base.Collection.extend({
         model:Model
     });
 

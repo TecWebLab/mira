@@ -1,15 +1,12 @@
 "use strict";
 
 define([
-    'jquery',
     'underscore',
-    'backbone',
-    'jsynth/base/model',
-    'jsynth/base/collection',
+    'jsynth/base/init',
     'jsynth/models/widget-abstract'
-], function ($, _, Backbone, ModelBase, CollectionBase, WidgetAbstract) {
+], function (_, Base, WidgetAbstract) {
 
-    var Model = ModelBase.extend({
+    var Model = Base.Model.extend({
 
         idAttribute: 'name',
 
@@ -35,7 +32,7 @@ define([
         }
     });
 
-    var Collection =  CollectionBase.extend({
+    var Collection =  Base.Collection.extend({
         model:Model
     });
 

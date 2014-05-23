@@ -1,12 +1,12 @@
 "use strict";
 
 define([
-    'jquery',
     'underscore',
     'backbone',
-    'backbone_query',
-    'backbone_cache'
-], function($, _, Backbone, BackboneQuery, BackboneCache){
+    'backbone_query', // plugin - apenas extendendo - n usar a classe
+    'backbone_cache', // plugin - apenas extendendo - n usar a classe
+    'string-format' // plugin - apenas extendendo - n usar a classe
+], function(_, Backbone, BackboneQuery, BackboneCache, StringFormat){
 
     var Application = Backbone.Router.extend({
 
