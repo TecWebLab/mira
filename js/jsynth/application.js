@@ -37,7 +37,7 @@ define([
             this.request = _.pick(Backbone.history.location,
                 'hash', 'host', 'hostname', 'href', 'origin', 'pathname', 'port', 'protocol', 'search');
             this.request.params = params;
-            return this.request.request;
+            return this.request;
         },
 
         buildDevice: function(){

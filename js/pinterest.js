@@ -32,7 +32,7 @@ require.config({
 
 var rules = [{
     name: 'DescricaoPequena',
-    validate: 'model.description.length < 10'
+    validate: 'data.name.length < 55'
 }];
 
 var interface_abstracts = [
@@ -61,6 +61,7 @@ var concrete_interface = [
             { name: 'main_page', widget: 'SimpleHtml', tag:'div' },
             { name: 'pin', widget: 'BootstrapImageBox'},
             { name: 'name', widget: 'SimpleHtml', tag: 'a', class:'caption', value: 'data.name', href:'"http://pinterest.com" + data.href' },
+            { name: 'name', widget: 'SimpleHtml', tag: 'h1', class:'caption', value: 'data.name', href:'"http://pinterest.com" + data.href', when:'DescricaoPequena' },
             { name: 'image', widget: 'ImageHtml', value: 'data.src' }
         ]
     }

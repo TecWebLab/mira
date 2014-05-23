@@ -38,9 +38,9 @@ define([
             return this.get('when') != undefined;
         },
 
-        isVisible: function(options){
+        isVisible: function(data, request, device){
             if(this.get('when')) {
-                return Helper.evaluate(this.get('when'), options.data, options.request, options.device);
+                return Helper.evaluate(this.get('when'), data, request, device);
             }
             return true;
         }
