@@ -2,9 +2,10 @@
 
 define([
     'underscore',
+    'jsynth/helper',
     'jsynth/base/init',
     'jsynth/widgets/render'
-], function (_, Base, Render) {
+], function (_, Helper, Base, Render) {
 
     var Model = Base.Model.extend({
 
@@ -22,21 +23,26 @@ define([
 
         bindRender: function(render){
             this.render = render;
+            var esse = this;
+            Render.load(this.get('widget'), function(func){
+                esse.render = func;
+            });
             _.bindAll(this, 'render');
         },
 
-        getHtml: function($parent, model){
-            return this.render($parent, this.get('name'), model, this.attributes)
+        getHtml: function($parent, data, request, devive){
+            return this.render($parent, this.get('name'), data, this.attributes)
         },
 
         has_rule: function () {
             return this.get('when') != undefined;
         },
 
-        evaluate: function(options){
-            var rule = Gus.interface.rules.get(this.get('when'));
-            var ret = rule.evaluate(options.model.attributes, options.request, options.device);
-            return ret
+        isVisible: function(options){
+            if(this.get('when')) {
+                return Helper.evaluate(this.get('when'), options.data, options.request, options.device);
+            }
+            return true;
         }
 
     });

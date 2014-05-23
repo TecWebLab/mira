@@ -8,23 +8,22 @@ define([
     var Model = Base.Model.extend({
         idAttribute: 'name',
 
-        evaluate: function(model, request, device){
+        evaluate: function(data, request, device, dataObj){
             try {
-                console.log(this, model, request, device);
                 return eval(this.get('validate')) == true;
             } catch (e){
-                console.log("Error on rule" + this.get('name'), this, model, request, device);
+                console.log("Error on rule" + this.get('name'), this, data, request, device);
                 return false;
             }
         }
     });
 
     var Collection =  Base.Collection.extend({
-        model:Model
+        model: Model
     });
 
     return {
-        Model : Model,
+        Model: Model,
         Collection: Collection
     }
 });

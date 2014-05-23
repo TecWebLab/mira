@@ -35,32 +35,29 @@ var rules = [{
     validate: 'model.description.length < 10'
 }];
 
-var interface_select_rules = [{
-    url: "user/:id",
-    endpoint : 'https://ismaelc-pinterest.p.mashape.com/{0}/boards',
-    parse: 'data.body',
-    abstract: 'user'
-}];
-
 var interface_abstracts = [
+    {
+        name:'landing',
+        concrete: 'user',
+        widgets : {
+            name:"main_page", datasource: "url:https://ismaelc-pinterest.p.mashape.com/blogmodak/boards",
+            parse: 'data.body',
+            children: {"pin" : ['image', 'name']}
+        }
+    },
     {
         name: 'user' ,
         widgets : {
-            name:"main_page", widget_type: "AbstractInterface",
-            children: [{
-                name: "pin", repeate:true, widget_type: "CompositeInterfaceElement",
-                children: [
-                    { name:"image", widget_type: "ElementExhibitor" },
-                    { name:"name", widget_type: "ElementExhibitor" }
-                ]}
-            ]
+            name:"main_page", datasource: "url:https://ismaelc-pinterest.p.mashape.com/<%= request.params.id %>/boards",
+            parse: 'data.body',
+            children: {"pin" : ['image', 'name']}
         }
     }
 ];
 
 var concrete_interface = [
     {
-        name: 'user', widgets: [
+        name: 'user', maps: [
             { name: 'main_page', widget: 'SimpleHtml', tag:'div' },
             { name: 'pin', widget: 'BootstrapImageBox'},
             { name: 'name', widget: 'SimpleHtml', tag: 'a', class:'caption', value: 'model.name', href:'"http://pinterest.com" + model.href' },
@@ -81,7 +78,9 @@ require([
         headers: { "X-Mashape-Authorization": "l3yD2xSglfY3UlsULLZ6FCajEXDQNnPe" }
     });
 
-    var a = new JSynth.Application(interface_select_rules, interface_abstracts, concrete_interface, rules);
+    var a = new JSynth.Application(interface_abstracts, concrete_interface, rules);
+    Backbone.history.start();
+
 
 });
 

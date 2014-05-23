@@ -23,6 +23,21 @@ define([
                 func = _.bind(func, context);
             }
             return func
+        },
+
+        buildObjectToValidate: function(data, request, device, options){
+            options || (options = {});
+            return _.extend({}, {
+                data: data,
+                request: request,
+                device: device
+            }, options)
+        },
+
+        evaluate: function(when, data, request, device){
+            var rule = Gus.interface.rules.get(when);
+            var ret = rule.evaluate(data.attributes, request, device, data);
+            return ret
         }
     }
 

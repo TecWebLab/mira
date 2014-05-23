@@ -10,25 +10,23 @@ define([
 
         idAttribute: 'name',
 
+        initialize: function(){
+            _.bindAll(this, 'handle');
+        },
+
         parse: function(data){
             data.widgets = new WidgetAbstract.Model(data.widgets, {parse:true});
             return data;
         },
 
-        getAllChildren: function(){
-            if(!this.allChildren){
-                var children = new WidgetAbstract.Collection();
-                var parent = this.get('widgets');
-                parent.getAllChildren(children);
-                this.allChildren = children;
-            }
-            return this.allChildren;
+        getHtml: function($parent, concrete, data, request, device){
+            var parent = this.get('widgets');
+            var html = parent.getHtml($parent, concrete, data, request, device);
+            return html;
         },
 
-        getHtml: function($parent, model){
-            var parent = this.get('widgets');
-            var html = parent.getHtml($parent, model);
-            return html;
+        handle: function(request, device){
+            Gus.interface.render(this, request, device);
         }
     });
 
