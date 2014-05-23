@@ -6,7 +6,7 @@ define([
     'jsynth/widgets/render'
 ], function ($, _, Render) {
 
-    return function($parent, name, model, options){
+    return function($parent, name, data, options){
 
         var element = document.createElement('div');
         element.className = "col-sm-4 col-lg-4 col-md-4";
@@ -21,7 +21,7 @@ define([
 
         if(options.value) {
             var template = "<%= " + options.value + '%>';
-            $thumbnail.innerHTML = _.template(template, _.extend({}, options, {model:model.attributes}));
+            $thumbnail.innerHTML = _.template(template, _.extend({}, options, {data:data.attributes}));
         }
         $parent.append(element);
         return {

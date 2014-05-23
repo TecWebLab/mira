@@ -6,13 +6,13 @@ define([
     'jsynth/widgets/render'
 ], function ($, _, Render) {
 
-    return function($parent, name, model, options){
+    return function($parent, name, data, options){
 
         var element = document.createElement('img');
         element.id = name;
         if(options.value) {
             var template = "<%= " + options.value + '%>';
-            element.src = _.template(template, _.extend({}, options, {model:model.attributes}));
+            element.src = _.template(template, _.extend({}, options, {data:data.attributes}));
         }
         $parent.append(element);
         return {

@@ -46,7 +46,7 @@ define([
             var esse = this;
             this.getRender(concrete, data, request, device);
             if(this.map && this.isVisible(data, request, device)) {
-                var ret = this.map.getHtml($parent, concrete, data, request, device);
+                var ret = this.map.getHtml($parent, data, request, device);
 
                 if(this.get('datasource')){
                     ret.view = this.buildView(ret.$el, data);

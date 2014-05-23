@@ -6,8 +6,7 @@ define([
     'jsynth/widgets/render'
 ], function ($, _, Render) {
 
-    return function($parent, name, model, options){
-
+    return function($parent, name, data, options){
         var element = document.createElement(options.tag || 'div');
         element.id = name;
         var atrs = _.omit(options, 'tag', 'value', 'name', 'widget');
@@ -15,7 +14,7 @@ define([
         _.each(atrs, function(value, atr){
             var template = "<%= " + value + '%>';
             try {
-                var build = _.template(template, _.extend({}, options, {model: model.attributes}));
+                var build = _.template(template, _.extend({}, options, {data: data.attributes}));
                 element.setAttribute(atr,  build)
             } catch (ex){
                 element.setAttribute(atr,  value)
@@ -24,7 +23,7 @@ define([
 
         if(options.value) {
             var template = "<%= " + options.value + '%>';
-            element.innerHTML = _.template(template, _.extend({}, options, {model:model.attributes}));
+            element.innerHTML = _.template(template, _.extend({}, options, {data:data.attributes}));
         }
         $parent.append(element);
         return {

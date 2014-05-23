@@ -40,7 +40,7 @@ var interface_abstracts = [
         name:'landing',
         concrete: 'user',
         widgets : {
-            name:"main_page", datasource: "url:https://ismaelc-pinterest.p.mashape.com/blogmodak/boards",
+            name:"main_page", datasource: "url:https://ismaelc-pinterest.p.mashape.com/mashable/boards",
             parse: 'data.body',
             children: {"pin" : ['image', 'name']}
         }
@@ -60,8 +60,8 @@ var concrete_interface = [
         name: 'user', maps: [
             { name: 'main_page', widget: 'SimpleHtml', tag:'div' },
             { name: 'pin', widget: 'BootstrapImageBox'},
-            { name: 'name', widget: 'SimpleHtml', tag: 'a', class:'caption', value: 'model.name', href:'"http://pinterest.com" + model.href' },
-            { name: 'image', widget: 'ImageHtml', value: 'model.src' }
+            { name: 'name', widget: 'SimpleHtml', tag: 'a', class:'caption', value: 'data.name', href:'"http://pinterest.com" + data.href' },
+            { name: 'image', widget: 'ImageHtml', value: 'data.src' }
         ]
     }
 ];
