@@ -1,35 +1,5 @@
 "use strict";
 
-require.config({
-    baseUrl: 'js',
-    paths : {
-        nools: 'libs/nools',
-        backbone: 'libs/backbone',
-        backbone_query: 'libs/backbone.queryparams',
-        backbone_querystring_shim: 'libs/backbone.queryparams-1.1-shim',
-        backbone_jsynth: 'libs/backbone.jsynth',
-        underscore: 'libs/underscore',
-        jquery: 'libs/jquery-2.1.0',
-        "bootstrap": 'libs/bootstrap',
-        text: 'libs/text',
-        'string-format': 'libs/string-format',
-        'backbone_cache': 'libs/backbone.fetch-cache'
-    },
-    shim: {
-        "underscore": {
-            deps: [],
-            exports: "_"
-        },
-        "backbone": {
-            deps: ["jquery", "underscore"],
-            exports: "Backbone"
-        },
-        "bootstrap": {
-            deps: ["jquery"]
-        }
-    }
-});
-
 var rules = [{
     name: 'DescricaoPequena',
     validate: 'model.description.length < 10'
@@ -131,11 +101,18 @@ var concrete_interface = [
 ];
 
 
-require([
+define([
     'jsynth/init'
 ], function(JSynth){
 
-    var a = new JSynth.Application(interface_select_rules, interface_abstracts, concrete_interface, rules);
+    return function Pinterest() {
 
+        $.ajaxSetup({
+            headers: { "X-Mashape-Authorization": "l3yD2xSglfY3UlsULLZ6FCajEXDQNnPe" }
+        });
+
+        this.jsynth = new JSynth.Application(interface_abstracts, concrete_interface, rules);
+
+    };
 });
 
