@@ -1,11 +1,22 @@
 "use strict";
 
-define([
-    'underscore',
-    'jsynth/helper',
-    'jsynth/base/init',
-    'jsynth/models/Api'
-], function (_, Helper, Base, Api) {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define([
+            'underscore',
+            'jsynth/helper',
+            'jsynth/base/init',
+            'jsynth/models/Api'
+        ], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(
+            require('underscore'),
+            require('../helper.js'),
+            require('../base/init.js'),
+            require('./api.js')
+        );
+    }
+}(this, function (_, Helper, Base, Api) {
 
     var Model = Base.Model.extend({
 
@@ -126,4 +137,4 @@ define([
         Collection: Collection
     }
 
-});
+}));

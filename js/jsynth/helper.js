@@ -1,8 +1,16 @@
 "use strict";
 
-define([
-    'underscore'
-], function (_) {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define([
+            'underscore'
+        ], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(
+            require('underscore')
+        );
+    }
+}(this, function (_) {
 
     return {
         buildFunction: function(value, context){
@@ -41,4 +49,4 @@ define([
         }
     }
 
-});
+}));

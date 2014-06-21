@@ -1,10 +1,20 @@
 "use strict";
 
-define([
-    'underscore',
-    'jsynth/base/init',
-    'jsynth/models/widget-abstract'
-], function (_, Base, WidgetAbstract) {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define([
+            'underscore',
+            'jsynth/base/init',
+            'jsynth/models/widget-abstract'
+        ], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(
+            require('underscore'),
+            require('../base/init.js'),
+            require('./widget-abstract.js')
+        );
+    }
+}(this, function (_, Base, WidgetAbstract) {
 
     var Model = Base.Model.extend({
 
@@ -41,4 +51,4 @@ define([
     }
 
 
-});
+}));

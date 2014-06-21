@@ -1,8 +1,16 @@
 "use strict";
 
-define([
-    'jsynth/base/init'
-], function (Base) {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define([
+            'jsynth/base/init'
+        ], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(
+            require('../base/init.js')
+        );
+    }
+}(this, function (Base) {
     var Model = Base.Model.extend({
 
     });
@@ -11,10 +19,9 @@ define([
         model:Model
     });
 
-
     return {
         Model : Model,
         Collection: Collection
     }
 
-});
+}));

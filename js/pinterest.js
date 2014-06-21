@@ -6,16 +6,7 @@ var rules = [{
 },{
     name: 'isUser',
     validate: 'data.username'
-    /* dado do contexto tiver a propriedade username */
 }];
-
-var interface_select_rules = [{
-    name: 'user',
-    when: 'isUser',
-    params: {'id': 'data.username' }
-}];
-
-interface_select_rules.a = 1;
 
 var interface_abstracts = [
     {
@@ -24,15 +15,12 @@ var interface_abstracts = [
         widgets : {
             name:"main_page", datasource: "url:https://ismaelc-pinterest.p.mashape.com/mashable/boards",
             parse: 'data.body',
-            children: {"pin" : ['image', 'name'],
-                name: 'link',
-
-
-            }
+            children: {"pin" : ['image', 'name'] }
         }
     },
     {
         name: 'user' ,
+        rule: 'isUser',
         widgets : {
             name:"main_page", datasource: "url:https://ismaelc-pinterest.p.mashape.com/<%= request.params.id %>/boards",
             parse: 'data.body',
@@ -53,6 +41,9 @@ var concrete_interface = [
     }
 ];
 
+var ajaxSetup = {
+    headers: { "X-Mashape-Authorization": "l3yD2xSglfY3UlsULLZ6FCajEXDQNnPe" }
+};
 
 
 if(typeof define === 'function') {
@@ -64,17 +55,13 @@ if(typeof define === 'function') {
     ], function ($, $bootstrap, JSynth) {
 
         return function Pinterest() {
-
-            $.ajaxSetup({
-                headers: { "X-Mashape-Authorization": "l3yD2xSglfY3UlsULLZ6FCajEXDQNnPe" }
-            });
-
+            $.ajaxSetup(ajaxSetup);
             this.jsynth = new JSynth.Application(interface_abstracts, concrete_interface, rules);
-
         };
 
     });
 } else {
+    exports.ajaxSetup = ajaxSetup;
     exports.abstracts = interface_abstracts;
     exports.mapping = concrete_interface;
     exports.rules = rules;

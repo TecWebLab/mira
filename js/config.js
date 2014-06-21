@@ -2,7 +2,7 @@
 
 requirejs.config({
     baseUrl: 'js',
-    nodeRequire: require,
+
     paths : {
         nools: 'libs/nools',
         backbone: 'libs/backbone',
