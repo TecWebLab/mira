@@ -1,7 +1,8 @@
 "use strict";
 
-require.config({
+requirejs.config({
     baseUrl: 'js',
+    nodeRequire: require,
     paths : {
         nools: 'libs/nools',
         backbone: 'libs/backbone',
@@ -30,7 +31,7 @@ require.config({
     }
 });
 
-require([
+requirejs([
     'underscore',
     'backbone'
 ], function(_, Backbone) {

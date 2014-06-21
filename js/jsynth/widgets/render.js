@@ -20,7 +20,7 @@ define([
     return  {
         load : function(name, callback){
             if(!widget[name]) {
-                require([pathToWidget(name)], function (Widget) {
+                requirejs([pathToWidget(name)], function (Widget) {
                     widget[name] = Widget;
                     callback(Widget);
                 });
