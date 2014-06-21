@@ -6,7 +6,9 @@
             'jsynth/base/init'
         ], factory);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('../base/init.js'));
+        module.exports = factory(
+            require('../base/init.js')
+        );
     }
 }(this, function (Base) {
     var Model = Base.Model.extend({
