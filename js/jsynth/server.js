@@ -22,7 +22,7 @@ server.use(morgan());
 server.use(express.static(path.normalize(__dirname + '/../..')));
 
 var rules = new Rule.Collection(Jsynth.rules, {parse:true});
-var abstracts = new Abstract.Collection(Jsynth.abstracts, {parse:true});
+var abstracts = new Abstract.Collection(Jsynth.selectoin, {parse:true});
 
 server.route('/server.js').all(function(req, res, next){
     var options = _.extend({

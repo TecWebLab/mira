@@ -4,6 +4,7 @@ define([
     'jsynth/widgets/render',
     'jsynth/base/init',
     'jsynth/models/api',
+    'jsynth/models/selection',
     'jsynth/models/abstract',
     'jsynth/models/concrete',
     'jsynth/models/map',
@@ -14,6 +15,7 @@ define([
         Widget,
         Base,
         Api,
+        Selection,
         Abstract,
         Concrete,
         Map,
@@ -25,6 +27,7 @@ define([
     return {
         Base: Base,
         Api: Api,
+        Selection: Selection,
         Rule: Rule,
         Concrete: Concrete,
         Abstract: Abstract,

@@ -39,7 +39,7 @@
 
         isVisible: function(data, request, device){
             if(this.get('when')) {
-                return Helper.evaluate(this.get('when'), data, request, device);
+                return Helper.evaluate(this.get('when'), data.attributes, request, device);
             }
             return true;
         },

@@ -8,16 +8,35 @@ define([
     'string-format' // plugin - apenas extendendo - n usar a classe
 ], function(_, Backbone, BackboneQuery, BackboneCache, StringFormat){
 
+    var JSynth = null;
+
     var Application = Backbone.Router.extend({
 
-        initialize: function (interface_abstracts, interface_concretes, rules_lib) {
-            var JSynth = requirejs('jsynth/init');
+        initialize: function (interface_abstracts, interface_concretes, rules_lib, selection_rules) {
+            JSynth = requirejs('jsynth/init');
             var abstract = new JSynth.Abstract.Collection(interface_abstracts, {parse:true});
             var concrets = new JSynth.Concrete.Collection(interface_concretes, {parse:true});
             var rules = new JSynth.Rule.Collection(rules_lib, {parse:true});
-            this.register_routes(abstract);
-            this.interface = new JSynth.Interface(abstract, concrets, rules, this);
+            var selection = new JSynth.Selection.Collection(selection_rules, {parse:true});
+            this.interface = new JSynth.Interface(abstract, concrets, rules, selection, this);
             window.Gus = this;
+
+            _.bindAll(this, 'selected');
+        },
+
+        routes: {
+            "": "selection"
+        },
+
+        selection: function(params){
+            var request = this.buildRequest(params);
+            var device = this.buildDevice();
+            this.interface.selection.evaluate_abstract(request, device, this.selected);
+        },
+
+        selected: function(abstract_name, request, device){
+            var abstract = this.interface.abstracts.get(abstract_name);
+            abstract.handle(request, device);
         },
 
         register_routes: function(abstracts){

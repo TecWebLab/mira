@@ -44,7 +44,7 @@
 
         evaluate: function(when, data, request, device){
             var rule = Gus.interface.rules.get(when);
-            var ret = rule.evaluate(data.attributes, request, device, data);
+            var ret = rule.evaluate(data, request, device, data);
             return ret
         }
     }
