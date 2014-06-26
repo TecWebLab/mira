@@ -35,7 +35,7 @@
                     })
                 }
             } else {
-                callback('landing', request, device)
+                callback('landing', null, request, device)
             }
         }
     });

@@ -34,9 +34,9 @@ define([
             this.interface.selection.evaluate_abstract(request, device, this.selected);
         },
 
-        selected: function(abstract_name, request, device){
+        selected: function(abstract_name, data, request, device){
             var abstract = this.interface.abstracts.get(abstract_name);
-            abstract.handle(request, device);
+            abstract.handle(data, request, device);
         },
 
         register_routes: function(abstracts){

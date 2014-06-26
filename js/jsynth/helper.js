@@ -34,6 +34,9 @@
         },
 
         buildObjectToValidate: function(data, request, device, options){
+            if(data instanceof Backbone.Model){
+                data = data.attributes;
+            }
             options || (options = {});
             return _.extend({}, {
                 data: data,
@@ -43,6 +46,9 @@
         },
 
         evaluate: function(when, data, request, device){
+            if(data instanceof Backbone.Model){
+                data = data.attributes;
+            }
             var rule = Gus.interface.rules.get(when);
             var ret = rule.evaluate(data, request, device, data);
             return ret

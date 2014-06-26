@@ -30,7 +30,6 @@ var interface_abstracts = [
         }
     },{
         name: 'user',
-        rule: 'isUser',
         widgets: {
             name: "main_page",
             children: [{"user": ['login', 'name']}, {
@@ -55,10 +54,12 @@ var concrete_interface = [
     ,{
         name: 'user', maps: [
         { name: 'main_page', widget: 'SimpleHtml', tag:'div' },
-        { name: 'pin', widget: 'BootstrapImageBox'},
-        { name: 'name', widget: 'SimpleHtml', tag: 'a', class:'caption', value: 'data.name', href:'"http://pinterest.com" + data.href' },
-        { name: 'name', widget: 'SimpleHtml', tag: 'h1', class:'caption', value: 'data.name', href:'"http://pinterest.com" + data.href', when:'DescricaoPequena' },
-        { name: 'image', widget: 'ImageHtml', value: 'data.src' }
+        { name: 'user', widget: 'SimpleHtml', tag: 'div', class:'caption', value: 'data.name' },
+        { name: 'login', widget: 'SimpleHtml', tag: 'span', value: 'data.login'},
+        { name: 'repositorios', widget: 'SimpleHtml', tag: 'div'},
+        { name: 'repositorio', widget: 'SimpleHtml', tag: 'div'},
+        { name: 'nome', widget: 'SimpleHtml', tag: 'span', value: 'data.name'},
+        { name: 'link', widget: 'SimpleHtml', tag: 'span', value: 'data.html_url'}
     ]}
 ];
 

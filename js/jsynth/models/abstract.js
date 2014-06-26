@@ -35,8 +35,8 @@
             return html;
         },
 
-        handle: function(request, device){
-            Gus.interface.render(this, request, device);
+        handle: function(data, request, device){
+            Gus.interface.render(this, data, request, device);
         }
     });
 
