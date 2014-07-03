@@ -25,14 +25,20 @@
         },
 
         parse: function(data){
-            data.widgets = new WidgetAbstract.Model(data.widgets, {parse:true});
+            if(_.isArray(data.widgets)) {
+                data.widgets = new WidgetAbstract.Collection(data.widgets, {parse: true});
+            } else {
+                data.widgets = new WidgetAbstract.Collection([data.widgets], {parse: true});
+            }
             return data;
         },
 
         getHtml: function($parent, concrete, data, request, device){
-            var parent = this.get('widgets');
-            var html = parent.getHtml($parent, concrete, data, request, device);
-            return html;
+            var widgets = this.get('widgets');
+            widgets.each(function(widget){
+                widget.getHtml($parent, concrete, data, request, device);
+            });
+            return $parent.html();
         },
 
         handle: function(data, request, device){

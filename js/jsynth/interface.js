@@ -7,7 +7,7 @@ define([
 
     return Base.View.extend({
 
-        el: '#qualquer_lugar',
+        el: 'body',
 
         initialize: function(abstracts, concrets, rules, selection){
             this.abstracts = abstracts;

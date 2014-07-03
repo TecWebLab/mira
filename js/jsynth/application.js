@@ -3,10 +3,11 @@
 define([
     'underscore',
     'backbone',
+    'modernizr',
     'backbone_query', // plugin - apenas extendendo - n usar a classe
     'backbone_cache', // plugin - apenas extendendo - n usar a classe
     'string-format' // plugin - apenas extendendo - n usar a classe
-], function(_, Backbone, BackboneQuery, BackboneCache, StringFormat){
+], function(_, Backbone, Modernizr, BackboneQuery, BackboneCache, StringFormat){
 
     var JSynth = null;
 
@@ -61,6 +62,7 @@ define([
 
         buildDevice: function(){
             this.device = {};
+            this.device.test = Modernizr;
             return this.device
         }
 

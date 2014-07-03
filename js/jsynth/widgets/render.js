@@ -3,8 +3,10 @@
 define([
     'jsynth/widgets/simple-html',
     'jsynth/widgets/image-html',
-    'jsynth/widgets/bootstrap-image-box'
-    ],function (SimpleHtml, ImageHtml, BootstrapImageBox) {
+    'jsynth/widgets/bootstrap-image-box',
+    'jsynth/widgets/bootstrap-navigation',
+    'jsynth/widgets/bootstrap-footer'
+    ],function (SimpleHtml, ImageHtml, BootstrapImageBox, BootstrapNavigation, BootstrapFooter) {
 
     var pathToWidget = function(name){
         var root = 'jsynth/widgets/';
@@ -14,7 +16,11 @@ define([
     var widget = {
         SimpleHtml:SimpleHtml,
         ImageHtml:ImageHtml,
-        BootstrapImageBox: BootstrapImageBox
+        BootstrapImageBox: BootstrapImageBox,
+        BootstrapFooter: BootstrapFooter,
+        BootstrapNavigation: BootstrapNavigation.Main,
+        BootstrapNavigationList: BootstrapNavigation.List,
+        BootstrapNavigationListItem: BootstrapNavigation.ListItem
     };
 
     return  {
