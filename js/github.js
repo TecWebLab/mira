@@ -14,6 +14,9 @@ var rules = [{
 },{
     name: 'isUser',
     validate: 'data.login != null'
+},{
+    name: 'hasValue',
+    validate: 'value.length > 0'
 }];
 
 var selection = [
@@ -33,19 +36,27 @@ var interface_abstracts = [
         ]
     },{
         name:'not_found',
-        widgets : {
-            name:"main_page",
-            children: ['texto']
-        }
+        widgets : [
+            {'navigation': {name:'navigation-list', children:['navigation-list-item'], datasource:sourceUsers}},
+            {'content': ['texto']},
+            {'footer': ['footer-content']}
+        ]
     },{
         name: 'user',
-        widgets: {
-            name: "main_page",
-            children: [{"user": ['login', 'name']}, {
-                name: "repositorios", datasource: "url:<%= data.repos_url %>",
-                children: {"repositorio": ['nome', 'link']}
-            }]
-        }
+        widgets: [
+            {'navigation': {name:'navigation-list', children:['navigation-list-item'], datasource:sourceUsers}},
+            { name: "content",
+              children: [
+                  {'user': ['avatar', {'detail': ['name', 'login', 'bio', 'blog', 'company', 'location']}]},
+                  { name: "seguidores", datasource: "url:<%= data.followers_url %>",
+                      children: {"seguidor": ['avatar_seguidor']}
+                  },
+                  { name: "repositorios", datasource: "url:<%= data.repos_url %>",
+                      children: {"repositorio": ['nome', 'link']}
+                  }]
+            },
+            {'footer': ['footer-content']}
+        ]
     }
 
 ];
@@ -55,7 +66,7 @@ var concrete_interface = [
         name: 'landing', maps: [
         { name: 'navigation', widget: 'BootstrapNavigation', value:'"GitHub"'},
         { name: 'navigation-list', widget: 'BootstrapNavigationList'},
-        { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'data.name', href:'data.link'},
+        { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'data.name', href:'navigate(data.link)'},
 
         { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
         { name: 'texto', widget: 'SimpleHtml', tag:'h1', value:'"Clique em um usuario acima"' },
@@ -64,18 +75,42 @@ var concrete_interface = [
         { name: 'footer-content', widget: 'BootstrapFooter' }
     ]},{
         name: 'not_found', maps: [
-        { name: 'main_page', widget: 'SimpleHtml', tag:'div' },
-        { name: 'texto', widget: 'SimpleHtml', tag:'h1', value:'"Não selecionou nenhuma interface"' }
+        { name: 'navigation', widget: 'BootstrapNavigation', value:'"GitHub"'},
+        { name: 'navigation-list', widget: 'BootstrapNavigationList'},
+        { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'data.name', href:'navigate(data.link)'},
+
+        { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
+        { name: 'texto', widget: 'SimpleHtml', tag:'h1', value:'"Pagina nao encontrada"' },
+
+        { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
+        { name: 'footer-content', widget: 'BootstrapFooter' }
     ]}
     ,{
         name: 'user', maps: [
-        { name: 'main_page', widget: 'SimpleHtml', tag:'div' },
-        { name: 'user', widget: 'SimpleHtml', tag: 'div', class:'caption', value: 'data.name' },
-        { name: 'login', widget: 'SimpleHtml', tag: 'span', value: 'data.login'},
+        { name: 'navigation', widget: 'BootstrapNavigation', value:'"GitHub"'},
+        { name: 'navigation-list', widget: 'BootstrapNavigationList'},
+        { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'data.name', href:'navigate(data.link)'},
+
+        { name: 'content', widget: 'ProfileContainer' },
+        { name: 'user', widget: 'SimpleHtml', class:'row' },
+        { name: 'avatar', widget: 'ProfileImage', value:'data.avatar_url' },
+        { name: 'detail', widget: 'SimpleHtml', class:'col-xs-12 col-sm-8' },
+        { name: 'name', widget: 'SimpleHtml', tag: 'h2', value: 'data.name' },
+        { name: 'login', widget: 'ProfileDetail', detail: 'Login', value: 'data.login'},
+        { name: 'bio', widget: 'ProfileDetail', detail: 'Bio', value: 'data.bio'},
+        { name: 'blog', widget: 'ProfileDetail', detail: 'Blog', value: 'data.blog'},
+        { name: 'company', widget: 'ProfileDetail', detail: 'Company', value: 'data.company'},
+        { name: 'location', widget: 'ProfileDetail', detail: 'Location', value: 'data.location'},
+        { name: 'seguidores', widget: 'SimpleHtml', tag: 'div'},
+        { name: 'seguidor', widget: 'SimpleHtml', tag: 'a', href: 'navigate(data.url)'},
+        { name: 'avatar_seguidor', widget: 'SimpleHtml', class:'col-md-1 img-circle img-responsive', tag: 'img', src: 'data.avatar_url', alt:'data.login', title:'data.login'},
         { name: 'repositorios', widget: 'SimpleHtml', tag: 'div'},
         { name: 'repositorio', widget: 'SimpleHtml', tag: 'div'},
         { name: 'nome', widget: 'SimpleHtml', tag: 'span', value: 'data.name'},
-        { name: 'link', widget: 'SimpleHtml', tag: 'span', value: 'data.html_url'}
+        { name: 'link', widget: 'SimpleHtml', tag: 'span', value: 'data.html_url'},
+
+        { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
+        { name: 'footer-content', widget: 'BootstrapFooter' }
     ]}
 ];
 

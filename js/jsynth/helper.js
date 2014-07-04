@@ -52,6 +52,10 @@
             var rule = Gus.interface.rules.get(when);
             var ret = rule.evaluate(data, request, device, data);
             return ret
+        },
+
+        navigate: function(uri){
+            return '#?URI=' + uri;
         }
     }
 

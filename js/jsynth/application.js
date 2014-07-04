@@ -21,6 +21,7 @@ define([
             var selection = new JSynth.Selection.Collection(selection_rules, {parse:true});
             this.interface = new JSynth.Interface(abstract, concrets, rules, selection, this);
             window.Gus = this;
+            window.navigate = JSynth.Helper.navigate;
 
             _.bindAll(this, 'selected');
         },

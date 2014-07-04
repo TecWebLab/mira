@@ -10,7 +10,8 @@ define([
     'jsynth/models/map',
     'jsynth/models/rule',
     'jsynth/application',
-    'jsynth/interface'
+    'jsynth/interface',
+    'jsynth/helper'
 ], function(
         Widget,
         Base,
@@ -21,7 +22,8 @@ define([
         Map,
         Rule,
         Application,
-        Interface
+        Interface,
+        Helper
     ) {
 
     return {
@@ -34,6 +36,7 @@ define([
         Map : Map,
         Widget : Widget,
         Application : Application,
-        Interface: Interface
+        Interface: Interface,
+        Helper: Helper
     }
 });

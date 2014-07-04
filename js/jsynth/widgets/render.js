@@ -5,8 +5,12 @@ define([
     'jsynth/widgets/image-html',
     'jsynth/widgets/bootstrap-image-box',
     'jsynth/widgets/bootstrap-navigation',
-    'jsynth/widgets/bootstrap-footer'
-    ],function (SimpleHtml, ImageHtml, BootstrapImageBox, BootstrapNavigation, BootstrapFooter) {
+    'jsynth/widgets/bootstrap-footer',
+    'jsynth/widgets/profile'
+    ],function (SimpleHtml, ImageHtml,
+                BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
+                Profile
+    ) {
 
     var pathToWidget = function(name){
         var root = 'jsynth/widgets/';
@@ -18,6 +22,9 @@ define([
         ImageHtml:ImageHtml,
         BootstrapImageBox: BootstrapImageBox,
         BootstrapFooter: BootstrapFooter,
+        ProfileContainer: Profile.Container,
+        ProfileImage: Profile.Image,
+        ProfileDetail: Profile.Detail,
         BootstrapNavigation: BootstrapNavigation.Main,
         BootstrapNavigationList: BootstrapNavigation.List,
         BootstrapNavigationListItem: BootstrapNavigation.ListItem
