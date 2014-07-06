@@ -111,7 +111,7 @@ var concrete_interface = [
         { name: 'seguidores_title', widget: 'SimpleHtml', tag: 'h3', class:'clearfix', value:'"Seguidores"'},
         { name: 'seguidores', widget: 'SimpleHtml', tag: 'div'},
         { name: 'seguidor', widget: 'SimpleHtml', tag: 'a', href: 'navigate(data.url)'},
-        { name: 'avatar_seguidor', widget: 'SimpleHtml', class:'col-md-1 img-circle img-responsive', tag: 'img', src: 'data.avatar_url', alt:'data.login', title:'data.login'},
+        { name: 'avatar_seguidor', widget: 'SimpleHtml', class:'col-md-2 col-xs-3 img-circle img-responsive', tag: 'img', src: 'data.avatar_url + "s=80"', alt:'data.login', title:'data.login'},
         { name: 'repositorios_panel', widget: 'SimpleHtml', class:'clearfix' },
         { name: 'repositorios_title', widget: 'SimpleHtml', tag: 'h3', value:'"Repositorios"'},
         { name: 'repositorios', widget: 'SimpleHtml', tag: 'div'},
