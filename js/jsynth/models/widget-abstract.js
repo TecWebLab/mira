@@ -6,7 +6,7 @@
             'underscore',
             'jsynth/helper',
             'jsynth/base/init',
-            'jsynth/models/Api'
+            'jsynth/models/api'
         ], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory(
