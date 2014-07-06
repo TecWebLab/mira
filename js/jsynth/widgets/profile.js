@@ -10,7 +10,7 @@ define([
         <div class="col-md-8">\
         <div class="panel panel-default">\
         <div class="panel-body">\
-        <div class="row js_child">\
+        <div class="js_child">\
     </div>\
     </div>\
     </div>\
@@ -73,8 +73,29 @@ define([
             }
             $parent.append(image);
             return {
-                $children: $(element),
-                html: element.outerHTML
+                $children: $(image),
+                html: image.outerHTML
+            }
+        },
+        Counts: function($parent, name, data, options){
+            var item = document.createElement('li');
+            item.className = options.class || 'badge';
+
+            if(options.icon) {
+                var icon = document.createElement('span');
+                icon.className = 'glyphicon glyphicon-' + options.icon;
+                item.appendChild(icon);
+            }
+
+            if(options.value) {
+                var template = "<%= " + options.value + '%>';
+                item.innerHTML = item.innerHTML + ' ' + _.template(template, _.extend({}, options, {data:data.attributes}));
+            }
+
+            $parent.append(item);
+            return {
+                $children: $(item),
+                html: item.outerHTML
             }
         }
     };

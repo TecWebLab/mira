@@ -15,8 +15,11 @@ var rules = [{
     name: 'isUser',
     validate: 'data.login != null'
 },{
-    name: 'hasValue',
-    validate: 'value.length > 0'
+    name: 'haveStar',
+    validate: 'data.stargazers_count > 0'
+},{
+    name: 'haveWatch',
+    validate: 'data.watchers_count > 0'
 }];
 
 var selection = [
@@ -48,12 +51,15 @@ var interface_abstracts = [
             { name: "content",
               children: [
                   {'user': ['avatar', {'detail': ['name', 'login', 'bio', 'blog', 'company', 'location']}]},
+                  { 'seguidores_panel': ['seguidores_title',
                   { name: "seguidores", datasource: "url:<%= data.followers_url %>",
                       children: {"seguidor": ['avatar_seguidor']}
-                  },
+                  }, 'seguidores_mais']},
+                  {'repositorios_panel' : ['repositorios_title',
                   { name: "repositorios", datasource: "url:<%= data.repos_url %>",
-                      children: {"repositorio": ['nome', 'link']}
-                  }]
+                      children: {"repositorio": ['nome', 'descricao', {box: ['star', 'watch']}]}
+                  }]}
+              ]
             },
             {'footer': ['footer-content']}
         ]
@@ -92,7 +98,7 @@ var concrete_interface = [
         { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'data.name', href:'navigate(data.link)'},
 
         { name: 'content', widget: 'ProfileContainer' },
-        { name: 'user', widget: 'SimpleHtml', class:'row' },
+        { name: 'user', widget: 'SimpleHtml', class:'clearfix' },
         { name: 'avatar', widget: 'ProfileImage', value:'data.avatar_url' },
         { name: 'detail', widget: 'SimpleHtml', class:'col-xs-12 col-sm-8' },
         { name: 'name', widget: 'SimpleHtml', tag: 'h2', value: 'data.name' },
@@ -101,13 +107,20 @@ var concrete_interface = [
         { name: 'blog', widget: 'ProfileDetail', detail: 'Blog', value: 'data.blog'},
         { name: 'company', widget: 'ProfileDetail', detail: 'Company', value: 'data.company'},
         { name: 'location', widget: 'ProfileDetail', detail: 'Location', value: 'data.location'},
+        { name: 'seguidores_panel', widget: 'SimpleHtml', class:'clearfix' },
+        { name: 'seguidores_title', widget: 'SimpleHtml', tag: 'h3', class:'clearfix', value:'"Seguidores"'},
         { name: 'seguidores', widget: 'SimpleHtml', tag: 'div'},
         { name: 'seguidor', widget: 'SimpleHtml', tag: 'a', href: 'navigate(data.url)'},
         { name: 'avatar_seguidor', widget: 'SimpleHtml', class:'col-md-1 img-circle img-responsive', tag: 'img', src: 'data.avatar_url', alt:'data.login', title:'data.login'},
+        { name: 'repositorios_panel', widget: 'SimpleHtml', class:'clearfix' },
+        { name: 'repositorios_title', widget: 'SimpleHtml', tag: 'h3', value:'"Repositorios"'},
         { name: 'repositorios', widget: 'SimpleHtml', tag: 'div'},
-        { name: 'repositorio', widget: 'SimpleHtml', tag: 'div'},
-        { name: 'nome', widget: 'SimpleHtml', tag: 'span', value: 'data.name'},
-        { name: 'link', widget: 'SimpleHtml', tag: 'span', value: 'data.html_url'},
+        { name: 'repositorio', widget: 'SimpleHtml', tag: 'div', class:'media'},
+        { name: 'nome', widget: 'SimpleHtml', tag: 'h4', value: 'data.name', class:'media-heading'},
+        { name: 'descricao', widget: 'SimpleHtml', tag: 'span', value: 'data.description'},
+        { name: 'box', widget: 'SimpleHtml', tag: 'ul', class:'nav nav-pills nav-stacked pull-right'},
+        { name: 'watch', widget: 'ProfileCount', icon:'eye-close', value:'data.watchers_count'},
+        { name: 'watch', widget: 'ProfileCount', icon:'eye-open', value:'data.watchers_count', when:'haveWatch'},
 
         { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
         { name: 'footer-content', widget: 'BootstrapFooter' }
@@ -126,7 +139,7 @@ if(typeof define === 'function') {
         'jsynth/init'
     ], function ($, $bootstrap, JSynth) {
 
-        return function Pinterest() {
+        return function GitHub() {
             $.ajaxSetup(ajaxSetup);
             this.jsynth = new JSynth.Application(interface_abstracts, concrete_interface, rules, selection);
         };

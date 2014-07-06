@@ -25,6 +25,7 @@ define([
         ProfileContainer: Profile.Container,
         ProfileImage: Profile.Image,
         ProfileDetail: Profile.Detail,
+        ProfileCount: Profile.Counts,
         BootstrapNavigation: BootstrapNavigation.Main,
         BootstrapNavigationList: BootstrapNavigation.List,
         BootstrapNavigationListItem: BootstrapNavigation.ListItem
