@@ -11,7 +11,7 @@ var optimist = require('optimist');
 var app = optimist.argv.app;
 
 var Rule = require('./models/rule.js');
-var Abstract = require('./models/abstract.js');
+var Selection = require('./models/selection.js');
 var Jsynth = require(app);
 
 // start do servidor
@@ -22,26 +22,27 @@ server.use(morgan());
 server.use(express.static(path.normalize(__dirname + '/../..')));
 
 var rules = new Rule.Collection(Jsynth.rules, {parse:true});
-var abstracts = new Abstract.Collection(Jsynth.selectoin, {parse:true});
+var selection = new Selection.Collection(Jsynth.selection, {parse:true});
 
 server.route('/server.js').all(function(req, res, next){
     var options = _.extend({
+        json: true,
         url: req.param('URI')
     }, Jsynth.ajaxSetup || {});
 
     request(options, function (error, response, body) {
         var abstract_select = null;
-        abstracts.each(function(abstract){
-            if(abstract.get('rule')){
-                var rule = rules.get(abstract.get('rule'));
-                if(rule.evaluate(data, req, {}, {})){
-                    abstract_select = abstract
+        selection.each(function(select){
+            if(select.get('when')){
+                var rule = rules.get(select.get('when'));
+                if(rule.evaluate(body, req, {}, {})){
+                    abstract_select = select.get('abstract');
                 }
             }
         });
 
         if (!error && response.statusCode == 200) {
-            res.send(abstract_select.toJSON());
+            res.send(abstract_select);
         }
     });
 });
