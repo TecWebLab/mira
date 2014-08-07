@@ -5,16 +5,18 @@
         define([
             'underscore',
             'jsynth/base/init',
-            'jsynth/models/widget-abstract'
+            'jsynth/models/widget-abstract',
+            'jsynth/helper'
         ], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory(
             require('underscore'),
             require('../base/init.js'),
-            require('./widget-abstract.js')
+            require('./widget-abstract.js'),
+            require('../helper.js')
         );
     }
-}(this, function (_, Base, WidgetAbstract) {
+}(this, function (_, Base, WidgetAbstract, Helper) {
 
     var Model = Base.Model.extend({
 
@@ -43,11 +45,25 @@
 
         handle: function(data, request, device){
             Gus.interface.render(this, data, request, device);
+        },
+
+        prettyPrint: function(){
+            var ret = this.toJSON();
+            ret.widgets = ret.widgets.prettyPrint();
+            return ret;
         }
     });
 
     var Collection =  Base.Collection.extend({
-        model:Model
+        model:Model,
+
+        prettyPrint: function(){
+            var ret = [];
+            this.each(function(abstract){
+               ret.push(abstract.prettyPrint())
+            });
+            return Helper.source(ret);
+        }
     });
 
     return {

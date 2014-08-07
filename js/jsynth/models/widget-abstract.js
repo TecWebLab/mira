@@ -125,11 +125,32 @@
             } else {
                 console.log('erro no requestData ' + datasource, this);
             }
+        },
+
+        prettyPrint: function(){
+            var ret = _.pick(this.toJSON(), 'name', 'children', 'datasource');
+            ret.children = ret.children.prettyPrint();
+
+            if(_.isObject(ret.datasource)) {
+                ret.datasource = 'obj'
+            }
+            if(_.isEmpty(ret.children)){
+                delete ret.children;
+            }
+            return ret;
         }
     });
 
     var Collection =  Base.Collection.extend({
-        model:Model
+        model:Model,
+
+        prettyPrint: function(){
+            var ret = [];
+            this.each(function(abstract){
+                ret.push(abstract.prettyPrint())
+            });
+            return ret;
+        }
     });
 
     return {
