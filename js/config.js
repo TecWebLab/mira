@@ -36,16 +36,17 @@ requirejs([
     'underscore',
     'backbone'
 ], function(_, Backbone) {
-
-    var scripts = document.getElementsByTagName('script');
-    _.each(scripts, function (script) {
-        window.app = {};
-        var dataApp = script.getAttribute('data-app');
-        if (dataApp) {
-            require([dataApp], function (App) {
-                window.app[dataApp] = new App();
-                Backbone.history.start();
-            })
-        }
-    });
+    window.app = {};
+    var query = _.chain(window.location.search.substring(1).split('&'))
+        .map(function(params) {
+            var p = params.split('=');
+            return [p[0], decodeURIComponent(p[1])];
+        }).object().value();
+    if(query.app) {
+        require([query.app], function (App) {
+            window.app[query.app] = new App();
+            window.app.query = query;
+            Backbone.history.start();
+        })
+    }
 });
