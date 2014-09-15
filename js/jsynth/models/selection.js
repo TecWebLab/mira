@@ -14,10 +14,11 @@
     }
 }(this, function (Base, Helper) {
     var Model = Base.Model.extend({
-
+        __name__ : 'Selection.Model'
     });
 
     var Collection =  Base.Collection.extend({
+        __name__ : 'Selection.Collection',
         model:Model,
 
         evaluate_abstract: function(request, device, callback){

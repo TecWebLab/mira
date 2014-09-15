@@ -12,10 +12,12 @@
     }
 }(this, function (Base) {
     var Model = Base.Model.extend({
-
+        __name__ : 'Api.Model'
     });
 
     var Collection =  Base.Collection.extend({
+        __name__ : 'Api.Collection',
+
         model:Model
     });
 

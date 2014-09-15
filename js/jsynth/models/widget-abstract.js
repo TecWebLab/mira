@@ -19,6 +19,7 @@
 }(this, function (_, Helper, Base, Api) {
 
     var Model = Base.Model.extend({
+        __name__ : 'Widget.Model',
 
         idAttribute: 'name',
 
@@ -142,6 +143,8 @@
     });
 
     var Collection =  Base.Collection.extend({
+        __name__ : 'Widget.Collection',
+
         model:Model,
 
         prettyPrint: function(){

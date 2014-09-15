@@ -8,6 +8,8 @@ define([
 ], function (_, Helper, Base, Render) {
 
     var Model = Base.Model.extend({
+        __name__ : 'Map.Model',
+
 
         initialize: function(){
             _.bindAll(this, 'bindRender')
@@ -48,6 +50,8 @@ define([
     });
 
     var Collection =  Base.Collection.extend({
+        __name__ : 'Map.Collection',
+
         model:Model
     });
 

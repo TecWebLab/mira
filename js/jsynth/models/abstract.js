@@ -19,6 +19,7 @@
 }(this, function (_, Base, WidgetAbstract, Helper) {
 
     var Model = Base.Model.extend({
+        __name__ : 'Abstract.Model',
 
         idAttribute: 'name',
 
@@ -55,6 +56,8 @@
     });
 
     var Collection =  Base.Collection.extend({
+        __name__ : 'Abstract.Collection',
+
         model:Model,
 
         prettyPrint: function(){

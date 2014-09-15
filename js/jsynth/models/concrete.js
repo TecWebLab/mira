@@ -7,6 +7,8 @@ define([
 ], function (_, Base, Map) {
 
     var Model = Base.Model.extend({
+        __name__ : 'Concrete.Model',
+
 
         idAttribute: 'name',
 
@@ -24,6 +26,8 @@ define([
     });
 
     var Collection =  Base.Collection.extend({
+        __name__ : 'Concrete.Collection',
+
         model:Model
     });
 

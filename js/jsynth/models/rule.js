@@ -12,6 +12,8 @@
     }
 }(this, function (Base) {
     var Model = Base.Model.extend({
+        __name__ : 'Rule.Model',
+
         idAttribute: 'name',
 
         evaluate: function(data, request, device, dataObj){
@@ -25,6 +27,8 @@
     });
 
     var Collection =  Base.Collection.extend({
+        __name__ : 'Rule.Collection',
+
         model: Model
     });
 
