@@ -69,7 +69,14 @@ var interface_abstracts = [
 
 var concrete_interface = [
     {
-        name: 'landing', maps: [
+        name: 'landing',
+        head:[
+            {name: 'main_css', widget:'Head', href:'css/bootstrap.css', tag: 'style'},
+            {name: 'secondary_css', widget:'Head', href:'css/shop.css', tag:'style'},
+            {name: 'viewport', widget:'Meta', content:'width=device-width, initial-scale=1'},
+            {name: 'title', widget:'Title', value: '"GitHub"'}
+        ],
+        maps: [
         { name: 'navigation', widget: 'BootstrapNavigation', value:'"GitHub"'},
         { name: 'navigation-list', widget: 'BootstrapNavigationList'},
         { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'data.name', href:'navigate(data.link)'},
@@ -80,7 +87,14 @@ var concrete_interface = [
         { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
         { name: 'footer-content', widget: 'BootstrapFooter' }
     ]},{
-        name: 'not_found', maps: [
+        name: 'not_found',
+        head:[
+            {name: 'main_css', widget:'Head', href:'css/bootstrap.css', tag: 'style'},
+            {name: 'secondary_css', widget:'Head', href:'css/shop.css', tag:'style'},
+            {name: 'viewport', widget:'Meta', content:'width=device-width, initial-scale=1'},
+            {name: 'title', widget:'Title', value: '"GitHub - Pagina não encontrada"'}
+        ],
+        maps: [
         { name: 'navigation', widget: 'BootstrapNavigation', value:'"GitHub"'},
         { name: 'navigation-list', widget: 'BootstrapNavigationList'},
         { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'data.name', href:'navigate(data.link)'},
@@ -92,7 +106,14 @@ var concrete_interface = [
         { name: 'footer-content', widget: 'BootstrapFooter' }
     ]}
     ,{
-        name: 'user', maps: [
+        name: 'user',
+        head:[
+            {name: 'main_css', widget:'Head', href:'css/bootstrap.css', tag: 'style'},
+            {name: 'secondary_css', widget:'Head', href:'css/shop.css', tag:'style'},
+            {name: 'viewport', widget:'Meta', content:'width=device-width, initial-scale=1'},
+            {name: 'title', widget:'Title', value: '"GitHub de " + (data.name || data.login)'}
+        ],
+        maps: [
         { name: 'navigation', widget: 'BootstrapNavigation', value:'"GitHub"'},
         { name: 'navigation-list', widget: 'BootstrapNavigationList'},
         { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'data.name', href:'navigate(data.link)'},

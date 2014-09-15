@@ -13,6 +13,8 @@ define([
 
     var Application = Backbone.Router.extend({
 
+        __name__ : 'Application',
+
         initialize: function (interface_abstracts, interface_concretes, rules_lib, selection_rules) {
             JSynth = requirejs('jsynth/init');
             var abstract = new JSynth.Abstract.Collection(interface_abstracts, {parse:true});

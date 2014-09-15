@@ -13,6 +13,7 @@ define([
         idAttribute: 'name',
 
         parse: function(data){
+            data.head = new Map.Collection(data.head, {parse:true});
             data.maps = new Map.Collection(data.maps, {parse:true});
             return data;
         },
@@ -20,8 +21,18 @@ define([
         load: function () {
             if(!this.loaded) {
                 this.get('maps').invoke('load');
+                this.get('head').invoke('load');
                 this.loaded = true;
             }
+        },
+
+        buildHead: function($head, data, request, device){
+            $(".navigate_remove").remove();
+            this.get('head').each(function(map){
+                if(map.isVisible()){
+                    map.getHtml($head, data, request, device);
+                }
+            });
         }
     });
 

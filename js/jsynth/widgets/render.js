@@ -2,12 +2,15 @@
 
 define([
     'jsynth/widgets/simple-html',
+    'jsynth/widgets/head',
+    'jsynth/widgets/meta',
+    'jsynth/widgets/title',
     'jsynth/widgets/image-html',
     'jsynth/widgets/bootstrap-image-box',
     'jsynth/widgets/bootstrap-navigation',
     'jsynth/widgets/bootstrap-footer',
     'jsynth/widgets/profile'
-    ],function (SimpleHtml, ImageHtml,
+    ],function (SimpleHtml, Head, Meta, Title, ImageHtml,
                 BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
                 Profile
     ) {
@@ -19,6 +22,9 @@ define([
     };
     var widget = {
         SimpleHtml:SimpleHtml,
+        Head: Head,
+        Meta: Meta,
+        Title: Title,
         ImageHtml:ImageHtml,
         BootstrapImageBox: BootstrapImageBox,
         BootstrapFooter: BootstrapFooter,
