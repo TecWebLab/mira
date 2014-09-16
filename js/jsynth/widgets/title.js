@@ -6,7 +6,7 @@ define([
     'jsynth/widgets/render'
 ], function ($, _, Render) {
 
-    return function($head, name, data, options){
+    return function($head, name, $data, $env, options){
         var element = null;
 
         element = document.createElement('title');
@@ -14,7 +14,8 @@ define([
 
         if(options.value) {
             var template = "<%= " + options.value + '%>';
-            element.innerHTML = _.template(template, _.extend({}, options, {data:data.attributes}));
+            element.innerHTML = _.template(template, _.extend({}, options,
+                {$data:$data.attributes, $env:$env, $dataObj: $data}));
         }
 
         $head.prepend(element);

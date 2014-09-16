@@ -36,16 +36,16 @@
             return data;
         },
 
-        getHtml: function($parent, concrete, data, request, device){
+        getHtml: function($parent, concrete, $data, $env){
             var widgets = this.get('widgets');
             widgets.each(function(widget){
-                widget.getHtml($parent, concrete, data, request, device);
+                widget.getHtml($parent, concrete, $data, $env);
             });
             return $parent.html();
         },
 
-        handle: function(data, request, device){
-            Gus.interface.render(this, data, request, device);
+        handle: function( $data, $env){
+            Gus.interface.render(this,  $data, $env);
         },
 
         prettyPrint: function(){

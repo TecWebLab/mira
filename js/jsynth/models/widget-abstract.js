@@ -54,43 +54,43 @@
             }, this);
         },
 
-        getHtml: function($parent, concrete, data, request, device){
+        getHtml: function($parent, concrete, $data, $env){
             var esse = this;
-            this.getRender(concrete, data, request, device);
-            if(this.map && this.isVisible(data, request, device)) {
-                var ret = this.map.getHtml($parent, data, request, device);
+            this.getRender(concrete, $data, $env);
+            if(this.map && this.isVisible($data, $env)) {
+                var ret = this.map.getHtml($parent, $data, $env);
 
                 if(this.get('datasource')){
-                    ret.view = this.buildView(ret.$el, data);
+                    ret.view = this.buildView(ret.$el, $data);
                     var itemWidget = this.get('children').at(0);
-                    this.requestData(data, request, device, function(collection){
+                    this.requestData($data, $env, function(collection){
                         collection.each(function(m){
-                            var retSubview = itemWidget.getHtml(ret.$children, concrete, m, request, device);
+                            var retSubview = itemWidget.getHtml(ret.$children, concrete, m, $env);
                             var subview = esse.buildView(retSubview.$el);
                             ret.view.subview.push(subview);
                         });
                     });
                 } else {
                     this.get('children').each(function (widget) {
-                        widget.getHtml(ret.$children, concrete, data, request, device);
+                        widget.getHtml(ret.$children, concrete, $data, $env);
                     }, this);
                 }
                 return ret;
             }
         },
 
-        buildView: function($el, data){
+        buildView: function($el, $data){
             var view = new Base.View({
                 el: $el,
-                model: data
+                model: $data
             });
             view.subview = [];
             return view;
         },
 
-        buildUrlDatasource: function(parentData, request, device){
+        buildUrlDatasource: function(parentData, $env){
             var datasource = this.get('datasource');
-            var endpoint_build = _.template(datasource.substring(4), Helper.buildObjectToValidate(parentData, request, device));
+            var endpoint_build = _.template(datasource.substring(4), Helper.buildObjectToValidate(parentData, $env));
             return endpoint_build;
         },
 
@@ -98,13 +98,13 @@
             return eval(this.get('datasource'));
         },
 
-        requestData: function(parentData, request, device, callback){
+        requestData: function(parentData, $env, callback){
             var esse = this;
             var datasource = this.get('datasource');
             var parse = Helper.buildFunction(this.get('parse'), this);
 
             if(datasource.indexOf('url:') == 0) {
-                var endpoint = this.buildUrlDatasource(parentData, request, device);
+                var endpoint = this.buildUrlDatasource(parentData, $env);
                 var collection = new (Api.Collection.extend({
                     url: endpoint,
                     parse: parse || Api.Collection.prototype.parse
@@ -117,7 +117,7 @@
                         callback(col);
                     }
                 });
-            } else if(datasource.indexOf('data.')) {
+            } else if(datasource.indexOf('$data.')) {
                 var data = this.buildParentDataDatasource(parentData);
                 var collection = new Api.Collection(data, {
                     parse: parse || Api.Collection.prototype.parse

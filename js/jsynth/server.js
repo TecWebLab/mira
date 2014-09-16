@@ -19,7 +19,7 @@ var server = express();
 // para exibir o log
 server.use(morgan());
 // criando servidor para arquivos estaticos
-server.use(express.static(path.normalize(__dirname + '/../..')));
+server.use(express.static(path.normalize(__dirname + '/../..'),  { maxAge: 60 * 60 * 1000 }));
 
 var rules = new Rule.Collection(Jsynth.rules, {parse:true});
 var selection = new Selection.Collection(Jsynth.selection, {parse:true});

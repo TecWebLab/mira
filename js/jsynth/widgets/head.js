@@ -20,7 +20,7 @@ define([
         }
     };
 
-    return function($head, name, data, options){
+    return function($head, name, $data, $env, options){
         var element = null;
 
         if(map_type[options.tag]){
@@ -40,7 +40,9 @@ define([
         _.each(attrs, function(value, atr){
             var template = "<%= " + value + '%>';
             try {
-                var build = _.template(template, _.extend({}, options, {data: data.attributes}));
+                var build = _.template(template, _.extend({}, options,
+                    {$data:$data.attributes, $env:$env, $dataObj: $data})
+                );
                 element.setAttribute(atr,  build)
             } catch (ex){
                 element.setAttribute(atr,  value)

@@ -18,10 +18,10 @@ define([
         initialize: function (interface_abstracts, interface_concretes, rules_lib, selection_rules) {
             JSynth = requirejs('jsynth/init');
             var abstract = new JSynth.Abstract.Collection(interface_abstracts, {parse:true});
-            var concrets = new JSynth.Concrete.Collection(interface_concretes, {parse:true});
+            var concretes = new JSynth.Concrete.Collection(interface_concretes, {parse:true});
             var rules = new JSynth.Rule.Collection(rules_lib, {parse:true});
             var selection = new JSynth.Selection.Collection(selection_rules, {parse:true});
-            this.interface = new JSynth.Interface(abstract, concrets, rules, selection, this);
+            this.interface = new JSynth.Interface(abstract, concretes, rules, selection, this);
             window.Gus = this;
             window.navigate = JSynth.Helper.navigate;
 
@@ -33,40 +33,38 @@ define([
         },
 
         selection: function(params){
-            var request = this.buildRequest(params);
-            var device = this.buildDevice();
-            this.interface.selection.evaluate_abstract(request, device, this.selected);
+            var $env = this.buildEnv(params);
+            this.interface.selection.evaluate_abstract($env, this.selected);
         },
 
-        selected: function(abstract_name, data, request, device){
+        selected: function(abstract_name, $data, $env){
             var abstract = this.interface.abstracts.get(abstract_name);
-            abstract.handle(data, request, device);
+            abstract.handle($data, $env);
         },
 
-        register_routes: function(abstracts){
+        register_rsssoutes: function(abstracts){
             abstracts.each(function(abstract){
                 this.route(
                     abstract.get('name') == 'landing' ? '' : abstract.get('name'),
                     function(params){
-                        var request = this.buildRequest(params);
-                        var device = this.buildDevice();
-                        abstract.handle(request, device);
+                        var $env = this.buildEnv(params);
+                        abstract.handle($env);
                     }
                 )
             }, this);
         },
 
-        buildRequest: function(params){
-            this.request = _.pick(Backbone.history.location,
-                'hash', 'host', 'hostname', 'href', 'origin', 'pathname', 'port', 'protocol', 'search');
-            this.request.params = params;
-            return this.request;
-        },
+        buildEnv: function(params){
+            this.$env = {};
 
-        buildDevice: function(){
-            this.device = {};
-            this.device.test = Modernizr;
-            return this.device
+            this.$env.request = _.pick(Backbone.history.location,
+                'hash', 'host', 'hostname', 'href', 'origin', 'pathname', 'port', 'protocol', 'search');
+            this.$env.request.params = params;
+
+            this.$env.device = {};
+            this.$env.device.features = Modernizr;
+
+            return this.$env;
         }
 
     });

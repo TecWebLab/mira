@@ -21,13 +21,13 @@ define([
             this.concrets.invoke('load');
         },
 
-        render: function(abstract, data, request, device){
+        render: function(abstract, $data, $env){
             this.$el.empty();
             var $head = $('head');
             this.concrete = this.concrets.get(abstract.get('concrete') || abstract.get('name'));
-            var dataobj = new Base.Model(data);
-            this.concrete.buildHead($head, dataobj, request, device);
-            var ret = abstract.getHtml(this.$el, this.concrete, dataobj, request, device);
+            var dataobj = new Base.Model($data);
+            this.concrete.buildHead($head, dataobj, $env);
+            var ret = abstract.getHtml(this.$el, this.concrete, dataobj, $env);
             return this;
         }
 

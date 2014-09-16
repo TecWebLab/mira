@@ -21,22 +21,22 @@
         __name__ : 'Selection.Collection',
         model:Model,
 
-        evaluate_abstract: function(request, device, callback){
-            if(request.params){
-                if(request.params.URI){
+        evaluate_abstract: function($env, callback){
+            if($env.request.params){
+                if($env.request.params.URI){
                     var esse = this;
-                    $.get(request.params.URI, function(data){
+                    $.get($env.request.params.URI, function($data){
                         var abstract = 'not_found';
                         esse.each(function(selection){
-                            if(Helper.evaluate(selection.get('when'), data, request, device)){
+                            if(Helper.evaluate(selection.get('when'), $data, $env)){
                                 abstract = selection.get('abstract');
                             }
                         });
-                        callback(abstract, data, request, device);
+                        callback(abstract, $data, $env);
                     })
                 }
             } else {
-                callback('landing', null, request, device)
+                callback('landing', null, $env)
             }
         }
     });

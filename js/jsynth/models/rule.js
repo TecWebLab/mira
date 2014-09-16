@@ -16,11 +16,11 @@
 
         idAttribute: 'name',
 
-        evaluate: function(data, request, device, dataObj){
+        evaluate: function($data, $env, dataObj){
             try {
                 return eval(this.get('validate')) == true;
             } catch (e){
-                console.log("Error on rule" + this.get('name'), this, data, request, device);
+                console.log("Error on rule" + this.get('name'), this, $data, $env);
                 return false;
             }
         }

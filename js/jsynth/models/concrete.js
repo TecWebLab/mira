@@ -26,11 +26,11 @@ define([
             }
         },
 
-        buildHead: function($head, data, request, device){
+        buildHead: function($head, $data, $env){
             $(".navigate_remove").remove();
             this.get('head').each(function(map){
                 if(map.isVisible()){
-                    map.getHtml($head, data, request, device);
+                    map.getHtml($head, $data, $env);
                 }
             });
         }

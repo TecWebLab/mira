@@ -32,17 +32,17 @@ define([
             _.bindAll(this, 'render');
         },
 
-        getHtml: function($parent, data, request, devive){
-            return this.render($parent, this.get('name'), data, this.attributes)
+        getHtml: function($parent, $data, $env){
+            return this.render($parent, this.get('name'), $data, $env, this.attributes)
         },
 
         has_rule: function () {
             return this.get('when') != undefined;
         },
 
-        isVisible: function(data, request, device){
+        isVisible: function($data, $env){
             if(this.get('when')) {
-                return Helper.evaluate(this.get('when'), data.attributes, request, device);
+                return Helper.evaluate(this.get('when'), $data.attributes, $env);
             }
             return true;
         }

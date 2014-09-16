@@ -39,24 +39,23 @@
             return func
         },
 
-        buildObjectToValidate: function (data, request, device, options) {
-            if (data instanceof Backbone.Model) {
-                data = data.attributes;
+        buildObjectToValidate: function ($data, $env, options) {
+            if ($data instanceof Backbone.Model) {
+                $data = $data.attributes;
             }
             options || (options = {});
             return _.extend({}, {
-                data: data,
-                request: request,
-                device: device
+                $data: $data,
+                $env: $env
             }, options)
         },
 
-        evaluate: function (when, data, request, device) {
-            if (data instanceof Backbone.Model) {
-                data = data.attributes;
+        evaluate: function (when, $data, $env) {
+            if ($data instanceof Backbone.Model) {
+                $data = $data.attributes;
             }
             var rule = Gus.interface.rules.get(when);
-            var ret = rule.evaluate(data, request, device, data);
+            var ret = rule.evaluate($data, $env, $data);
             return ret
         },
 
