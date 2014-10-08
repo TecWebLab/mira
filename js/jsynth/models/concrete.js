@@ -29,7 +29,7 @@ define([
         buildHead: function($head, $data, $env){
             $(".navigate_remove").remove();
             this.get('head').each(function(map){
-                if(map.isVisible()){
+                if(map.isVisible($data, $env)){
                     map.getHtml($head, $data, $env);
                 }
             });

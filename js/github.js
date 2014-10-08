@@ -52,7 +52,7 @@ var interface_abstracts = [
               children: [
                   {'user': ['avatar', {'detail': ['name', 'login', 'bio', 'blog', 'company', 'location']}]},
                   { 'seguidores_panel': ['seguidores_title',
-                  { name: "seguidores", datasource: "url:<%= $data.followers_url %>",
+                  { name: "seguidores", datasource: "url:<%= $data.followers_url %>", cache: false,
                       children: {"seguidor": ['avatar_seguidor']}
                   }, 'seguidores_mais']},
                   {'repositorios_panel' : ['repositorios_title',
@@ -167,9 +167,6 @@ if(typeof define === 'function') {
 
     });
 } else {
-
-    ajaxSetup.headers['User-Agent'] = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.3 Safari/537.36"
-
     exports.ajaxSetup = ajaxSetup;
     exports.abstracts = interface_abstracts;
     exports.mapping = concrete_interface;

@@ -14,6 +14,8 @@ var Rule = require('./models/rule.js');
 var Selection = require('./models/selection.js');
 var Jsynth = require(app);
 
+Jsynth.ajaxSetup.headers['User-Agent'] = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.3 Safari/537.36"
+
 // start do servidor
 var server = express();
 // para exibir o log
@@ -47,4 +49,17 @@ server.route('/server.js').all(function(req, res, next){
     });
 });
 
-server.listen(80);
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('./server.key', 'utf8');
+var certificate = fs.readFileSync('./server.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
+
+var httpServer = http.createServer(server);
+var httpsServer = https.createServer(credentials, server);
+
+httpServer.listen(80);
+httpsServer.listen(443);

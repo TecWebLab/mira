@@ -29,7 +29,8 @@ define([
         },
 
         routes: {
-            "": "selection"
+            "": "selection",
+            "*params": 'not_found'
         },
 
         selection: function(params){
@@ -40,18 +41,6 @@ define([
         selected: function(abstract_name, $data, $env){
             var abstract = this.interface.abstracts.get(abstract_name);
             abstract.handle($data, $env);
-        },
-
-        register_rsssoutes: function(abstracts){
-            abstracts.each(function(abstract){
-                this.route(
-                    abstract.get('name') == 'landing' ? '' : abstract.get('name'),
-                    function(params){
-                        var $env = this.buildEnv(params);
-                        abstract.handle($env);
-                    }
-                )
-            }, this);
         },
 
         buildEnv: function(params){
