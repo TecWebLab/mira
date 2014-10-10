@@ -7,13 +7,14 @@ define([
     'jsynth/widgets/meta',
     'jsynth/widgets/title',
     'jsynth/widgets/image-html',
+    'jsynth/widgets/bootstrap-base',
     'jsynth/widgets/bootstrap-image-box',
     'jsynth/widgets/bootstrap-navigation',
     'jsynth/widgets/bootstrap-footer',
     'jsynth/widgets/bootstrap-form',
     'jsynth/widgets/profile'
     ],function (SimpleHtml, Input, Head, Meta, Title, ImageHtml,
-                BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
+                BootstrapBase, BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
                 BootstrapForm, Profile
     ) {
 
@@ -29,6 +30,7 @@ define([
         Meta: Meta,
         Title: Title,
         ImageHtml:ImageHtml,
+        BootstrapIcon: BootstrapBase.Icon,
         BootstrapImageBox: BootstrapImageBox,
         BootstrapFooter: BootstrapFooter,
         ProfileContainer: Profile.Container,

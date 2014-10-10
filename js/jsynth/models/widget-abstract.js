@@ -38,27 +38,29 @@
             return data;
         },
 
-        isVisible: function(data, request, device){
+        isVisible: function($data, $env){
             if(this.get('when')) {
-                return Helper.evaluate(this.get('when'), data.attributes, request, device);
+                return Helper.evaluate(this.get('when'), $data.attributes, $env);
             }
             return true;
         },
 
-        getRender: function(concrete, data, request, device){
+        getRender: function(concrete, $data, $env){
             var maps = concrete.get('maps').where({'name': this.get('name')});
+            var map_selected = null;
             _.each(maps, function(map){
-                if(map.isVisible(data, request, device)) {
-                    this.map = map;
+                if(map.isVisible($data, $env)) {
+                    map_selected = map;
                 }
             }, this);
+            return map_selected
         },
 
         getHtml: function($parent, concrete, $data, $env){
             var esse = this;
-            this.getRender(concrete, $data, $env);
-            if(this.map && this.isVisible($data, $env)) {
-                var ret = this.map.getHtml($parent, $data, $env);
+            var map = this.getRender(concrete, $data, $env);
+            if(map && this.isVisible($data, $env)) {
+                var ret = map.getHtml($parent, $data, $env);
 
                 if(this.get('datasource')){
                     ret.view = this.buildView(ret.$el, $data);
@@ -66,8 +68,10 @@
                     this.requestData($data, $env, function(collection){
                         collection.each(function(m){
                             var retSubview = itemWidget.getHtml(ret.$children, concrete, m, $env);
-                            var subview = esse.buildView(retSubview.$el);
-                            ret.view.subview.push(subview);
+                            if(retSubview) {
+                                var subview = esse.buildView(retSubview.$el);
+                                ret.view.subview.push(subview);
+                            }
                         });
                     });
                 } else {

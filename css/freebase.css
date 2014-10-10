@@ -3,6 +3,7 @@
 }
 
 .fundo form {
+    margin-top: 20px;
     margin-bottom: 20px
 }
 
@@ -10,6 +11,18 @@
     margin: 0 auto;
 }
 
-.margem {
+.item {
     margin: 10px;
+    height: 100px;
+    max-height: 100px;
+}
+
+#results {
+    margin-top: 10px;
+}
+
+.item .glyphicon {
+    font-size: 55px;
+    margin-right: 10px;
+    margin-bottom: 20px;
 }

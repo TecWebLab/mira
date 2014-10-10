@@ -4,10 +4,34 @@ var rules = [{
         name: 'isResult',
         validate: '$data.result != null'
     },{
+        name: 'hasName',
+        validate: '$data.name != ""'
+    },{
+        name: 'hasType',
+        validate: '$data.notable != null && $data.notable.name != ""'
+    },{
+        name: 'hasIcon',
+        validate: '$data.notable != null && $data.notable.name != "" && icons[$data.notable.name] != undefined'
+    },{
         name: 'isSecure',
         validate: '$env.request.protocol == "https:"'
     }
 ];
+
+var icons = {
+    'College/University': 'book',
+    'Field of study': 'book',
+    'Book': 'book',
+    'Musical Artist': 'headphones',
+    'Musical Recording': 'headphones',
+    'Brazilian state': 'globe',
+    'Film festival event': 'video',
+    'Neighborhood': 'envelope',
+    'Location': 'home',
+    'Software': 'cog',
+    'Airport': 'plane',
+    'Holiday': 'calendar'
+};
 
 var selection = [
     {
@@ -34,10 +58,10 @@ var interface_abstracts = [
         name: 'results',
         widgets : [
             {'header': ['logo', {'search_form':{'search_group' : ['search_field', 'search_button']}}]},
-            {'content': ['results_title',
+            {'content': [
                 { name: "results", datasource: "$data.result",
                 children: [
-                    {'result_panel': {'result_item': ['result_title', 'result_details']}
+                    {name: 'result_panel', when:'hasName', children: {'result_item': ['result_icon', 'result_title', 'result_details']}
                 }]}
             ]},
             {'footer': ['footer-content']}
@@ -99,13 +123,13 @@ var concrete_interface = [
         { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
         { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
 
-
-        { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
-        { name: 'results_title', widget: 'SimpleHtml', tag:'h3', class:'container', value:'"Resultados"' },
+        { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
         { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
-        { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-4' },
-        { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'margem well' },
-        { name: 'result_title', widget: 'SimpleHtml', tag:'h3', value:'$data.name' },
+        { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
+        { name: 'result_icon', widget: 'BootstrapIcon', when:'hasIcon', class:'pull-left', icon:'icons[$data.notable.name]' },
+        { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'item well' },
+        { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'$data.name' },
+        { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data.notable.name', when:'hasType' },
 
         { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
         { name: 'footer-content', widget: 'BootstrapFooter' }
@@ -117,7 +141,7 @@ var ajaxSetup = {
         'key': 'AIzaSyC6xDllQ_3e8Q3KWOlguRkg22ZlEekCaDY'
     }
 };
-
+window.icons = icons;
 window.do_search = function(event){
     event.preventDefault();
     var search = document.getElementById('search_field');
