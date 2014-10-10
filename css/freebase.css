@@ -1,0 +1,15 @@
+.fundo {
+    background: url('../imgs/freebase_fundo.png') repeat;
+}
+
+.fundo form {
+    margin-bottom: 20px
+}
+
+.form_center {
+    margin: 0 auto;
+}
+
+.margem {
+    margin: 10px;
+}

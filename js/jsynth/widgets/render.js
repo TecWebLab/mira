@@ -2,6 +2,7 @@
 
 define([
     'jsynth/widgets/simple-html',
+    'jsynth/widgets/input',
     'jsynth/widgets/head',
     'jsynth/widgets/meta',
     'jsynth/widgets/title',
@@ -9,10 +10,11 @@ define([
     'jsynth/widgets/bootstrap-image-box',
     'jsynth/widgets/bootstrap-navigation',
     'jsynth/widgets/bootstrap-footer',
+    'jsynth/widgets/bootstrap-form',
     'jsynth/widgets/profile'
-    ],function (SimpleHtml, Head, Meta, Title, ImageHtml,
+    ],function (SimpleHtml, Input, Head, Meta, Title, ImageHtml,
                 BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
-                Profile
+                BootstrapForm, Profile
     ) {
 
     var pathToWidget = function(name){
@@ -22,6 +24,7 @@ define([
     };
     var widget = {
         SimpleHtml:SimpleHtml,
+        Input:Input,
         Head: Head,
         Meta: Meta,
         Title: Title,
@@ -34,7 +37,8 @@ define([
         ProfileCount: Profile.Counts,
         BootstrapNavigation: BootstrapNavigation.Main,
         BootstrapNavigationList: BootstrapNavigation.List,
-        BootstrapNavigationListItem: BootstrapNavigation.ListItem
+        BootstrapNavigationListItem: BootstrapNavigation.ListItem,
+        BootstrapFormGroupButton: BootstrapForm.GroupButton
     };
 
     return  {

@@ -94,7 +94,7 @@
             return endpoint_build;
         },
 
-        buildParentDataDatasource: function(data){
+        buildParentDataDatasource: function($data){
             return eval(this.get('datasource'));
         },
 
@@ -117,8 +117,8 @@
                         callback(col);
                     }
                 });
-            } else if(datasource.indexOf('$data.')) {
-                var data = this.buildParentDataDatasource(parentData);
+            } else if(datasource.indexOf('$data.') == 0) {
+                var data = this.buildParentDataDatasource(parentData.attributes);
                 var collection = new Api.Collection(data, {
                     parse: parse || Api.Collection.prototype.parse
                 });

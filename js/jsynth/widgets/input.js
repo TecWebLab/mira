@@ -10,7 +10,7 @@ define([
         var element = document.createElement(options.tag || 'div');
         element.id = name;
 
-        var atrs = _.omit(options, 'tag', 'value', 'name', 'widget');
+        var atrs = _.omit(options, 'tag', 'name', 'widget');
 
         _.each(atrs, function(value, atr){
             var template = "<%= " + value + '%>';
@@ -24,12 +24,6 @@ define([
             }
         });
 
-        if(options.value) {
-            var template = "<%= " + options.value + '%>';
-            element.innerHTML = _.template(template, _.extend({}, options,
-                {$data:$data.attributes, $env:$env, $dataObj: $data}
-            ));
-        }
         $parent.append(element);
         return {
             $children: $(element),
