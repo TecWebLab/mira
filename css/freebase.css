@@ -26,3 +26,7 @@
     margin-right: 10px;
     margin-bottom: 20px;
 }
+.item a, .item a:hover {
+    color: black;
+    text-decoration: none;
+}

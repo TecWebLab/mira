@@ -4,10 +4,11 @@ define([
     'underscore',
     'backbone',
     'modernizr',
+    'device',
     'backbone_query', // plugin - apenas extendendo - n usar a classe
     'backbone_cache', // plugin - apenas extendendo - n usar a classe
     'string-format' // plugin - apenas extendendo - n usar a classe
-], function(_, Backbone, Modernizr, BackboneQuery, BackboneCache, StringFormat){
+], function(_, Backbone, Modernizr, Device, BackboneQuery, BackboneCache, StringFormat){
 
     var JSynth = null;
 
@@ -50,7 +51,7 @@ define([
                 'hash', 'host', 'hostname', 'href', 'origin', 'pathname', 'port', 'protocol', 'search');
             this.$env.request.params = params;
 
-            this.$env.device = {};
+            this.$env.device = Device;
             this.$env.device.features = Modernizr;
 
             return this.$env;

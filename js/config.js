@@ -15,7 +15,8 @@ requirejs.config({
         text: 'libs/text',
         'string-format': 'libs/string-format',
         'backbone_cache': 'libs/backbone.fetch-cache',
-        'modernizr': 'libs/modernizr'
+        'modernizr': 'libs/modernizr',
+        'device': 'libs/device'
     },
     shim: {
         "underscore": {

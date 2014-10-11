@@ -61,7 +61,7 @@ var interface_abstracts = [
             {'content': [
                 { name: "results", datasource: "$data.result",
                 children: [
-                    {name: 'result_panel', when:'hasName', children: {'result_item': ['result_icon', 'result_title', 'result_details']}
+                    {name: 'result_panel', when:'hasName', children: {'result_item': {'result_link': ['result_icon', 'result_title', 'result_details']}}
                 }]}
             ]},
             {'footer': ['footer-content']}
@@ -126,8 +126,9 @@ var concrete_interface = [
         { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
         { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
         { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
-        { name: 'result_icon', widget: 'BootstrapIcon', when:'hasIcon', class:'pull-left', icon:'icons[$data.notable.name]' },
         { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'item well' },
+        { name: 'result_link', widget: 'SimpleHtml', tag:'a', href:'navigate("https://www.googleapis.com/freebase/v1/topic" + $data.id)' },
+        { name: 'result_icon', widget: 'BootstrapIcon', when:'hasIcon', class:'pull-left', icon:'icons[$data.notable.name]' },
         { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'$data.name' },
         { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data.notable.name', when:'hasType' },
 
