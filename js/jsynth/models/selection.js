@@ -27,16 +27,18 @@
                     var esse = this;
                     $.get($env.request.params.URI, function($data){
                         var abstract = 'not_found';
+                        var concrete = abstract;
                         esse.each(function(selection){
                             if(Helper.evaluate(selection.get('when'), $data, $env)){
                                 abstract = selection.get('abstract');
+                                concrete = selection.get('concrete') || selection.get('abstract')
                             }
                         });
-                        callback(abstract, $data, $env);
+                        callback(abstract, concrete, $data, $env);
                     })
                 }
             } else {
-                callback('landing', null, $env)
+                callback('landing', 'landing', null, $env)
             }
         }
     });

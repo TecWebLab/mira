@@ -39,9 +39,10 @@ define([
             this.interface.selection.evaluate_abstract($env, this.selected);
         },
 
-        selected: function(abstract_name, $data, $env){
+        selected: function(abstract_name, concrete_name, $data, $env){
             var abstract = this.interface.abstracts.get(abstract_name);
-            abstract.handle($data, $env);
+            var concrete = this.interface.concrets.get(concrete_name);
+            abstract.handle(concrete, $data, $env);
         },
 
         buildEnv: function(params){
@@ -51,11 +52,16 @@ define([
                 'hash', 'host', 'hostname', 'href', 'origin', 'pathname', 'port', 'protocol', 'search');
             this.$env.request.params = params;
 
+            if(params && params.URI) {
+                this.$env.request.uri = JSynth.Helper.parseURL(params.URI)
+            }
             this.$env.device = Device;
             this.$env.device.features = Modernizr;
 
             return this.$env;
         }
+
+
 
     });
 

@@ -61,7 +61,6 @@
             var map = this.getRender(concrete, $data, $env);
             if(map && this.isVisible($data, $env)) {
                 var ret = map.getHtml($parent, $data, $env);
-
                 if(this.get('datasource')){
                     ret.view = this.buildView(ret.$el, $data);
                     var itemWidget = this.get('children').at(0);
@@ -121,14 +120,12 @@
                         callback(col);
                     }
                 });
-            } else if(datasource.indexOf('$data.') == 0) {
+            } else {
                 var data = this.buildParentDataDatasource(parentData.attributes);
                 var collection = new Api.Collection(data, {
                     parse: parse || Api.Collection.prototype.parse
                 });
                 callback(collection);
-            } else {
-                console.log('erro no requestData ' + datasource, this);
             }
         },
 

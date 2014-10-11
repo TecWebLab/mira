@@ -44,8 +44,8 @@
             return $parent.html();
         },
 
-        handle: function( $data, $env){
-            Gus.interface.render(this,  $data, $env);
+        handle: function(concrete, $data, $env){
+            Gus.interface.render(this, concrete,  $data, $env);
         },
 
         prettyPrint: function(){

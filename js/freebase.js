@@ -15,6 +15,15 @@ var rules = [{
     },{
         name: 'isSecure',
         validate: '$env.request.protocol == "https:"'
+    },{
+        name: 'isTopicDesktopOrTablet',
+        validate: '$data.property != null && ($env.device.desktop || $env.device.tablet)'
+    },{
+        name: 'isTopicMobile',
+        validate: '$data.property != null && !($env.device.desktop || $env.device.tablet)'
+    },{
+        name: 'isProperty',
+        validate: '_.keys($data.property).length == 1'
     }
 ];
 
@@ -37,6 +46,14 @@ var selection = [
     {
         when: 'isResult',
         abstract: 'results'
+    },{
+        when: 'isTopicDesktopOrTablet',
+        abstract: 'topicComplete',
+        concrete: 'topicComplete'
+    },{
+        when: 'isTopicMobile',
+        abstract: 'topicMobile',
+        concrete: 'topic'
     }
 ];
 
@@ -63,6 +80,24 @@ var interface_abstracts = [
                 children: [
                     {name: 'result_panel', when:'hasName', children: {'result_item': {'result_link': ['result_icon', 'result_title', 'result_details']}}
                 }]}
+            ]},
+            {'footer': ['footer-content']}
+        ]
+    },{
+        name: 'topicComplete',
+        widgets : [
+            {'header': ['logo', {'search_form':{'search_group' : ['search_field', 'search_button']}}]},
+            {'content': [
+                { name: "results", datasource: "_.pairs(_.groupBy(_.pairs($data.property), function(i){ return i[0].split('/')[1]} ))",
+                    children: [
+                        {'result_group_panel': [
+                            'result_group_name',
+                            {name: 'result_group', datasource: '$data[1]',
+                                children: [{name: 'result_panel',
+                                    children: [{'result_item': {'result_link': ['result_icon', 'result_title', 'result_details']}}]
+                                }]
+                            }]}
+                    ]}
             ]},
             {'footer': ['footer-content']}
         ]
@@ -110,8 +145,7 @@ var concrete_interface = [
 
         { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
         { name: 'footer-content', widget: 'BootstrapFooter' }
-    ]}
-    ,{
+    ]},{
         name: 'results',
         head:head,
         maps: [
@@ -134,7 +168,55 @@ var concrete_interface = [
 
         { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
         { name: 'footer-content', widget: 'BootstrapFooter' }
-    ]}
+    ]},{
+        name: 'topicComplete',
+        head:head,
+        maps: [
+            { name: 'header', widget: 'SimpleHtml', tag:'div', class:'container-fluid text-center fundo' },
+            { name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
+
+            { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
+            { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
+            { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
+            { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
+
+            { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
+            { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
+            { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
+            { name: 'result_group_name', widget: 'SimpleHtml', tag:'h3', class:'group text-center', value:'$data[0]'},
+            { name: 'result_group_panel', widget: 'SimpleHtml', class:'row'},
+            { name: 'result_group', widget: 'SimpleHtml'},
+            { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'item well' },
+            { name: 'result_link', widget: 'SimpleHtml', tag:'a', href:'navigate($env.request.uri.protocol + "://" + $env.request.uri.host + $env.request.uri.path + "?filter=" + $data[0])' },
+            { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'$data[0]' },
+            { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data[0]', when:'hasType' },
+
+            { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
+            { name: 'footer-content', widget: 'BootstrapFooter' }
+        ]},{
+        name: 'property',
+        head:head,
+        maps: [
+            { name: 'header', widget: 'SimpleHtml', tag:'div', class:'container-fluid text-center fundo' },
+            { name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
+
+            { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
+            { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
+            { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
+            { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
+
+            { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
+            { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
+            { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-12 col-md-12 col-lg-12' },
+            { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'item well' },
+            { name: 'result_link', widget: 'SimpleHtml', tag:'a', href:'navigate($env.request.params.URI + "?filter=" + $data[0])' },
+            { name: 'result_icon', widget: 'BootstrapIcon', class:'pull-left', icon:'icons[$data[0]]' },
+            { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'$data[0]' },
+            { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data[0]', when:'hasType' },
+
+            { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
+            { name: 'footer-content', widget: 'BootstrapFooter' }
+        ]}
 ];
 
 var ajaxSetup = {
