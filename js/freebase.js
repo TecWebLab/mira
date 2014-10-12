@@ -88,6 +88,9 @@ var interface_abstracts = [
         widgets : [
             {'header': ['logo', {'search_form':{'search_group' : ['search_field', 'search_button']}}]},
             {'content': [
+                {'meta': ['meta_type', {'meta_name': {'meta_legend' : ['meta_id', 'meta_creator', 'meta_timestamp']}},
+                    {name: 'image_group', datasource:'$data.property["/common/topic/image"].values', children:['image'], when:'$data.property["/common/topic/image"] != null'}
+                ]},
                 { name: "results", datasource: "_.pairs(_.groupBy(_.pairs($data.property), function(i){ return i[0].split('/')[1]} ))",
                     children: [
                         {'result_group_panel': [
@@ -173,23 +176,35 @@ var concrete_interface = [
         head:head,
         maps: [
             { name: 'header', widget: 'SimpleHtml', tag:'div', class:'container-fluid text-center fundo' },
-            { name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
+            //{ name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
 
             { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
             { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
-            { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
+            { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Freebase"' },
             { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
 
             { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
             { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
-            { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
-            { name: 'result_group_name', widget: 'SimpleHtml', tag:'h3', class:'group text-center', value:'$data[0]'},
+
+            { name: 'meta', widget: 'SimpleHtml', tag:'div', class:'well' },
+            { name: 'meta_type', widget: 'FreebaseTypes', class:'label_group', value: '$data.property["/type/object/type"].values', when: '$data.property["/type/object/type"] != null'},
+            { name: 'meta_name', widget: 'SimpleHtml', tag:'h2', class:'text-center', value: '$data.property["/type/object/name"].values[0].text', when:'$data.property["/type/object/name"] != null'},
+            { name: 'meta_legend', widget: 'SimpleHtml', tag:'small'},
+            { name: 'meta_id', widget: 'BootstrapIcon', tag: 'span', icon:'file', title: '$data.property["/type/object/id"].values[0].text' },
+            { name: 'meta_creator', widget: 'BootstrapIcon', tag: 'span', icon:'user', title: '$data.property["/type/object/creator"].values[0].text'},
+            { name: 'meta_timestamp', widget: 'BootstrapIcon', tag:'span', icon:'time', title: '$data.property["/type/object/timestamp"].values[0].text'},
+
+            { name: 'image_group', widget:'SimpleHtml', class:'label_group'},
+            { name: 'image', widget:'SimpleHtml', tag:'img', class:'thumbnail', src:'"https://usercontent.googleapis.com/freebase/v1/image" + $data.id'},
+
+            { name: 'result_group_name', widget: 'SimpleHtml', tag:'h3', class:'group text-center bg-info', value:'$data[0]'},
             { name: 'result_group_panel', widget: 'SimpleHtml', class:'row'},
             { name: 'result_group', widget: 'SimpleHtml'},
+            { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
             { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'item well' },
             { name: 'result_link', widget: 'SimpleHtml', tag:'a', href:'navigate($env.request.uri.protocol + "://" + $env.request.uri.host + $env.request.uri.path + "?filter=" + $data[0])' },
-            { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'$data[0]' },
-            { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data[0]', when:'hasType' },
+            { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'_.last($data[0].split("/"))' },
+            { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data[1].values[0].value', when:'$data[1].values != null' },
 
             { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
             { name: 'footer-content', widget: 'BootstrapFooter' }
@@ -212,7 +227,7 @@ var concrete_interface = [
             { name: 'result_link', widget: 'SimpleHtml', tag:'a', href:'navigate($env.request.params.URI + "?filter=" + $data[0])' },
             { name: 'result_icon', widget: 'BootstrapIcon', class:'pull-left', icon:'icons[$data[0]]' },
             { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'$data[0]' },
-            { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data[0]', when:'hasType' },
+            { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data[0]', when:'hagsType' },
 
             { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
             { name: 'footer-content', widget: 'BootstrapFooter' }

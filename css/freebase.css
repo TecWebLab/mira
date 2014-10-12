@@ -17,7 +17,7 @@
     max-height: 100px;
 }
 
-#results {
+#meta {
     margin-top: 10px;
 }
 
@@ -32,4 +32,20 @@
 }
 h3.group:first-letter {
     text-transform:uppercase;
+}
+
+.label_group {
+    display: table;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.label_group .thumbnail {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.label {
+    margin: 5px;
+    display: inline-block;
 }

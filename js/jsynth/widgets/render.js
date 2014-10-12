@@ -12,10 +12,11 @@ define([
     'jsynth/widgets/bootstrap-navigation',
     'jsynth/widgets/bootstrap-footer',
     'jsynth/widgets/bootstrap-form',
-    'jsynth/widgets/profile'
+    'jsynth/widgets/profile',
+    'jsynth/widgets/freebase'
     ],function (SimpleHtml, Input, Head, Meta, Title, ImageHtml,
                 BootstrapBase, BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
-                BootstrapForm, Profile
+                BootstrapForm, Profile, Freebase
     ) {
 
     var pathToWidget = function(name){
@@ -40,7 +41,8 @@ define([
         BootstrapNavigation: BootstrapNavigation.Main,
         BootstrapNavigationList: BootstrapNavigation.List,
         BootstrapNavigationListItem: BootstrapNavigation.ListItem,
-        BootstrapFormGroupButton: BootstrapForm.GroupButton
+        BootstrapFormGroupButton: BootstrapForm.GroupButton,
+        FreebaseTypes: Freebase.Types
     };
 
     return  {

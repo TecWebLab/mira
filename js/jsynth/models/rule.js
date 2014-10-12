@@ -31,7 +31,16 @@
     var Collection =  Base.Collection.extend({
         __name__ : 'Rule.Collection',
 
-        model: Model
+        model: Model,
+
+        get_or_create: function(obj){
+            var r = this.get(obj);
+            if(r == undefined){
+                r = new Model({name: obj, validate:obj});
+                this.add(r);
+            }
+            return r
+        }
     });
 
     return {

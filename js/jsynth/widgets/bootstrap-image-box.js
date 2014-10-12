@@ -9,7 +9,7 @@ define([
     return function($parent, name, $data, $env, options){
 
         var element = document.createElement('div');
-        element.className = "col-sm-4 col-lg-4 col-md-4";
+        element.className = options.class || "col-sm-4 col-lg-4 col-md-4";
         element.id = name;
 
         var $element = $(element);
