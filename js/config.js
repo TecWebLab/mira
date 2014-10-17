@@ -43,11 +43,11 @@ requirejs([
             var p = params.split('=');
             return [p[0], decodeURIComponent(p[1])];
         }).object().value();
-    if(query.app) {
-        require([query.app], function (App) {
-            window.app[query.app] = new App();
-            window.app.query = query;
-            Backbone.history.start();
-        })
-    }
+
+    require([query.app || 'index'], function (App) {
+        window.app[query.app] = new App();
+        window.app.query = query;
+        Backbone.history.start();
+    })
+
 });
