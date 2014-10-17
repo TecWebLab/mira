@@ -63,6 +63,40 @@
             return '#?URI=' + uri;
         },
 
+        build_context: function($data, $env, options, extra) {
+            return _.extend({}, options, {
+                $data:$data.attributes,
+                $env:$env,
+                $dataObj: $data
+            }, extra);
+        },
+
+        build_attributes: function(element, atrs, context){
+            _.each(atrs, function(value, atr){
+                var template = "<%= " + value + '%>';
+                try {
+                    var build = _.template(template, context);
+
+                    element.setAttribute(atr,  build)
+                } catch (ex){
+                    element.setAttribute(atr,  value)
+                }
+            });
+        },
+
+        build_value: function(value, context){
+            if(value.indexOf('@') == 0){
+                return value.substring(1);
+            }
+            var template = "<%= " + value + '%>';
+            try {
+                return _.template(template, context)
+            } catch (ex){
+                return value
+            }
+
+        },
+
         parseURL: function(url) {
             var a =  document.createElement('a');
             a.href = url;
