@@ -3,8 +3,8 @@
 define([
     'jquery',
     'underscore',
-    'jsynth/widgets/render'
-], function ($, _, Render) {
+    'jsynth/helper'
+], function ($, _, Helper) {
 
     return function($head, name, $data, $env, options){
         var element = null;

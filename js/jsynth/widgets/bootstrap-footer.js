@@ -3,8 +3,8 @@
 define([
     'jquery',
     'underscore',
-    'jsynth/widgets/render'
-], function ($, _, Render) {
+    'jsynth/helper'
+], function ($, _, Helper) {
 
     var template = '<div class="row"> \
         <div class="col-lg-12"> \

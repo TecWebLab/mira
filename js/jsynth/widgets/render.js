@@ -58,9 +58,6 @@ define([
         },
         get: function(name){
             return widget[name];
-        },
-        build_string: function(template, model, request, device){
-            return
         }
     };
 });
