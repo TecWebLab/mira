@@ -12,7 +12,7 @@ define([
 
             var classes = ['label-success', 'label-info', 'label-warning', 'label-danger', 'label-default'];
 
-            var $data = $data.attributes;
+            $data = $data.attributes;
 
             _.each(eval(options.value), function(item, index){
                 var label = document.createElement('span');

@@ -12,10 +12,10 @@ define([
         element = document.createElement('title');
         element.className = 'navigate_remove'; // remove every navigate
 
+        var context = Helper.build_context($data, $env, options);
+
         if(options.value) {
-            var template = "<%= " + options.value + '%>';
-            element.innerHTML = _.template(template, _.extend({}, options,
-                {$data:$data.attributes, $env:$env, $dataObj: $data}));
+            element.innerHTML = Helper.build_value(options.value, context);
         }
 
         $head.prepend(element);

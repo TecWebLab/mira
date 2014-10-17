@@ -35,19 +35,10 @@ define([
         }
         element.id = name;
         element.className = 'navigate_remove'; // remove every navigate
-        var attrs = _.omit(options, 'name', 'tag', 'type', 'rel', 'widget');
 
-        _.each(attrs, function(value, atr){
-            var template = "<%= " + value + '%>';
-            try {
-                var build = _.template(template, _.extend({}, options,
-                    {$data:$data.attributes, $env:$env, $dataObj: $data})
-                );
-                element.setAttribute(atr,  build)
-            } catch (ex){
-                element.setAttribute(atr,  value)
-            }
-        });
+        var attrs = _.omit(options, 'name', 'tag', 'type', 'rel', 'widget');
+        var context = Helper.build_context($data, $env, options);
+        Helper.build_attributes(element, attrs, context);
 
         $head.append(element);
         return {

@@ -15,11 +15,9 @@ define([
         Helper.build_attributes(element, atrs, context);
 
         if(options.value) {
-            var template = "<%= " + options.value + '%>';
-            element.innerHTML = _.template(template, _.extend({}, options,
-                {$data:$data.attributes, $env:$env, $dataObj: $data}
-            ));
+            element.innerHTML = Helper.build_value(options.value, context);
         }
+
         $parent.append(element);
         return {
             $children: $(element),

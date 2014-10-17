@@ -71,7 +71,9 @@ define([
         ignored_options: ignored_options,
 
         Simple: function($parent, name, $data, $env, options){
-            return SimpleHtml($parent, name, $data, $env, options, ignored_options)
+            var new_options = _.clone(options);
+            new_options.class = get_bootstrap_class(options, options.class);
+            return SimpleHtml($parent, name, $data, $env, new_options, ignored_options)
         },
 
         Icon: function($parent, name, $data, $env, options){
