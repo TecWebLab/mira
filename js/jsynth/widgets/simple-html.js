@@ -3,26 +3,16 @@
 define([
     'jquery',
     'underscore',
-    'jsynth/widgets/render'
-], function ($, _, Render) {
+    'jsynth/helper'
+], function ($, _, Helper) {
 
-    return function($parent, name, $data, $env, options){
+    return function($parent, name, $data, $env, options, ignored_options){
         var element = document.createElement(options.tag || 'div');
         element.id = name;
 
-        var atrs = _.omit(options, 'tag', 'value', 'name', 'widget');
-
-        _.each(atrs, function(value, atr){
-            var template = "<%= " + value + '%>';
-            try {
-                var build = _.template(template, _.extend({}, options,
-                    {$data:$data.attributes, $env:$env, $dataObj: $data})
-                );
-                element.setAttribute(atr,  build)
-            } catch (ex){
-                element.setAttribute(atr,  value)
-            }
-        });
+        var atrs = _.omit(options, 'tag', 'value', 'name', 'widget', ignored_options);
+        var context = Helper.build_context($data, $env, options);
+        Helper.build_attributes(element, atrs, context);
 
         if(options.value) {
             var template = "<%= " + options.value + '%>';
