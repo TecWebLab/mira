@@ -14,12 +14,10 @@ define([
     var ignored_options = _.union(displays, raw_types);
 
     var as_array = function(val, each_callback){
-        var values;
         if(!_.isArray(val)){
-            values = _.invoke(values.split(','), 'trim')
+            val = _.invoke(val.split(','), 'trim')
         }
-        values =  val;
-        _.each(values, each_callback);
+        _.each(val, each_callback);
     };
 
     var get_bootstrap_class = function(options, prefix_classes, suffix_classes){
@@ -78,14 +76,8 @@ define([
 
         Icon: function($parent, name, $data, $env, options){
             var element = document.createElement(options.tag || 'span');
-            var icon;
-            var template = "<%= " + options.icon + '%>';
             var context = Helper.build_context($data, $env, options);
-            try {
-                icon = _.template(template, context);
-            } catch (ex){
-                icon = options.icon;
-            }
+            var icon = Helper.build_value(options.icon, context);
 
             var atrs = _.omit(options, ignored_options, 'tag', 'value', 'name', 'widget', 'icon');
             Helper.build_attributes(element, atrs, context);

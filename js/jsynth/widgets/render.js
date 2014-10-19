@@ -31,6 +31,7 @@ define([
         Meta: Meta,
         Title: Title,
         ImageHtml:ImageHtml,
+        BootstrapSimple: BootstrapBase.Simple,
         BootstrapIcon: BootstrapBase.Icon,
         BootstrapImageBox: BootstrapImageBox,
         BootstrapFooter: BootstrapFooter,

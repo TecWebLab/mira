@@ -179,7 +179,8 @@ var concrete_interface = [
             //{ name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
 
             { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
-            { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
+            { name: 'search_group', widget: 'BootstrapSimple', tag:'div', class:'form_center', input:'group', form:'center', sm:'8' },
+
             { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Freebase"' },
             { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
 
