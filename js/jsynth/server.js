@@ -12,7 +12,7 @@ var app = optimist.argv.app;
 
 var Rule = require('./models/rule.js');
 var Selection = require('./models/selection.js');
-var Jsynth = require(app);
+var Jsynth = require(app || '../index.js');
 
 Jsynth.ajaxSetup.headers['User-Agent'] = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.3 Safari/537.36"
 
