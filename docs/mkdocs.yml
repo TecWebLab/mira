@@ -1,0 +1,17 @@
+site_name: JSynth
+theme: readthedocs
+repo_name: 'BitBucket'
+repo_url: http://bitbucket.org/ebertti/jsynth
+site_author: Ezequiel Bertti
+site_description: Documentação do JSynth
+
+pages:
+ - [index.md, Home]
+ - [start.md, Començando um Projeto]
+ - [rules.md, Regras]
+ - [interface-selection.md, Seleção de Interface]
+ - [abstract-interface.md, Interface Abstrata]
+ - [concrete-interface.md, Interface Concreta]
+ - [widgets.md, Widgets]
+ - [context.md, Variáveis de Contexto]
+ - [sobre.md, Sobre]
