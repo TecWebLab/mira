@@ -1,18 +1,60 @@
-# Bem vindo ao JSynth
+# Bem vindo ao MIRA
 
-Este trabalho apresentará um framework baseado em padrões que permitirá a uma aplicação qualquer definir uma interface
+Model Interface for Rest Application
+
+Este projeto apresentará um framework baseado em padrões que permitirá a uma aplicação qualquer definir uma interface
 segundo o modelo de interfaces do **SHDM**. A funcionalidade da aplicação será ativada através de interfaces **REST**.
 
 Através de uma estrutura composta por [Seleção de Interface](interface-selection.md), 
-[Interface Abstrata](concrete-interface.md) e [Interface Concreta](abstract-interface.md),
-o projetista pode montar sua aplicação e fazer com que ela se adapte a diversas APIs REST que seja mapeadas nos modelos
-da aplicação.
+[Interface Abstrata](concrete-interface.md) e [Interface Concreta](abstract-interface.md), e para montar sua interface,
+ainda disponibilizamos as [Regras](rules.md), assim o projetista poderá montar sua aplicação e fazer com que ela se adapte
+a diversas APIs REST desde que estejam mapeadas nos modelos da aplicação.
 
 ## Sequencia de execução
 
 ![Sequencia de execução](img/sequencia.jpg)
 
-## Regras
+A partir das URIs informadas na navegação da aplicação, o framework fará uma requisição para a URI, selecionará a
+interface abstrata, interface concrete e montara a estrutura de widgets abstratos e mapeará os widgets concretos para
+exibir as informações para o usuário. Veja o passo a passo de uma navegação para um URI de uma API REST.
+
+### Passo a passo de navegação
+
+#### landing
+
+Ao acessar a aplicação, o framework exibe a interface abstrata e concreta com os nomes de `landing`
+
+#### mapeando uma navegação
+
+A partir de um widget abstrato link:
+
+    { name: 'link' }
+
+Com ele sendo mapeado como um widget com uma navegação para uma URI de uma API REST:
+
+    { name: 'link', widget:'SimpleHtml', tag:'a', href:'navigate("https://www.googleapis.com/freebase/v1/search?query=PUC")' value:"link" }
+
+O MIRA irá exibir este widget desta forma no HTML exibido:
+
+    <a href="#?URI=https://www.googleapis.com/freebase/v1/search?query=PUC">link</a>
+
+#### navegando
+
+Quando o usuário da aplicação clicar no `link`, o framework irá mudar o endereço do navegador para:
+
+    http://localhost/#?URI=https://www.googleapis.com/freebase/v1/search?query=PUC
+
+A partir do parâmetro URI desta URL, será feita uma requisição AJAX para a API REST:
+
+    $.get("https://www.googleapis.com/freebase/v1/search?query=PUC")
+
+Neste momento é feita a seleção das interfaces abstrata e concreta baseada nas regras de seleção mapeadas. Toda a estrutura
+de widgets abstratos e concreta é montada com base nos modelos da aplicação e a interface é exibida para o usuário que está
+navegando na aplicação.
+
+## Estruturas
+
+### Regras
 
 O projetista tem a possibilidade de centralizar as regras que serão utilizadas posteriormente pela aplicação.
 
@@ -24,21 +66,14 @@ O projetista tem a possibilidade de centralizar as regras que serão utilizadas 
         validate: '$data.watchers_count > 0'
     }];
 
-Variáveis do contexto:
-
- - `$data` : Dados retornados pela API
- - `$env` : Informações do ambiente e da requisição:
- - `$env.request` : Informações da requisição atual:
- - `$env.device` : Informações do dispositivos que está navegando na aplicação
- - `$env.device.features` : Funcionalidades ativas do dispositivo
-
 [Mais informações de construção de regras](rules.md)
 
 ----
  
-## Seleção de Interface
+### Seleção de Interface
 
-Quando há uma navegação para uma URI, será feita a seleção de interface de acordo com os dados retornados pela URI
+Quando há uma navegação para uma URI, será feita a seleção de interface de acordo com os dados retornados pela URI sempre
+utilizando as regras definidas pelo projetista.
 
     var selection = [
         {
@@ -53,10 +88,11 @@ Quando há uma navegação para uma URI, será feita a seleção de interface de
     
 [Mais informações sobre seleção de interface](interface-selection.md)
 
+----
 
-## Interface Abstrata
+### Interface Abstrata
 
-É a esqueleto da interface, onde definimos a ordem, origem dos dados e hierarquia dos elementos para que sejam mapeados
+É a estrutura da interface, onde definimos a ordem, origem dos dados e hierarquia dos elementos para que sejam mapeados
 pela Interface Concreta.
 
     var abstracts = [ 
@@ -98,9 +134,11 @@ pela Interface Concreta.
 
 [Mais informações sobre interface abstrata](abstract-interface.md)
 
-## Interface Concreta
+----
 
-É o mapeamento dos Widgets com a interface abstrata selecionada. 
+### Interface Concreta
+
+É o mapeamento dos [Widgets Concretos](widgets.md) com a interface abstrata selecionada pela seleção de interface.
 
     var concret = {
         name: 'user',
@@ -148,6 +186,8 @@ pela Interface Concreta.
 
 
 [Mais informações sobre interface concreta](concrete-interface.md)
+
+----
 
 ## Screenshot do exemplo
 

@@ -1,12 +1,13 @@
-site_name: JSynth
+site_name: Mira
 theme_dir: theme
 repo_url: http://bitbucket.org/ebertti/jsynth
 site_author: Ezequiel Bertti
 site_description: Documentação do JSynth
+include_search: true
 
 pages:
  - [index.md, Home]
- - [start.md, Començando um Projeto]
+ - [start.md, Iniciando um Projeto]
  - [rules.md, Regras]
  - [interface-selection.md, Seleção de Interface]
  - [abstract-interface.md, Interface Abstrata]
