@@ -18,6 +18,7 @@
         "type": "git",
         "url": "git@bitbucket.org:ebertti/jsynth.git"
     },
+    
     "author": "Ezequiel Bertti",
     "license": "MIT"
 }
