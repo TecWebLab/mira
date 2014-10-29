@@ -1,20 +1,20 @@
 # Bem vindo ao MIRA
 
-Model Interface for Rest Application
+**Model Interface for Rest Application**
 
-Este projeto apresentará um framework baseado em padrões que permitirá a uma aplicação qualquer definir uma interface
-segundo o modelo de interfaces do **SHDM**. A funcionalidade da aplicação será ativada através de interfaces **REST**.
+Um framework baseado em padrões que permitirá a uma aplicação qualquer definir uma interface segundo o modelo de interfaces do **SHDM**.
+A funcionalidade da aplicação será ativada através de interfaces **REST**.
 
-Através de uma estrutura composta por [Seleção de Interface](interface-selection.md), 
-[Interface Abstrata](concrete-interface.md) e [Interface Concreta](abstract-interface.md), e para montar sua interface,
-ainda disponibilizamos as [Regras](rules.md), assim o projetista poderá montar sua aplicação e fazer com que ela se adapte
-a diversas APIs REST desde que estejam mapeadas nos modelos da aplicação.
+Através de um modelo composto por [Interface Abstrata](concrete-interface.md) e [Interface Concreta](abstract-interface.md),
+o projetista da aplicação poderá montar a interface da sua aplicação e ainda utilizar [Regras](rules.md) para
+a [Seleção de Interface](interface-selection.md) e mapeamento de [Widgets](widgets.md) compondo sua interface de acordo
+com suas definições e adaptando-a para diversos ambiente e dispositivos.
 
 ## Sequencia de execução
 
 ![Sequencia de execução](img/sequencia.jpg)
 
-A partir das URIs informadas na navegação da aplicação, o framework fará uma requisição para a URI, selecionará a
+A partir das URIs informadas na navegação da aplicação, o MIRA fará uma requisição para a URI, selecionará a
 interface abstrata, interface concrete e montara a estrutura de widgets abstratos e mapeará os widgets concretos para
 exibir as informações para o usuário. Veja o passo a passo de uma navegação para um URI de uma API REST.
 
@@ -22,7 +22,7 @@ exibir as informações para o usuário. Veja o passo a passo de uma navegação
 
 #### landing
 
-Ao acessar a aplicação, o framework exibe a interface abstrata e concreta com os nomes de `landing`
+Ao acessar a aplicação, o MIRA exibe a interface abstrata e concreta com os nomes de `landing`
 
 #### mapeando uma navegação
 
@@ -30,9 +30,9 @@ A partir de um widget abstrato link:
 
     { name: 'link' }
 
-Com ele sendo mapeado como um widget com uma navegação para uma URI de uma API REST:
+Com ele sendo mapeado na interface concreta `landing` como um widget com uma navegação para uma URI de uma API REST:
 
-    { name: 'link', widget:'SimpleHtml', tag:'a', href:'navigate("https://www.googleapis.com/freebase/v1/search?query=PUC")' value:"link" }
+    { name: 'link', widget: 'SimpleHtml', tag: 'a', href: 'navigate("https://www.googleapis.com/freebase/v1/search?query=PUC")' value: 'link' }
 
 O MIRA irá exibir este widget desta forma no HTML exibido:
 
@@ -40,7 +40,7 @@ O MIRA irá exibir este widget desta forma no HTML exibido:
 
 #### navegando
 
-Quando o usuário da aplicação clicar no `link`, o framework irá mudar o endereço do navegador para:
+Quando o usuário da aplicação clicar no `link`, o MIRA irá mudar o endereço do navegador para:
 
     http://localhost/#?URI=https://www.googleapis.com/freebase/v1/search?query=PUC
 
@@ -51,6 +51,10 @@ A partir do parâmetro URI desta URL, será feita uma requisição AJAX para a A
 Neste momento é feita a seleção das interfaces abstrata e concreta baseada nas regras de seleção mapeadas. Toda a estrutura
 de widgets abstratos e concreta é montada com base nos modelos da aplicação e a interface é exibida para o usuário que está
 navegando na aplicação.
+
+## Modelo de Domínio
+
+![Modelo de Domínio](img/dominio.jpg)
 
 ## Estruturas
 
@@ -190,5 +194,9 @@ pela Interface Concreta.
 ----
 
 ## Screenshot do exemplo
+
+Navegando para uma URI da API REST do GitHub
+
+    http://localhost/?app=github#?URI=https://api.github.com/users/ebertti
 
 ![Screenshot do exemplo](img/screenshot.png)
