@@ -2,23 +2,22 @@
 
 O projetista tem a possibilidade de centralizar as regras que serão utilizadas posteriormente pela aplicação.
 
-    var rules = [{
-        name: 'rule_name',
-        validate: 'expression_to_evaluate'
+    var rules = [
+        {
+            name: 'rule_name',
+            validate: 'expression_to_evaluate'
         },
-    
-        ...
-    
+        // ...
     ];
 
  
-Cada objeto da regra é composta por 2 parametros:
+Cada objeto da regra é composta por 2 parâmetros:
 
-## Parametros
+## Parâmetros
 
 ### name
 
-Nome da regra, este nome será utilizado pela no parametro `when` de elementos da 
+Nome da regra, este nome será utilizado pela no parâmetro `when` de elementos da
 [Seleção de Interface](interface-selection.md), 
 [Interface Abstrata](concrete-interface.md) e
 [Interface Concreta](abstract-interface.md).
@@ -31,7 +30,7 @@ Veja mais informações em [Variáveis de Contexto](context.md)
 
 # Exemplos
 
-Validar se o dado retornado da URI possui o parametro `name`:
+Validar se o dado retornado da URI possui o parâmetro `name`:
 
     {
         name: 'hasName',

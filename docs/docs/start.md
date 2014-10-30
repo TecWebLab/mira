@@ -6,35 +6,35 @@ Baixe o repositório em uma pasta de sua preferência.
 
 ### Arquivos
 
-    path/to/jsynth/
-        index.html
+    path/to/mira/
         css/
         fonts/
         imgs/
         js/
-           jsynth/   # arquivos do framework
+           jsynth/   # modulos do framework
            libs/     # bibliotecas externas utizalidas
            config.js # o que da start na aplicação
-           index.js  # Este arquivo que iremos modificar
+           index.js  # módulo que iremos modificar
 
+        index.html   # faz a referencia para a carga da aplicação
 
-## Servidor
-
-É importante que esta pasta possa ser servida e acessível por um servidor de arquivos estáticos como Apache, nginx e etc.
+É importante que esta a pasta `path/to/mira/` possa ser servida e acessível por um servidor de arquivos estáticos como Apache, nginx e etc.
 
 Agora basta ir no navegador e acessar a URL:
 
-    http://your.domain/path/to/jsynth/
+    http://your.domain/path/to/mira/
 
-Nesta URL ele irá acessar a aplicação que tem seus modelos definidos no arquivo `js\index.js`
+Nesta URL ele irá acessar a aplicação que tem seus modelos definidos no módulo `js\index.js`
 
 Caso queira utilizar outra aplicação, será necessário informar diretamente na URL acessada, como no exemplo:
 
-    http://your.domain/path/to/jsynth/?app=my_application
+    http://your.domain/path/to/mira/?app=my_application
 
-Neste caso, a aplicação que será acessada será do arquivo `js\my_application.js`
+Neste caso, a aplicação que será acessada será do módulo `js\my_application.js`
 
-Caso não tenha nenhum destes servidores instalados em seu computador, você pode instalar o node.js e rodar o seguinte
+## Servidor
+
+Caso não tenha nenhum destes servidores instalados em seu computador, você pode instalar o **node.js** e rodar o seguinte
 comando na pasta onde foi baixado:
 
     npm install
@@ -46,6 +46,8 @@ E pode rodar o seguinte comando para rodar sua aplicação:
 Agora basta ir no navegador e acessar a URL:
 
     http://localhost/
+
+Se nenhuma URI de uma API REST for informada para a aplicação, será exibida a interface `landing` para o usuário.
 
 # Arquivo HTML | index.html
 
@@ -61,10 +63,15 @@ O arquivo **index.html** é o arquivo que inicia o MIRA.
         </body>
     </html>
 
-# Função principal | Main
+Ele carrega o [require.js](http://requirejs.org) e chama o modulo `js/config.js`.
 
-No arquivo que será definido os modelos da aplicação, como o `js/index.js`, deve possuir a chamada para a função principal
-para que o MIRA saiba que modelos utilizar para montar sua interface
+Este módulo tem as configurações de caminhos para outros módulos e também carrega o modulo da aplicação informada pelo
+parâmetro `app`, se nenhum valor for informado, ele carrega o modulo `js/index.js`
+
+# Modulo principal da aplicação | Main
+
+No módulo que será definido os modelos da aplicação, como o `js/index.js`, deverá possuir a chamada para a função principal
+para que o MIRA saiba que modelos utilizar para montar sua interface:
 
     if(typeof define === 'function') {
         // Se o ambiente for em um navegador
@@ -74,11 +81,11 @@ para que o MIRA saiba que modelos utilizar para montar sua interface
             // alem daquelas que são padrão do MIRA
             "jquery",
             "bootstrap",
-            'jsynth/init'
+            "jsynth/init"
         ], function Main($, $bootstrap, Mira) {
 
             return function MyApplication() {
-                this.MIRA = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+                this.mira = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
             };
 
         });
@@ -101,17 +108,16 @@ O arquivo **index.html** é o arquivo que inicia o MIRA.
 
 ### js/index.js
 
-Neste arquivo temos uma aplicação de exemplo para se usar como modelo para sua aplicação.
+Neste módulo temos uma aplicação de exemplo para se usar como modelo para sua aplicação.
 
-Você pode escrever sua aplicação neste arquivo ou criar uma nova aplicação com o nome que desejar na mesma pasta.
+Você pode escrever sua aplicação neste módulo ou criar uma nova aplicação com o nome que desejar na mesma pasta.
 A URL para acessar sua aplicação será:
 
     http://localhost/?app=file_name
 
-
 ### js/config.js
            
-Caso queira alterar o path de alguma biblioteca para usar algum CDN ou outra versão, altere este arquivo.
+Caso queira alterar o path de alguma biblioteca para usar algum CDN ou outra versão, altere este módulo.
 
 ## Pastas
 
@@ -119,23 +125,23 @@ Logo a seguir, será explicado o que contem cada pasta
 
 ### css/
 
-Nesta pastas temos o `bootstrap.css` e seus arquivos para customizar o css da sua aplicação.
+Nesta pasta temos o `bootstrap.css` e seus arquivos para customizar o css da sua aplicação.
 
 ### fonts/
 
-Nesta pastas temos as fontes padros do bootstrap e você poderá adicionar as suas fontes tambem.
+Nesta pasta temos as fontes padrões do bootstrap e você poderá adicionar as suas fontes também.
 
 ### imgs/
 
-Nesta pasta temos as imagens estaticas para a sua aplicação.
+Nesta pasta temos as imagens estáticas para a sua aplicação.
 
 ### js/
 
-Nesta pasta temos toda a estrutura de arquivos do framework, dependencia de bibliotecas externas e dos modelos da sua aplicação.
+Nesta pasta temos toda a estrutura de módulos do framework, dependência de bibliotecas externas e dos modelos da sua aplicação.
 
 ### js/jsynth/
 
-Todos os modulos de javascript do framework, evite alterar arquivos nesta pasta.
+Todos os módulos do framework, evite alterar arquivos nesta pasta.
 
 ### js/libs/
 

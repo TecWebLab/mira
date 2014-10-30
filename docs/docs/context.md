@@ -1,19 +1,19 @@
 # Variáveis de Contexto
 
-O MIRA disponibiliza algumas variáveis que podem ser usada durante a validação de regras e atribuir valores a atributos
-de Widgets Abstratos e Widgets Concretos.
+O MIRA disponibiliza algumas variáveis que podem ser usadas durante a validação de regras e atribuir valores a atributos
+de [abstract.md#widgets-abstratos](Widgets Abstratos) e [widgets.md](Widgets Concretos).
 
-## $data
+## `$data`
 
 Nesta variável se encontra as informações retornadas pela requisição feita a URI da API REST que foi informada por parâmetro
 na URL navegada.
 
-## $env
+## `$env`
 
 Contem todas as informações além das informações retornadas pela API, como informações da requisição, do dispositivo, das
 funcionalidades do dispositivo.
 
-## $env.request
+## `$env.request`
 
 Informações que variam de acordo com o requisição feita ao MIRA.
 
@@ -42,49 +42,49 @@ Exemplo para navegação para esta URI: *http://mestrado.amazingworks.com.br/?ap
         source: "https://api.github.com/users/ebertti"
 
 
-### $env.request.href
+### `$env.request.href`
 
 Uma String contendo toda a URL.
 
-### $env.request.protocol
+### `$env.request.protocol`
 
 Uma String contendo o protocolo da URL, incluindo ':' no final.
 
-### $env.request.host
+### `$env.request.host`
 
 Uma String contendo o host, é o hostname, com ':', e a porta informada na URL.
 
-### $env.request.hostname
+### `$env.request.hostname`
 
 Uma String contendo o domínio da URL.
 
-### $env.request.port
+### `$env.request.port`
 
 Uma String contendo o número da porta da URL.
 
-### $env.request.pathname
+### `$env.request.pathname`
 
 Uma String iniciada a partir do primeiro '/' até o final ou até '?' ou '#'.
 
-### $env.request.search
+### `$env.request.search`
 
 Uma String iniciada por '?' seguido pelos parâmetros da URL.
 
-### $env.request.hash
+### `$env.request.hash`
 
 Uma String contendo a '#' seguido pela informação de ancora da página.
 
-### $env.request.origin
+### `$env.request.origin`
 
 Uma String contendo a URL navegada.
 
-### $env.request.uri
+### `$env.request.uri`
 
 Um Object contento a mesma estrutura de informações do `$env.request`, mas para a URI informada como parâmetro.
 
 Se for uma navegação para a interface landing, esta propriedade não contem informações.
 
-### $env.request.params
+### `$env.request.params`
 
 Um Object contendo informações decompostas do que é informado na variável $env.request.hash
 
@@ -95,7 +95,7 @@ Exemplo para *http://localhost/#var1=exemplo&var3=example*
             var3 : 'example'
         }
 
-## $env.device
+## `$env.device`
 
 Contem informações para descobrir qual é o tipo de dispositivo que está acessando a aplicação.
 
@@ -135,7 +135,10 @@ Veja como fica a tag do HTML:
         ...
     </html>
 
-## $env.device.features
+Veja mais informações sobre na documentação do [Device.js](http://matthewhudson.me/projects/device.js/)
+
+
+## `$env.device.features`
 
 Contem informações sobre as funcionalidades que o dispositivo que está acessando a aplicação disponibiliza para o seu
 usuário.
@@ -313,3 +316,5 @@ Veja como fica a tag do HTML:
                  todataurljpeg todataurlwebp no-exif-orientation no-apng webp datauri blobworkers">
         ...
     </html>
+
+Veja mais informações sobre na documentação do [Modernizr](http://modernizr.com/docs/)

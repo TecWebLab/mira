@@ -2,10 +2,10 @@
 
 Dicas para uso do MIRA
 
-# Múltiplos Arquivos
+# Modelos distribuído em módulos
 
-Na declaração da função principal, poderá ser feito a requisição dos arquivos para o MIRA, assim, o projetista poderá
-separar os modelos em vários arquivos.
+Na declaração da função principal, poderá ser feito a requisição dos módulos para o MIRA, assim, o projetista poderá
+separar os modelos em vários módulos.
 
 Estrutura de arquivos
 
@@ -25,7 +25,7 @@ Estrutura de arquivos
             jsynth/
             libs/
 
-Exemplo do arquivo da aplicação:
+Exemplo do módulo da aplicação:
 
     if(typeof define === 'function') {
 
@@ -40,13 +40,13 @@ Exemplo do arquivo da aplicação:
         ], function Main($, $bootstrap, Mira, rules, selection, abstract, concrete) {
 
             return function MyApplication() {
-                this.MIRA = new Mira.Application(abstract, concrete, rules, selection);
+                this.mira = new Mira.Application(abstract, concrete, rules, selection);
             };
 
         });
     }
 
-Exemplo modelos separados em arquivos
+Exemplo modelos separados em módulos
 
 ### rules.js
 
@@ -125,7 +125,7 @@ As declarações de funções devem ser feitas dentro da função [Main](start.m
         }
 
         return function MyApplication() {
-            this.MIRA = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+            this.mira = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
         };
 
     }

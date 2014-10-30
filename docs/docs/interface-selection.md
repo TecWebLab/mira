@@ -1,6 +1,9 @@
 # Seleção de Interface
 
-Quando há uma navegação para uma URI, será feita a seleção de interface de acordo com os dados retornados pela URI
+Quando há navegação para uma URI, será feita a seleção de interface de acordo com os dados retornados pela URI, se nenhuma
+URI for informada na URL, será selecionado a interface abstrata e concreta com o nome `landing`. Se nenhuma regra for atendida,
+será selecionada a interface abstrata e concreta com o nome `not_found`, por isto, é obrigatório definir estas duas interfaces
+em sua aplicação.
 
     var selection = [
         {
@@ -13,9 +16,9 @@ Quando há uma navegação para uma URI, será feita a seleção de interface de
     
     ];
 
-Cada objeto da seleção de interface é composta por 3 parametros:
+Cada objeto da seleção de interface é composta por 3 parâmetros:
 
-## Parametros
+## Parâmetros
 
 ### `when`
 

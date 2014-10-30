@@ -151,7 +151,7 @@ Para facilitar a escrita dos widgets abstratos, foi criada uma forma reduzida pa
 
 ### Widget Abstrato apenas com o `name`
 
-Se dentro de children de um widget você só precisa de um widget, mas não precisa informar nenhum outro parametro,
+Se dentro de children de um widget você só precisa de um widget, mas não precisa informar nenhum outro parâmetro,
 você pode fazer referencia a ele colocando somente uma `string`:
  
     {
@@ -205,7 +205,7 @@ Isto equivale há:
 
 # Exemplos
 
-Uma interface com um campo de busca e um botao para realizar a busca:
+Uma interface com um campo de busca e um botão para realizar a busca:
 
     {
         name:'search',
