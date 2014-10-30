@@ -10,7 +10,7 @@ requirejs.config({
         backbone_querystring_shim: 'libs/backbone.queryparams-1.1-shim',
         backbone_jsynth: 'libs/backbone.jsynth',
         underscore: 'libs/underscore',
-        jquery: 'libs/jquery-2.1.0',
+        jquery: 'libs/jquery',
         "bootstrap": 'libs/bootstrap',
         text: 'libs/text',
         'string-format': 'libs/string-format',
