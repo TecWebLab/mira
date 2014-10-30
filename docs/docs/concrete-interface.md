@@ -131,5 +131,7 @@ Criando eventos em widgets
     ]
 
 *`function minha_funcao(e)` deve ser definida em um contexto global, de preferência, atribuída ao objeto `window` do javascript*
+
+[Veja como criar funções em Dicas](tips.md#criando-funcoes)
    
     

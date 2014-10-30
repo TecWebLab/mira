@@ -12,6 +12,8 @@
 pre.prettyprint {
     padding: 7px !important;
     border-radius: 10px;
+    border: 1px solid #CB9B9B !important;
+    background: #FFF4F4 !important;
 }
 
 .pln {

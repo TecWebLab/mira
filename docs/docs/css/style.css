@@ -13,3 +13,22 @@
         width: 100%;
     }
 }
+
+.rst-content ul {
+    list-style: disc;
+    margin-left: 20px;
+    margin-bottom: 24px;
+}
+
+.rst-content li {
+    list-style: disc;
+    margin-bottom: 5px;
+}
+
+p code {
+    background: rgb(226, 238, 255);
+    padding: 5px;
+    border-radius: 10px;
+    color: black;
+}
+

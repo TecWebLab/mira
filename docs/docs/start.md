@@ -7,6 +7,7 @@ Baixe o repositório em uma pasta de sua preferência.
 ### Arquivos
 
     path/to/jsynth/
+        index.html
         css/
         fonts/
         imgs/
@@ -46,10 +47,24 @@ Agora basta ir no navegador e acessar a URL:
 
     http://localhost/
 
+# Arquivo HTML | index.html
+
+O arquivo **index.html** é o arquivo que inicia o MIRA.
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <script data-main="js/config" src="js/libs/require.js"></script>
+    </head>
+        <body>
+            <h1>Carregando...</h1>
+        </body>
+    </html>
+
 # Função principal | Main
 
-No arquivo que será definido os modelos da aplicação, deve haver a chamada para a função principal para que o MIRA saiba
-que modelos utilizar para montar sua interface
+No arquivo que será definido os modelos da aplicação, como o `js/index.js`, deve possuir a chamada para a função principal
+para que o MIRA saiba que modelos utilizar para montar sua interface
 
     if(typeof define === 'function') {
         // Se o ambiente for em um navegador
@@ -78,19 +93,13 @@ que modelos utilizar para montar sua interface
 
 # Estrutura de Arquivos
 
-    path/to/jsynth/
-        css/
-        fonts/
-        imgs/
-        js/
-           jsynth/   # arquivos do framework
-           libs/     # bibliotecas externas utizalidas
-           config.js # o que da start na aplicação
-           index.js  # Este arquivo que iremos modificar
-
 ## Arquivos
 
-### index.js
+### index.html
+
+O arquivo **index.html** é o arquivo que inicia o MIRA.
+
+### js/index.js
 
 Neste arquivo temos uma aplicação de exemplo para se usar como modelo para sua aplicação.
 
@@ -100,7 +109,7 @@ A URL para acessar sua aplicação será:
     http://localhost/?app=file_name
 
 
-### config.js
+### js/config.js
            
 Caso queira alterar o path de alguma biblioteca para usar algum CDN ou outra versão, altere este arquivo.
 

@@ -1,8 +1,8 @@
-site_name: Mira
+site_name: MIRA
 theme_dir: theme
 repo_url: http://bitbucket.org/ebertti/jsynth
 site_author: Ezequiel Bertti
-site_description: Documentação do JSynth
+site_description: Documentação do MIRA - Model Interface for REST Application
 include_search: true
 
 pages:
@@ -16,3 +16,4 @@ pages:
  - [context.md, Variáveis de Contexto]
  - [tips.md, Dicas]
  - [sobre.md, Sobre]
+ - [example.md, Exemplos]

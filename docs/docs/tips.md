@@ -4,6 +4,111 @@ Dicas para uso do MIRA
 
 # Múltiplos Arquivos
 
+Na declaração da função principal, poderá ser feito a requisição dos arquivos para o MIRA, assim, o projetista poderá
+separar os modelos em vários arquivos.
+
+Estrutura de arquivos
+
+    path/to/mira/
+        index.html
+
+        css/
+        imgs/
+        fonts/
+        js/
+            index.js # your application
+            abstract.js
+            concrete.js
+            rules.js
+            selection.js
+
+            jsynth/
+            libs/
+
+Exemplo do arquivo da aplicação:
+
+    if(typeof define === 'function') {
+
+        define([
+            "jquery",
+            "bootstrap",
+            'jsynth/init',
+            'rules',
+            'selection',
+            'abstract',
+            'concrete'
+        ], function Main($, $bootstrap, Mira, rules, selection, abstract, concrete) {
+
+            return function MyApplication() {
+                this.MIRA = new Mira.Application(abstract, concrete, rules, selection);
+            };
+
+        });
+    }
+
+Exemplo modelos separados em arquivos
+
+### rules.js
+
+    define([], function () {
+        return [
+            {
+                name: 'hasName',
+                validate: '$data.name != null'
+            },{
+                 name: 'hasLogin',
+                 validate: '$data.login != null'
+            }
+        ];
+    });
+
+### rules.js
+
+    define([], function () {
+        return [
+            {
+                when: 'hasName'
+                abstract: 'abstract_name',
+                concrete: 'concrete_name'
+            }
+        ];
+    });
+
+### abstract.js
+
+    define([], function () {
+        return [{
+            name: 'abstract_name',
+            widgets: [
+                'widget1',
+                'widget2',
+                'widget3'
+            ]
+        }]
+    });
+
+### concrete.js
+
+    define([], function () {
+        return [{
+            name: 'concrete_name',
+            head: [
+                { name: 'main_css', widget:'Head', href:'css/bootstrap.css', tag: 'style'},
+                { name: 'viewport', widget:'Meta', content:'width=device-width, initial-scale=1'},
+                { name: 'title', widget:'Title', value: '"YourApp"'}
+            ]
+            maps: [
+                { name: 'widget1', widget: 'SimpleHtml', tag:'h1', class:'well', value:'$data.name' },
+                { name: 'widget2', widget: 'SimpleHtml', tag:'p', class:'well', value:'sem login' },
+                { name: 'widget3', widget: 'SimpleHtml', tag:'p', class:'well', value:'inativo' },
+
+                { name: 'widget1', widget: 'SimpleHtml', tag:'h1', class:'well', value:'$data.login', when: 'hasLogin' },
+                { name: 'widget2', widget: 'SimpleHtml', tag:'p', class:'well', value:'$data.join', when: 'hasLogin' },
+                { name: 'widget3', widget: 'SimpleHtml', tag:'p', class:'well', value:'$data.active', when: 'hasLogin' },
+            ]
+        }]
+    });
+
 # Criando Funções
 
 As declarações de funções devem ser feitas dentro da função [Main](start.md#funcao-principal-main) que da início a aplicação.
@@ -44,76 +149,19 @@ Desta forma, a função estará disponível em qualquer contexto da aplicação,
 
 # Eventos
 
+Nos Widgets Concretos é possível registrar eventos e utilizar funções que foram criadas pelo projetista:
+
+Veja a lista de eventos neste link: [http://www.w3schools.com/jsref/dom_obj_event.asp](http://www.w3schools.com/jsref/dom_obj_event.asp)
+
+Os mais comuns:
+
+* **onclick**: É disparado quando o usuário faz um click com o mouse em cima do elemento html.
+* **onmouseover**: É disparado quando o usuário passa o mouse por cima do elemento html.
+* **onkeydown**: É disparado quando o usuário aperta uma tecla do teclado quando o foco está no elemento html.
+
+Exemplo:
+
+    {name: 'widget_name', type: 'SimpleHtml', tag: 'button', onclick: 'my_function(event);', value:'click'}
+
 # Alterando Requisição na API
 
-
-
-## Instalando o framework
-
-Baixe o repositório em uma pasta de sua preferência. É importante que esta pasta possa ser servida acessível por um 
-servidor de arquivos estaticos como Apache, nginx e etc.
- 
-Caso não tenha nenhum destes servidores instalados, você pode instalar o node.js e rodar o seguinte comando na pasta 
-onde foi baixado:
-
-    npm install
-    
-E pode rodar o seguinte comando para rodar sua aplicação:
-
-    node js/jsynth/server.js 
-    
-Agora basta ir no navegador e acessar a URL:
-
-    http://localhost/
-
-## Estrutura de Arquivos
-
-    path/to/jsynth/
-        css/
-        fonts/
-        imgs/
-        js/
-           jsynth/   # arquivos do framework
-           libs/     # bibliotecas externas utizalidas
-           config.js # o que da start na aplicação
-           index.js  # Este arquivo que iremos modificar
-
-### Arquivo index.js
-
-Neste arquivo iremos realizar a configuração dos modelos e regras para executar sua aplicação.
-
-### Arquivo config.js
-           
-Caso queira alterar o path de alguma biblioteca para usar algum CDN ou outra versão, altere este arquivo.
-
-### Pastas
-
-Logo a seguir, será explicado o que contem cada pasta
-
-#### css/
-
-Nesta pastas temos o `bootstrap.css` e seus arquivos para customizar o css da sua aplicação.
-
-#### fonts/
-
-Nesta pastas temos as fontes padros do bootstrap e você poderá adicionar as suas fontes tambem.
-
-#### imgs/
-
-Nesta pasta temos as imagens estaticas para a sua aplicação.
-
-#### js/
-
-Nesta pasta temos toda a estrutura de arquivos do framework, dependencia de bibliotecas externas e dos modelos da sua aplicação.
-
-#### js/jsynth/
-
-Todos os modulos de javascript do framework, evite alterar arquivos nesta pasta.
-
-#### js/libs/
-
-Nesta pasta temos todas as bibliotecas que o framework precisa para funcionar, caso queira fazer uso de alguma biblioteca externa, você pode adicionar nesta pasta.
-
-#### js/testes/
-
-Nesta pasta temos todos os arquivos de testes unitários do framework.
