@@ -46,6 +46,36 @@ Agora basta ir no navegador e acessar a URL:
 
     http://localhost/
 
+# Função principal | Main
+
+No arquivo que será definido os modelos da aplicação, deve haver a chamada para a função principal para que o MIRA saiba
+que modelos utilizar para montar sua interface
+
+    if(typeof define === 'function') {
+        // Se o ambiente for em um navegador
+
+        define([
+            // Local para se carregar as bibliotecas JavaScript que deseja utilizar,
+            // alem daquelas que são padrão do MIRA
+            "jquery",
+            "bootstrap",
+            'jsynth/init'
+        ], function Main($, $bootstrap, Mira) {
+
+            return function MyApplication() {
+                this.MIRA = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+            };
+
+        });
+    } else {
+        // Utilizado no modo servidor de seleção de interface
+
+        exports.abstracts = interface_abstracts;
+        exports.mapping = concrete_interface;
+        exports.selection = selection;
+        exports.rules = rules;
+    }
+
 # Estrutura de Arquivos
 
     path/to/jsynth/

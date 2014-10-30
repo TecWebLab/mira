@@ -11,12 +11,14 @@
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="{{ base_url }}/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="{{ base_url }}/css/prettify.css" type="text/css" />
   {% for path in extra_css %}
     <link href="{{ base_url }}/{{ path }}" rel="stylesheet">
   {% endfor %}
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="{{ base_url }}/js/run_prettify.js"></script>
     <script src="{{ base_url }}/js/theme.js"></script>
   {% for path in extra_javascript %}
     <script src="{{ base_url }}/{{ path }}"></script>
@@ -37,7 +39,6 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
         <a href="{{ homepage_url }}" class="icon icon-home"> {{ site_name }}</a>
-        {% include "searchbox.html" %}
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">

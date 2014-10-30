@@ -1,4 +1,52 @@
-# Começando um Projeto
+# Dicas
+
+Dicas para uso do MIRA
+
+# Múltiplos Arquivos
+
+# Criando Funções
+
+As declarações de funções devem ser feitas dentro da função [Main](start.md#funcao-principal-main) que da início a aplicação.
+
+    function Main($, $bootstrap, Mira) {
+
+        this.my_function1 = function(){
+            console.log('sou uma função que pode ser chamada em qualquer contexto da aplicação');
+            return true;
+        }
+
+        this.my_function_with_args = function($data){
+            return $data != null;
+        }
+
+        return function MyApplication() {
+            this.MIRA = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+        };
+
+    }
+
+Desta forma, a função estará disponível em qualquer contexto da aplicação, como neste exemplo:
+
+    var rules = [{
+        name: 'regra_com_com_funcao',
+        validate: 'my_function() && my_function_with_args($data)'
+    }]
+
+
+    var concrete = [{
+        name: 'exemplo',
+        maps: [
+            { name:'simples', type:'SimpleHtml', value:'my_function_with_args($data)'}
+        ]
+    }]
+
+
+
+# Eventos
+
+# Alterando Requisição na API
+
+
 
 ## Instalando o framework
 
