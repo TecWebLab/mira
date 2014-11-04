@@ -1,7 +1,7 @@
 # Interface Abstrata
 
-É o esqueleto da interface, onde definimos a ordem, origem dos dados e hierarquia dos elementos para que sejam mapeados
-pela [Interface Concreta](concrete-interface.md).
+É o esqueleto da interface, onde definimos a ordem, origem dos dados e hierarquia dos elementos para que virão a ser
+mapeados pela [Interface Concreta](concrete-interface.md).
 
     var abstracts = [ 
         { 
@@ -49,7 +49,7 @@ Um widget abstrato é composto pelos parâmetros:
 ### name
 
 Nome do widget abstrato, este nome será utilizado no mapeamento de widgets concretos na interface concreta.
-Não utilize o mesmo nome em widgets diferentes na mesma interface.
+Não utilize o mesmo nome em widgets diferentes na mesma interface abstrata.
 
 ### when
 
@@ -67,20 +67,24 @@ De preferência a escrever as regras na estrutura de regras do framework.
 
 *Opcional*
 
-Se você desejar que alguma informação seja baixada em uma API, você pode informar a URL e os dados serão baixados.
+Se você desejar que alguma informação seja baixada em uma API, você pode informar a URL e os dados serão baixados:
 
     datasource:"url:http://api.domain.com.br/exemplo/"
 
-Pode ser feita referencia a uma variável que foi retornada da URI que foi navegada.
+Pode ser feita referencia a uma coleção que foi retornada da URI que foi navegada:
 
     datasource:"$data.alguma_colecao"
 
-Quando esta propriedade é setada, a propriedade children deve obrigatoriamente conter um elemento children composto pelos
-widgets que serão repetidos para cada item que a :
+Ou uma URL que foi retornada pela API:
+
+    datasource:"url:<%= $data.alguma_uri %>"
+
+Quando esta propriedade é setada, a propriedade `children` deve obrigatoriamente conter um elemento children composto pelos
+widgets que serão repetidos para cada item que será retornado pelo `datasource`:
 
     {
         name: 'exemplo',
-        datasource: 'url:$data.elementos_url',
+        datasource: 'url:<%= $data.elementos_url %>',
         children: [
             { 
                 name: 'repetidor',
@@ -98,8 +102,8 @@ widgets que serão repetidos para cada item que a :
 
 *Opcional*
 
-Se a informação que for retornada do datasource precisa ser tratada para ser manipulada, você pode informar uma função ou 
-informar qual a propriedade deve ser utilizada, Exemplo:
+Se a informação que for retornada do `datasource` precisa ser tratada para ser manipulada pelo MIRA, você pode informar
+uma função ou informar qual a propriedade deve ser utilizada, Exemplo:
 
 **Dado retornado**
 
@@ -129,7 +133,7 @@ Apenas os dados da propriedade `items` do dado retornado pelo `datasource` serã
 
 *Default: true*
 
-Informar se o framework deve ou não fazer cache do datasource, caso ele seja externo.
+Informar se o framework deve ou não fazer cache do `datasource`, caso ele seja externo.
 
 ### expires 
 
