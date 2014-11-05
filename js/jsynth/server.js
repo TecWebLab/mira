@@ -62,5 +62,5 @@ try {
     var httpsServer = https.createServer(credentials, server);
     httpsServer.listen(443);
 } catch (e){
-
+    console.log('erro ao abrir arquivos para https');
 }
