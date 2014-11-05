@@ -51,15 +51,16 @@ server.route('/server.js').all(function(req, res, next){
 
 var fs = require('fs');
 var http = require('http');
-var https = require('https');
-var privateKey  = fs.readFileSync('./server.key', 'utf8');
-var certificate = fs.readFileSync('./server.crt', 'utf8');
-
-var credentials = {key: privateKey, cert: certificate};
-
-
 var httpServer = http.createServer(server);
-var httpsServer = https.createServer(credentials, server);
-
 httpServer.listen(80);
-httpsServer.listen(443);
+
+try {
+    var https = require('https');
+    var privateKey  = fs.readFileSync(path.normalize(__dirname + '/../..') + '/server.key', 'utf8');
+    var certificate = fs.readFileSync(path.normalize(__dirname + '/../..') + '/server.crt', 'utf8');
+    var credentials = {key: privateKey, cert: certificate};
+    var httpsServer = https.createServer(credentials, server);
+    httpsServer.listen(443);
+} catch (e){
+
+}
