@@ -1,6 +1,5 @@
 {
-    "name": "jsynth",
-    "version": "0.1",
+    "name": "MIRA",
     "description": "Criar interfaces multiplataformas para API REST utilizando modelos javascript",
     "dependencies": {
         "amdefine": "~0.1.0",
