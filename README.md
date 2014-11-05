@@ -9,7 +9,7 @@ da aplicação.
 
 ## Sequencia de execução
 
-![Sequencia de execução](img/sequencia.jpg)
+![Sequencia de execução](https://raw.githubusercontent.com/TecWebLab/mira/master/docs/docs/img/sequencia.jpg)
 
 ## Regras
 
@@ -31,7 +31,7 @@ Variáveis do contexto:
  - `$env.device` : Informações do dispositivos que está navegando na aplicação
  - `$env.device.features` : Funcionalidades ativas do dispositivo
 
-[Mais informações de construção de regras](rules.md)
+[Mais informações de construção de regras](docs/docs/rules.md)
 
 ----
  
@@ -49,8 +49,8 @@ Quando há uma navegação para uma URI, será feita a seleção de interface de
         }
     ];
 
-    
-[Mais informações sobre seleção de interface](interface-selection.md)
+
+[Mais informações sobre seleção de interface](docs/docs/interface-selection.md)
 
 
 ## Interface Abstrata
@@ -92,9 +92,6 @@ Quando há uma navegação para uma URI, será feita a seleção de interface de
                     children:[ { name:"footer-content" } ] } ] }
     ];
 
-[Mais informações sobre interface abstrata](abstract-interface.md)
-
-
 ## Interface Concreta
 
     var concret = {
@@ -133,7 +130,7 @@ Quando há uma navegação para uma URI, será feita a seleção de interface de
     ]}];
 
 
-[Mais informações sobre interface concreta](concrete-interface.md)
+[Mais informações sobre interface concreta](docs/docs/concrete-interface.md)
 
 ## Screenshot do exemplo
 
