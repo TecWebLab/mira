@@ -4,9 +4,9 @@
     if (typeof define === 'function' && define.amd) {
         define([
             'underscore',
-            'jsynth/base/init',
-            'jsynth/models/widget-abstract',
-            'jsynth/helper'
+            'mira/base/init',
+            'mira/models/widget-abstract',
+            'mira/helper'
         ], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory(
@@ -45,7 +45,7 @@
         },
 
         handle: function(concrete, $data, $env){
-            Gus.interface.render(this, concrete,  $data, $env);
+            mira.interface.render(this, concrete,  $data, $env);
         },
 
         prettyPrint: function(){

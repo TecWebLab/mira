@@ -8,7 +8,7 @@ requirejs.config({
         backbone: 'libs/backbone',
         backbone_query: 'libs/backbone.queryparams',
         backbone_querystring_shim: 'libs/backbone.queryparams-1.1-shim',
-        backbone_jsynth: 'libs/backbone.jsynth',
+        backbone_mira: 'libs/backbone.mira',
         underscore: 'libs/underscore',
         jquery: 'libs/jquery',
         "bootstrap": 'libs/bootstrap',

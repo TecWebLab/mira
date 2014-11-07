@@ -3,7 +3,7 @@
 define([
     'jquery',
     'underscore',
-    'jsynth/helper'
+    'mira/helper'
 ], function ($, _, Helper) {
 
 

@@ -3,7 +3,7 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define([
-            'jsynth/base/init'
+            'mira/base/init'
         ], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory(

@@ -121,11 +121,11 @@ if(typeof define === 'function') {
         // Load our app module and pass it to our definition function
         "jquery",
         "bootstrap",
-        'jsynth/init'
-    ], function ($, $bootstrap, JSynth) {
+        'mira/init'
+    ], function ($, $bootstrap, Mira) {
 
         return function Google() {
-            this.jsynth = new JSynth.Application(interface_abstracts, concrete_interface, rules, selection);
+            var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
             window.request_oauth = function(){
                 var api_key = "AIzaSyC6xDllQ_3e8Q3KWOlguRkg22ZlEekCaDY";
                 var params = {
@@ -137,7 +137,7 @@ if(typeof define === 'function') {
                 var url = "https://accounts.google.com/o/oauth2/auth?" + $.param(params);
                 window.location.href = url;
             };
-            this.jsynth.on('route:not_found', function(queryString){
+            app.on('route:not_found', function(queryString){
                 var params = {}, regex = /([^&=]+)=([^&]*)/g, m;
                 while (m = regex.exec(queryString)) {
                     params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);

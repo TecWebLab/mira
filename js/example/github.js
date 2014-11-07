@@ -157,12 +157,12 @@ if(typeof define === 'function') {
         // Load our app module and pass it to our definition function
         "jquery",
         "bootstrap",
-        'jsynth/init'
-    ], function ($, $bootstrap, JSynth) {
+        'mira/init'
+    ], function ($, $bootstrap, Mira) {
 
         return function GitHub() {
             $.ajaxSetup(ajaxSetup);
-            this.jsynth = new JSynth.Application(interface_abstracts, concrete_interface, rules, selection);
+            var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
         };
 
     });

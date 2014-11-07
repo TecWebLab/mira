@@ -15,7 +15,7 @@
     "devDependencies": {},
     "repository": {
         "type": "git",
-        "url": "git@bitbucket.org:ebertti/jsynth.git"
+        "url": "git@github.com:tecweblab/mira.git"
     },
     
     "author": "Ezequiel Bertti",

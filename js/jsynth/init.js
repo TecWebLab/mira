@@ -1,17 +1,17 @@
 "use strict";
 
 define([
-    'jsynth/widgets/render',
-    'jsynth/base/init',
-    'jsynth/models/api',
-    'jsynth/models/selection',
-    'jsynth/models/abstract',
-    'jsynth/models/concrete',
-    'jsynth/models/map',
-    'jsynth/models/rule',
-    'jsynth/application',
-    'jsynth/interface',
-    'jsynth/helper'
+    'mira/widgets/render',
+    'mira/base/init',
+    'mira/models/api',
+    'mira/models/selection',
+    'mira/models/abstract',
+    'mira/models/concrete',
+    'mira/models/map',
+    'mira/models/rule',
+    'mira/application',
+    'mira/interface',
+    'mira/helper'
 ], function(
         Widget,
         Base,

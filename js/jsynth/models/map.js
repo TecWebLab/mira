@@ -2,9 +2,9 @@
 
 define([
     'underscore',
-    'jsynth/helper',
-    'jsynth/base/init',
-    'jsynth/widgets/render'
+    'mira/helper',
+    'mira/base/init',
+    'mira/widgets/render'
 ], function (_, Helper, Base, Render) {
 
     var Model = Base.Model.extend({

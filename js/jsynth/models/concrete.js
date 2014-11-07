@@ -2,8 +2,8 @@
 
 define([
     'underscore',
-    'jsynth/base/init',
-    'jsynth/models/map'
+    'mira/base/init',
+    'mira/models/map'
 ], function (_, Base, Map) {
 
     var Model = Base.Model.extend({

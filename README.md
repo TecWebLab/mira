@@ -1,4 +1,4 @@
-# Bem vindo ao JSynth
+# Bem vindo ao MIRA
 
 Este trabalho apresentará um framework baseado em padrões que permitirá a uma aplicação qualquer definir uma interface
 segundo o modelo de interfaces do SHDM. A funcionalidade da aplicação será ativada através de interfaces REST.

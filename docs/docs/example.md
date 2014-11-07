@@ -121,7 +121,7 @@ Para funcionar, ele precisa estar em um ambiente HTTPS.
         define([
             "jquery",
             "bootstrap",
-            'jsynth/init'
+            'mira/init'
         ], function ($, $bootstrap, Mira) {
 
             return function Google() {
@@ -329,7 +329,7 @@ Para funcionar, ele precisa estar em um ambiente HTTPS.
         define([
             "jquery",
             "bootstrap",
-            'jsynth/init'
+            'mira/init'
         ], function ($, $bootstrap, Mira) {
 
             return function GitHub() {
@@ -601,7 +601,7 @@ Para funcionar, ele precisa estar em um ambiente HTTPS.
         define([
             "jquery",
             "bootstrap",
-            'jsynth/init'
+            'mira/init'
         ], function ($, $bootstrap, Mira) {
 
             window.icons = icons;

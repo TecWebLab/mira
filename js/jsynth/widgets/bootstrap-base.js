@@ -3,8 +3,8 @@
 define([
     'jquery',
     'underscore',
-    'jsynth/helper',
-    'jsynth/widgets/simple-html'
+    'mira/helper',
+    'mira/widgets/simple-html'
 ], function ($, _, Helper, SimpleHtml) {
 
     var displays = ['xs', 'sm', 'md', 'lg', 'print'];

@@ -11,7 +11,7 @@ Baixe o repositório em uma pasta de sua preferência.
         fonts/
         imgs/
         js/
-           jsynth/   # modulos do framework
+           mira/   # modulos do framework
            libs/     # bibliotecas externas utizalidas
            config.js # o que da start na aplicação
            index.js  # módulo que iremos modificar
@@ -41,7 +41,7 @@ comando na pasta onde foi baixado:
     
 E pode rodar o seguinte comando para rodar sua aplicação:
 
-    node js/jsynth/server.js 
+    node js/mira/server.js
     
 Agora basta ir no navegador e acessar a URL:
 
@@ -81,7 +81,7 @@ para que o MIRA saiba que modelos utilizar para montar sua interface:
             // alem daquelas que são padrão do MIRA
             "jquery",
             "bootstrap",
-            "jsynth/init"
+            "mira/init"
         ], function Main($, $bootstrap, Mira) {
 
             return function MyApplication() {
@@ -139,7 +139,7 @@ Nesta pasta temos as imagens estáticas para a sua aplicação.
 
 Nesta pasta temos toda a estrutura de módulos do framework, dependência de bibliotecas externas e dos modelos da sua aplicação.
 
-### js/jsynth/
+### js/mira/
 
 Todos os módulos do framework, evite alterar arquivos nesta pasta.
 

@@ -54,7 +54,7 @@
             if ($data instanceof Backbone.Model) {
                 $data = $data.attributes;
             }
-            var rule = Gus.interface.rules.get_or_create(when);
+            var rule = mira.interface.rules.get_or_create(when);
             var ret = rule.evaluate($data, $env, $data);
             return ret
         },

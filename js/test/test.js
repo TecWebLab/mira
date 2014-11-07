@@ -9,7 +9,7 @@ requirejs.config({
         backbone: 'libs/backbone',
         backbone_query: 'libs/backbone.queryparams',
         backbone_querystring_shim: 'libs/backbone.queryparams-1.1-shim',
-        backbone_jsynth: 'libs/backbone.jsynth',
+        backbone_mira: 'libs/backbone.mira',
         underscore: 'libs/underscore',
         jquery: 'libs/jquery-2.1.0',
         "bootstrap": 'libs/bootstrap',
@@ -35,7 +35,7 @@ suite('Rule', function(){
         var ModelRule;
         setup(function(done){
             console.log(__filename);
-            requirejs(['jsynth/models/route'],
+            requirejs(['mira/models/route'],
                 function(mod) {
                     ModelRule = mod;
                     done();

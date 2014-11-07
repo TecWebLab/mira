@@ -4,7 +4,7 @@
     if (typeof define === 'function' && define.amd) {
         define([
             'underscore',
-            'jsynth/base/init'
+            'mira/base/init'
         ], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory(

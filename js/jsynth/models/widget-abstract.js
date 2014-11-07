@@ -4,9 +4,9 @@
     if (typeof define === 'function' && define.amd) {
         define([
             'underscore',
-            'jsynth/helper',
-            'jsynth/base/init',
-            'jsynth/models/api'
+            'mira/helper',
+            'mira/base/init',
+            'mira/models/api'
         ], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory(

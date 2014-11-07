@@ -22,7 +22,7 @@ Estrutura de arquivos
             rules.js
             selection.js
 
-            jsynth/
+            mira/
             libs/
 
 Exemplo do módulo da aplicação:
@@ -32,7 +32,7 @@ Exemplo do módulo da aplicação:
         define([
             "jquery",
             "bootstrap",
-            'jsynth/init',
+            'mira/init',
             'rules',
             'selection',
             'abstract',

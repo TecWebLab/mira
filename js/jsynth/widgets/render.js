@@ -1,27 +1,27 @@
 "use strict";
 
 define([
-    'jsynth/widgets/simple-html',
-    'jsynth/widgets/map',
-    'jsynth/widgets/input',
-    'jsynth/widgets/head',
-    'jsynth/widgets/meta',
-    'jsynth/widgets/title',
-    'jsynth/widgets/image-html',
-    'jsynth/widgets/bootstrap-base',
-    'jsynth/widgets/bootstrap-image-box',
-    'jsynth/widgets/bootstrap-navigation',
-    'jsynth/widgets/bootstrap-footer',
-    'jsynth/widgets/bootstrap-form',
-    'jsynth/widgets/profile',
-    'jsynth/widgets/freebase'
+    'mira/widgets/simple-html',
+    'mira/widgets/map',
+    'mira/widgets/input',
+    'mira/widgets/head',
+    'mira/widgets/meta',
+    'mira/widgets/title',
+    'mira/widgets/image-html',
+    'mira/widgets/bootstrap-base',
+    'mira/widgets/bootstrap-image-box',
+    'mira/widgets/bootstrap-navigation',
+    'mira/widgets/bootstrap-footer',
+    'mira/widgets/bootstrap-form',
+    'mira/widgets/profile',
+    'mira/widgets/freebase'
     ],function (SimpleHtml, Map, Input, Head, Meta, Title, ImageHtml,
                 BootstrapBase, BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
                 BootstrapForm, Profile, Freebase
     ) {
 
     var pathToWidget = function(name){
-        var root = 'jsynth/widgets/';
+        var root = 'mira/widgets/';
         var file = name.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();}).substring(1);
         return root + file;
     };

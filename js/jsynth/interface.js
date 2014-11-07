@@ -3,7 +3,7 @@
 define([
     'underscore',
     'jquery',
-    'jsynth/base/init'
+    'mira/base/init'
 ], function (_, $, Base) {
 
     return Base.View.extend({
