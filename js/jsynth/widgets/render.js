@@ -2,6 +2,7 @@
 
 define([
     'jsynth/widgets/simple-html',
+    'jsynth/widgets/map',
     'jsynth/widgets/input',
     'jsynth/widgets/head',
     'jsynth/widgets/meta',
@@ -14,7 +15,7 @@ define([
     'jsynth/widgets/bootstrap-form',
     'jsynth/widgets/profile',
     'jsynth/widgets/freebase'
-    ],function (SimpleHtml, Input, Head, Meta, Title, ImageHtml,
+    ],function (SimpleHtml, Map, Input, Head, Meta, Title, ImageHtml,
                 BootstrapBase, BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
                 BootstrapForm, Profile, Freebase
     ) {
@@ -26,6 +27,8 @@ define([
     };
     var widget = {
         SimpleHtml:SimpleHtml,
+        MapStatic:Map.Static,
+        MapDynamic:Map.Dynamic,
         Input:Input,
         Head: Head,
         Meta: Meta,

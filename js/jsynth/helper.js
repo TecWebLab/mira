@@ -18,7 +18,7 @@
         return /^[a-z_$][0-9a-z_$]*$/gi.test(string) && !KEYWORD_REGEXP.test(string);
     }
 
-    return {
+    var esse = {
         buildFunction: function (value, context) {
             var func;
             if (_.isString(value)) {
@@ -71,16 +71,24 @@
             }, extra);
         },
 
-        build_attributes: function(element, atrs, context){
-            _.each(atrs, function(value, atr){
-                var template = "<%= " + value + '%>';
+        build_object_with_context: function(attrs, context){
+            var ret = {};
+            _.each(attrs, function(value, attr){
+                var template = '<%= ' + value + '%>';
                 try {
                     var build = _.template(template, context);
-
-                    element.setAttribute(atr,  build)
+                    ret[attr] = build;
                 } catch (ex){
-                    element.setAttribute(atr,  value)
+                    ret[attr] = value;
                 }
+            });
+            return ret;
+        },
+
+        build_attributes: function(element, attrs, context){
+            var obj = esse.build_object_with_context(attrs, context);
+            _.each(obj, function(value, attr){
+                element.setAttribute(attr,  value);
             });
         },
 
@@ -164,5 +172,6 @@
                 })) + '}' : '{}'
             }
         }
-    }
+    };
+    return esse;
 }));
