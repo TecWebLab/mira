@@ -12,9 +12,13 @@ var app = optimist.argv.app;
 
 var Rule = require('./models/rule.js');
 var Selection = require('./models/selection.js');
-var Jsynth = require(app || '../index.js');
+var MiraApp = require(app || '../index.js');
 
-Jsynth.ajaxSetup.headers['User-Agent'] = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.3 Safari/537.36"
+// defaults
+MiraApp.ajaxSetup = MiraApp.ajaxSetup || {};
+MiraApp.ajaxSetup.headers = MiraApp.ajaxSetup.headers || {};
+MiraApp.ajaxSetup.headers['User-Agent'] = MiraApp.ajaxSetup.headers['User-Agent'] ||
+    "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.3 Safari/537.36";
 
 // start do servidor
 var server = express();
@@ -23,14 +27,14 @@ server.use(morgan());
 // criando servidor para arquivos estaticos
 server.use(express.static(path.normalize(__dirname + '/../..'),  { maxAge: 60 * 60 * 1000 }));
 
-var rules = new Rule.Collection(Jsynth.rules, {parse:true});
-var selection = new Selection.Collection(Jsynth.selection, {parse:true});
+var rules = new Rule.Collection(MiraApp.rules, {parse:true});
+var selection = new Selection.Collection(MiraApp.selection, {parse:true});
 
 server.route('/server.js').all(function(req, res, next){
     var options = _.extend({
         json: true,
         url: req.param('URI')
-    }, Jsynth.ajaxSetup || {});
+    }, MiraApp.ajaxSetup || {});
 
     request(options, function (error, response, body) {
         var abstract_select = null;
