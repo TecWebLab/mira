@@ -14,6 +14,9 @@ define([
     var ignored_options = _.union(displays, raw_types);
 
     var as_array = function(val, each_callback){
+        if(_.isBoolean(val)){
+            val = [val];
+        }
         if(!_.isArray(val)){
             val = _.invoke(val.split(','), 'trim')
         }
@@ -30,7 +33,7 @@ define([
             if(options[size] != undefined){
 
                 as_array(options[size], function(val){
-                    if(_.has(visible_types, val)){
+                    if(_.contains(visible_types, val)){
                         classes.push('visible-' + size + '-' + val);
                     } else if(_.isNumber(val) || _.isString(val)){
                         classes.push('col-' + size + '-' + val);
@@ -46,7 +49,7 @@ define([
         _.each(raw_types, function(type){
             if(options[type] != undefined){
                 as_array(options[type], function(val){
-                    classes.push(type + '-' + options[type]);
+                    classes.push(type + '-' + val);
                 });
             }
         });
