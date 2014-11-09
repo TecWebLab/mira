@@ -7,6 +7,8 @@ var path = require('path');
 var morgan = require('morgan');
 var request = require('request');
 var optimist = require('optimist');
+var fs = require('fs');
+
 
 var app = optimist.argv.app;
 
@@ -53,7 +55,31 @@ server.route('/server.js').all(function(req, res, next){
     });
 });
 
-var fs = require('fs');
+server.get('/api/:folder', function (req, res, next) {
+    var folder = req.params.folder;
+    var file_path = path.normalize(__dirname + '/../..') + '/data/' + folder + '/list.json';
+    var file;
+    fs.readFile(file_path, 'utf8', function (err, data) {
+        if (err) throw err;
+        file = JSON.parse(data);
+        res.json(file);
+    });
+});
+
+
+server.get('/api/:folder/:id', function (req, res, next) {
+    var folder = req.params.folder;
+    var id = req.params.id;
+    var file_path = path.normalize(__dirname + '/../..') + '/data/' + folder + '/' + id + '.json';
+    var file;
+    fs.readFile(file_path, 'utf8', function (err, data) {
+        if (err) throw err;
+        file = JSON.parse(data);
+        res.json(file);
+    });
+});
+
+
 var http = require('http');
 var httpServer = http.createServer(server);
 httpServer.listen(80);

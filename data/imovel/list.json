@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "tipo": "Aluguel",
+    "nome": "Imóvel aluguel",
+    "bairro": "Botafogo"
+  },
+  {
+    "id": 2,
+    "tipo": "Lançamento",
+    "nome": "Imóvel aluguel",
+    "bairro": "Ipanema"
+  },
+  {
+    "id": 3,
+    "tipo": "Venda",
+    "nome": "Imóvel aluguel",
+    "bairro": "Flamengo"
+  },
+  {
+    "id": 4,
+    "tipo": "Aluguel",
+    "nome": "Imóvel aluguel",
+    "bairro": "Lapa"
+  },
+  {
+    "id": 5,
+    "tipo": "Aluguel",
+    "nome": "Imóvel aluguel",
+    "bairro": "Copacabana"
+  },
+  {
+    "id": 6,
+    "tipo": "Venda",
+    "nome": "Imóvel aluguel",
+    "bairro": "Gávea"
+  }
+]
