@@ -8,31 +8,31 @@
   {
     "id": 2,
     "tipo": "Lançamento",
-    "nome": "Imóvel aluguel",
+    "nome": "Imóvel Lançamento",
     "bairro": "Ipanema"
   },
   {
     "id": 3,
     "tipo": "Venda",
-    "nome": "Imóvel aluguel",
+    "nome": "Venda de Apartamento",
     "bairro": "Flamengo"
   },
   {
     "id": 4,
     "tipo": "Aluguel",
-    "nome": "Imóvel aluguel",
+    "nome": "Imóvel de Casa",
     "bairro": "Lapa"
   },
   {
     "id": 5,
     "tipo": "Aluguel",
-    "nome": "Imóvel aluguel",
+    "nome": "Imóvel Kitnet",
     "bairro": "Copacabana"
   },
   {
     "id": 6,
     "tipo": "Venda",
-    "nome": "Imóvel aluguel",
+    "nome": "Terreno a Venda",
     "bairro": "Gávea"
   }
 ]

@@ -3,7 +3,9 @@
 var exemplos = [
     {name: "Freebase", href:"/?app=example/freebase"},
     {name: "Google", href:"/?app=example/google"},
-    {name: "Github", href:"/?app=example/github"}
+    {name: "Github", href:"/?app=example/github"},
+    {name: "Imobiliária", href:"/?app=example/imovel"},
+    {name: "Futebol", href:"/?app=example/futebol"}
 ];
 
 var rules = [];

@@ -9,7 +9,7 @@ define([
 
     var displays = ['xs', 'sm', 'md', 'lg', 'print'];
     var visible_types = ['block', 'inline', 'inline-block'];
-    var raw_types = ['img', 'text', 'bg', 'pull', 'list', 'dl', 'table', 'form', 'btn', 'input', 'sr', 'has'];
+    var raw_types = ['img', 'text', 'bg', 'pull', 'list', 'dl', 'table', 'form', 'btn', 'input', 'sr', 'has', 'alert'];
 
     var ignored_options = _.union(displays, raw_types);
 
@@ -56,6 +56,10 @@ define([
 
         if(options.btn){
             classes.push('btn');
+        }
+
+        if(options.alert){
+            classes.push('alert');
         }
 
         if(suffix_classes) {
