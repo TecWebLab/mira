@@ -13,7 +13,7 @@ da aplicação.
 
 ## Regras
 
-O projetista tem a possibilidade de centralizar as regras que serão utilizadas posteriormente pela aplicação.
+O projetista tem a possibilidade de centralizar as regras que serão utilizadas posteriormente para a construção da interface da aplicação.
 
     var rules = [{
         name: 'isUser',
