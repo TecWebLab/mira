@@ -16,7 +16,7 @@ var rules = [{
 
 var selection = [
     {
-        when: 'isMovel',
+        when: 'isImovel',
         abstract: 'imovel'
     }
 ];
@@ -35,48 +35,45 @@ var interface_abstracts = [
                 }
             ]}
         ]
-    },{
-        name:'not_found',
-        widgets : [
-            {'header': ['logo', {'search_form':{'search_group' : ['search_field', 'search_button']}}]},
-            {'content': 'warning'},
-            {'footer': ['footer-content']}
-        ]
-    },{
+    }, {
         name: 'imovel',
-        widgets : [
-            {'header': ['logo', {'search_form':{'search_group' : ['search_field', 'search_button']}}]},
-            {'content': [
-                {'meta': ['meta_type', {'meta_name': {'meta_legend' : ['meta_id', 'meta_creator', 'meta_timestamp']}},
-                    {name: 'image_group', datasource:'$data.property["/common/topic/image"].values', children:['image'], when:'$data.property["/common/topic/image"] != null'}
-                ]},
-                { name: "results", datasource: "_.pairs(_.groupBy(_.pairs($data.property), function(i){ return i[0].split('/')[1]} ))",
-                    children: [
-                        {'result_group_panel': [
-                            'result_group_name',
-                            {name: 'result_group', datasource: '$data[1]',
-                                children: [{name: 'result_panel',
-                                    children: [{'result_item': {'result_link': ['result_icon', 'result_title', 'result_details']}}]
-                                }]
-                            }]}
-                    ]}
-            ]},
-            {'footer': ['footer-content']}
+        widgets: [
+            { name: 'carousel', datasource: '$data.fotos', children: ['carousel_item'] },
+            {
+                'content': [
+                    'nome',
+                    {
+
+                        'detalhes':[{'row' : [{
+                            'localizacao_box': ['localizacao_title',
+                                {name: 'localizacao_lista', datasource: '$data.localizacao', children: 'localizacao_item'}]
+                        }, {
+                            'negociacao_box': ['negociacao_title',
+                                {name: 'negociacao_lista', datasource: '$data.venda', children: 'negociacao_item', when: 'isVenda'},
+                                {name: 'negociacao_lista', datasource: '$data.lancamento', children: 'negociacao_item', when: 'isLancamento'},
+                                {name: 'negociacao_lista', datasource: '$data.aluguel', children: 'negociacao_item', when: 'isAluguel'}
+                            ]
+                        }]}, 'descricao_title', 'descricao'
+                        ]
+                    },
+                    {'mapa_box': 'mapa'}
+                ]
+            }
         ]
     }
-
 ];
 
-var head = [
+var GeralHead = [
     {name: 'main_css', widget:'Head', href:'css/bootstrap.css', tag: 'style'},
-    {name: 'viewport', widget:'Meta', content:'width=device-width, initial-scale=1'},
-    {name: 'title', widget:'Title', value: '"Imovel"'}
+    {name: 'viewport', widget:'Meta', content:'width=device-width, initial-scale=1'}
 ];
 
 var concrete_interface = [
     {
         name: 'landing',
-        head: head,
+        head: GeralHead.concat([
+            {name: 'title', widget:'Title', value: '"Imovel"'}
+        ]),
         maps: [
 
         { name: 'container', widget: 'SimpleHtml', tag:'div', class:'container' },
@@ -95,27 +92,36 @@ var concrete_interface = [
 
     ]},{
         name: 'imovel',
-        head:head,
+        head:GeralHead.concat([
+            {name: 'title', widget:'Title', value: '"Imovel | " + $data.tipo  + " | " + $data.nome'}
+        ]),
         maps: [
-        { name: 'header', widget: 'SimpleHtml', tag:'div', class:'container-fluid text-center fundo' },
-        { name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
+            { name: 'carousel', widget: 'BootstrapCarousel' },
+            { name: 'carousel_item', widget: 'BootstrapCarouselItem', value:'$data.desktop', when:'$env.device.desktop == true' },
+            { name: 'carousel_item', widget: 'BootstrapCarouselItem', value:'$data.mobile', when:'$env.device.mobile == true' },
+            { name: 'carousel_item', widget: 'BootstrapCarouselItem', value:'$data.tablet', when:'$env.device.tablet == true' },
 
-        { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
-        { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
-        { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
-        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
+            { name: 'content', widget: 'BootstrapSimple', class:'container' },
+            { name: 'nome', widget: 'BootstrapSimple', tag:'h1', text:'center', value:'$data.nome' },
+            { name: 'row', widget: 'BootstrapSimple', class:'row' },
+            { name: 'detalhes', widget: 'BootstrapSimple', md:'8' },
+            { name: 'localizacao_box', widget: 'BootstrapSimple', md:'6' },
+            { name: 'localizacao_title', widget: 'BootstrapSimple', tag:'h3', value:'"Localização"' },
+            { name: 'localizacao_lista', widget: 'BootstrapSimple', tag:'ul' },
+            { name: 'localizacao_item', widget: 'BootstrapSimple', tag:'li', value:'$data.item'},
+            { name: 'negociacao_box', widget: 'BootstrapSimple', md:'6' },
+            { name: 'negociacao_title', widget: 'BootstrapSimple', tag:'h3', value:'"Formas de Pagamento"', when:'isVenda' },
+            { name: 'negociacao_title', widget: 'BootstrapSimple', tag:'h3', value:'"Contrato de Locação"', when:'isAluguel' },
+            { name: 'negociacao_title', widget: 'BootstrapSimple', tag:'h3', value:'"Lançamento"', when:'isLancamento' },
+            { name: 'negociacao_lista', widget: 'BootstrapSimple', tag:'ul' },
+            { name: 'negociacao_item', widget: 'BootstrapSimple', tag:'li', value:'$data.item' },
+            { name: 'descricao_title', widget: "BootstrapSimple", tag:'h3', value:'"Descricao"'},
+            { name: 'descricao', widget: "BootstrapSimple", tag:'p', value:'$data.descricao'},
+            { name: 'mapa_box', widget: "BootstrapSimple", md:'4'},
+            { name: 'mapa', widget:'MapStatic', value:'$data.bairro', class:'thumbnail' },
+            { name: 'mapa', widget: "MapDynamic", address:'$data.bairro', options:{ zoom:13}, when:'$env.device.desktop == true'}
 
-        { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
-        { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
-        { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
-        { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'item well' },
-        { name: 'result_link', widget: 'SimpleHtml', tag:'a', href:'navigate("https://www.googleapis.com/freebase/v1/topic" + $data.id)' },
-        { name: 'result_icon', widget: 'BootstrapIcon', when:'hasIcon', class:'pull-left', icon:'icons[$data.notable.name]' },
-        { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'$data.name' },
-        { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data.notable.name', when:'hasType' },
 
-        { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
-        { name: 'footer-content', widget: 'BootstrapFooter' }
     ]}
 ];
 

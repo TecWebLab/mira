@@ -4,18 +4,28 @@
   "nome": "Imóvel aluguel",
   "bairro": "Botafogo",
   "fotos": [
-    {"src" : "http://www.chales-chales.com.br/wp-content/uploads/2012/04/Chal%C3%A9s-A-Vila-do-Pirata-Prado-BA-300x225.jpg"},
-    {"src" : "http://blog.uso.com.br/wp-content/uploads/2014/01/blog.jpg"},
-    {"src" : "http://www.produzindo.net/wp-content/uploads/2014/02/aluguel1.jpg"}
+    {
+      "desktop" : "http://placehold.it/1980x600/f1f1f1/ff0000",
+      "tablet" : "http://placehold.it/1024x400/f1f1f1/ff0000",
+      "mobile" : "http://placehold.it/600x300/f1f1f1/ff0000"
+    },{
+      "desktop" : "http://placehold.it/1980x600/fafafa/00ff00",
+      "tablet" : "http://placehold.it/1024x400/fafafa/00ff00",
+      "mobile" : "http://placehold.it/600x300/fafafa/00ff00"
+    },{
+      "desktop" : "http://placehold.it/1980x600/f1f1f1/ffff00",
+      "tablet" : "http://placehold.it/1024x400/f1f1f1/ffff00",
+      "mobile" : "http://placehold.it/600x300/f1f1f1/ffff00"
+    }
   ],
   "localizacao": [
-    "Rio de Janeiro",
-    "Zona Sul",
-    "Botafogo"
+    {"item": "Rio de Janeiro"},
+    {"item": "Zona Sul"},
+    {"item": "Botafogo"}
   ],
-  "contrato": [
-    "30 meses",
-    "Aceita"
+  "aluguel": [
+    {"item": "30 meses"},
+    {"item": "Aceita"}
   ],
   "descricao": "Echo park banh mi gentrify organic art party leggings, put a bird on it american apparel marfa lo-fi readymade. Single-origin coffee marfa gluten-free, VHS sustainable salvia beard craft beer williamsburg. Vinyl four loko cred, seitan art party homo readymade fixie squid messenger bag lo-fi yr. Mixtape cardigan next level, bicycle rights sustainable beard VHS aesthetic cosby sweater. Homo bicycle rights iphone, lo-fi shoreditch sustainable put a bird on it vinyl. Twee pitchfork marfa etsy stumptown. Wayfarers cosby sweater 3 wolf moon gentrify organic fap quinoa four loko gluten-free, butcher ethical readymade seitan."
 }
