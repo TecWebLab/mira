@@ -1,0 +1,36 @@
+{
+  "id": 5,
+  "nome": "Time P",
+  "ponto": 1,
+  "estado": "Amazonas",
+  "sede": "Manaus, AM",
+  "jogos": [
+    {
+      "campeonato": "brasileiro",
+      "gols_favor": "2",
+      "gols_contra": "2",
+      "local": "casa",
+      "contra_id": 2,
+      "contra": "Time Y",
+      "ponto": 1
+    },{
+      "campeonato": "copadobrasil",
+      "gols_favor": "2",
+      "gols_contra": "2",
+      "local": "visitante",
+      "penaltis_favor": "3",
+      "penaltis_contra": "2",
+      "contra_id": 3,
+      "contra": "Time K",
+      "ponto": 3
+    },{
+      "campeonato": "copadobrasil",
+      "gols_favor": "2",
+      "gols_contra": "2",
+      "local": "visitante",
+      "contra_id": 4,
+      "contra": "Time M",
+      "ponto": 0
+    }
+  ]
+}

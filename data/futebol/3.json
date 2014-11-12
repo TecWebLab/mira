@@ -1,0 +1,36 @@
+{
+  "id": 3,
+  "nome": "Time H",
+  "ponto": 3,
+  "estado": "Rio Grande do Sul",
+  "sede": "Caxias do Sul, RS",
+  "jogos": [
+    {
+      "campeonato": "libertadores",
+      "gols_favor": "1",
+      "gols_contra": "1",
+      "penaltis_favor": "3",
+      "penaltis_contra": "2",
+      "local": "casa",
+      "contra_id": 2,
+      "contra": "Time Y",
+      "ponto": 3
+    },{
+      "campeonato": "brasileiro",
+      "gols_favor": "1",
+      "gols_contra": "2",
+      "local": "visitante",
+      "contra_id": 3,
+      "contra": "Time K",
+      "ponto": 0
+    },{
+      "campeonato": "copadobrasil",
+      "gols_favor": "2",
+      "gols_contra": "2",
+      "local": "visitante",
+      "contra_id": 4,
+      "contra": "Time M",
+      "ponto": 1
+    }
+  ]
+}
