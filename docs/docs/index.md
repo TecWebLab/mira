@@ -15,7 +15,7 @@ com suas definições e adaptando-a para diversos ambiente e dispositivos.
 ![Sequencia de execução](img/sequencia.jpg)
 
 A partir das URIs informadas na navegação da aplicação, o MIRA fará uma requisição para a URI, selecionará a
-interface abstrata, interface concrete e montara a estrutura de widgets abstratos e mapeará os widgets concretos para
+interface abstrata, interface concrete e montará a estrutura de widgets abstratos e mapeará os widgets concretos para
 exibir as informações para o usuário. Veja o passo a passo de uma navegação para um URI de uma API REST.
 
 ### Passo a passo de navegação

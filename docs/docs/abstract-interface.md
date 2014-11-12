@@ -134,18 +134,6 @@ Apenas os dados da propriedade `items` do dado retornado pelo `datasource` serã
         {"name": "Puc-Rio"}
     ]
     
-### cache
-
-*Default: true*
-
-Informar se o framework deve ou não fazer cache do `datasource`, caso ele seja externo.
-
-### expires 
-
-*Default: 3600000 // 1 hora*
-
-Informa o tempo que o cache deve durar
-
 ### children
 
 *Opcional*
