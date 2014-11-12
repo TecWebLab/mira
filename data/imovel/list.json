@@ -3,36 +3,36 @@
     "id": 1,
     "tipo": "Aluguel",
     "nome": "Imóvel aluguel",
-    "bairro": "Botafogo"
+    "bairro": "Botafogo, RJ"
   },
   {
     "id": 2,
     "tipo": "Lançamento",
-    "nome": "Imóvel Lançamento",
-    "bairro": "Ipanema"
+    "nome": "Lançamento - Apto com 2 suites",
+    "bairro": "Ipanema, RJ"
   },
   {
     "id": 3,
     "tipo": "Venda",
     "nome": "Venda de Apartamento",
-    "bairro": "Flamengo"
+    "bairro": "Flamengo, RJ"
   },
   {
     "id": 4,
     "tipo": "Aluguel",
     "nome": "Imóvel de Casa",
-    "bairro": "Lapa"
+    "bairro": "Lapa, RJ"
   },
   {
     "id": 5,
     "tipo": "Aluguel",
-    "nome": "Imóvel Kitnet",
-    "bairro": "Copacabana"
+    "nome": "Super kitnet em Copacabana",
+    "bairro": "Copacabana, RJ"
   },
   {
     "id": 6,
     "tipo": "Venda",
     "nome": "Terreno a Venda",
-    "bairro": "Gávea"
+    "bairro": "Gávea, RJ"
   }
 ]

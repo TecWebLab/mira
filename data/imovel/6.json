@@ -1,8 +1,8 @@
 {
-  "id": 1,
-  "tipo": "Aluguel",
-  "nome": "Imóvel aluguel",
-  "bairro": "Botafogo",
+  "id": 6,
+  "tipo": "Venda",
+  "nome": "Terreno a venda",
+  "bairro": "Gavea, RJ",
   "fotos": [
     {
       "desktop" : "http://placehold.it/1980x600/f1f1f1/ff0000",
@@ -21,11 +21,11 @@
   "localizacao": [
     {"item": "Rio de Janeiro"},
     {"item": "Zona Sul"},
-    {"item": "Botafogo"}
+    {"item": "Gavea"}
   ],
-  "aluguel": [
-    {"item": "30 meses"},
-    {"item": "Somente com seguro"}
+  "venda": [
+    {"item": "A Vista"},
+    {"item": "Unico Dono"}
   ],
   "descricao": "Echo park banh mi gentrify organic art party leggings, put a bird on it american apparel marfa lo-fi readymade. Single-origin coffee marfa gluten-free, VHS sustainable salvia beard craft beer williamsburg. Vinyl four loko cred, seitan art party homo readymade fixie squid messenger bag lo-fi yr. Mixtape cardigan next level, bicycle rights sustainable beard VHS aesthetic cosby sweater. Homo bicycle rights iphone, lo-fi shoreditch sustainable put a bird on it vinyl. Twee pitchfork marfa etsy stumptown. Wayfarers cosby sweater 3 wolf moon gentrify organic fap quinoa four loko gluten-free, butcher ethical readymade seitan."
 }
