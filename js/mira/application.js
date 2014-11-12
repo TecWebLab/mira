@@ -40,6 +40,7 @@ define([
         },
 
         selected: function(abstract_name, concrete_name, $data, $env){
+            $env.$data = $data;
             var abstract = this.interface.abstracts.get(abstract_name);
             var concrete = this.interface.concrets.get(concrete_name);
             abstract.handle(concrete, $data, $env);

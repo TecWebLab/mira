@@ -64,6 +64,10 @@
                     var itemWidget = this.get('children').at(0);
                     this.requestData($data, $env, function(collection){
                         collection.each(function(m){
+                            if($data) {
+                                m.$parente_data = $data;
+                                m.set('$parent_data', $data.attributes);
+                            }
                             var retSubview = itemWidget.getHtml(ret.$children, concrete, m, $env);
                             if(retSubview) {
                                 var subview = esse.buildView(retSubview.$el);
