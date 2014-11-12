@@ -54,8 +54,17 @@
             if ($data instanceof Backbone.Model) {
                 $data = $data.attributes;
             }
-            var rule = mira.interface.rules.get_or_create(when);
-            var ret = rule.evaluate($data, $env, $data);
+            var array_when;
+            if(_.isString(when)) {
+                array_when = when.split(',');
+            } else {
+                array_when = [when];
+            }
+            var ret = true;
+            _.each(array_when, function(w){
+                var rule = mira.interface.rules.get_or_create(w);
+                    ret = ret && rule.evaluate($data, $env, $data);
+            });
             return ret
         },
 
