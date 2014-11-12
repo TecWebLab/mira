@@ -54,7 +54,11 @@ var interface_abstracts = [
                         ['jogos_title',
                             {name:'jogos_lista', datasource:'$data.jogos', children:[
                                 {'item_box':[
-                                    'placar',
+                                    {'placar':[,
+                                            {name: 'adversario', when:'Visitante'},
+                                            'placar_texto',
+                                            {name: 'adversario', when:'Casa'}
+                                        ]},
                                     'penaltis'
                                 ]}
                             ]}
@@ -101,7 +105,7 @@ var concrete_interface = [
         maps: [
 
             { name: 'display', widget: 'SimpleHtml', tag:'div', class:'container jumbotron' },
-            { name: 'nome', widget: 'BootstrapSimple', tag:'h1', text:'center', value:'$data.nome' },
+            { name: 'nome', widget: 'BootstrapSimple', tag:'h1', text:'center,info', value:'$data.nome' },
 
             { name: 'content', widget: 'BootstrapSimple', class:'container' },
             { name: 'jogos_box', widget: 'BootstrapSimple', md:'8' },
@@ -112,13 +116,14 @@ var concrete_interface = [
             { name: 'item_box', widget: 'BootstrapSimple', text:'center', alert:'success', when:'Venceu' },
             { name: 'item_box', widget: 'BootstrapSimple', text:'center', alert:'danger', when:'Perdeu' },
 
-            { name: 'placar', widget:'BootstrapSimple', tag:'h4', value:'$env.$data.nome + " " + $data.gols_favor + " X " + $data.gols_contra', when:'Casa'},
+            { name: 'placar', widget:'BootstrapSimple', tag:'h4'},
+            { name: 'placar_texto', widget:'BootstrapSimple', tag:'span', value:'" " + $data.gols_contra + " X " + $data.gols_favor + " " + $env.$data.nome', when:'Visitante'},
+            { name: 'placar_texto', widget:'BootstrapSimple', tag:'span', value:'$env.$data.nome + " " + $data.gols_favor + " X " + $data.gols_contra + " "', when:'Casa'},
+
+            { name: 'penaltis', widget:'BootstrapSimple', tag:'p', value:'$data.penaltis_contra + " X " + $data.penaltis_favor', when:'Penaltis,Visitante'},
             { name: 'penaltis', widget:'BootstrapSimple', tag:'p', value:'$data.penaltis_favor + " X " + $data.penaltis_contra', when:'Penaltis,Casa'},
 
-            { name: 'placar', widget:'BootstrapSimple', tag:'h4', value:'$data.gols_contra + " X " + $env.$data.nome + " " + $data.gols_favor', when:'Visitante'},
-            { name: 'penaltis', widget:'BootstrapSimple', tag:'p', value:'$data.penaltis_contra + " X " + $data.penaltis_favor', when:'Penaltis,Visitante'},
-
-            { name: 'adversario', widget:'BootstrapSimple', value:'$data.contra', href:'navigate("/api/futebol/" + $data.id)' },
+            { name: 'adversario', widget:'BootstrapSimple', tag:'a', value:'$data.contra', href:'navigate("/api/futebol/" + $data.contra_id)' },
 
             { name: 'mapa_box', widget:'BootstrapSimple', md:"4"},
             { name: 'mapa', widget:'MapStatic', value:'$data.sede', class:'thumbnail' },
