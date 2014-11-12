@@ -6,9 +6,8 @@ define([
     'modernizr',
     'device',
     'backbone_query', // plugin - apenas extendendo - n usar a classe
-    'backbone_cache', // plugin - apenas extendendo - n usar a classe
     'string-format' // plugin - apenas extendendo - n usar a classe
-], function(_, Backbone, Modernizr, Device, BackboneQuery, BackboneCache, StringFormat){
+], function(_, Backbone, Modernizr, Device, BackboneQuery, StringFormat){
 
     var Mira = null;
 
