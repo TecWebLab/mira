@@ -1,10 +1,8 @@
 {
   "id": 1,
   "nome": "Time J",
-  "brasileiro": 8,
-  "copadobrasil": "nao",
-  "libertadores": "perdeu",
-  "sulamericano": "nao",
+  "ponto": 0,
+  "estado": "Rio de Janeiro",
   "sede": "Ipanena, RJ",
   "jogos": [
     {
@@ -13,17 +11,26 @@
       "gols_contra": "1",
       "local": "casa",
       "contra_id": 2,
-      "contra": "Time Y"
-    },
-    {
+      "contra": "Time Y",
+      "ponto": 3
+    },{
+      "campeonato": "brasileiro",
+      "gols_favor": "1",
+      "gols_contra": "2",
+      "local": "visitante",
+      "contra_id": 3,
+      "contra": "Time K",
+      "ponto": 0
+    },{
       "campeonato": "copadobrasil",
       "gols_favor": "2",
       "gols_contra": "2",
       "penaltis_favor": "5",
       "penaltis_contra": "3",
-      "local": "casa",
-      "contra_id": 2,
-      "contra": "Time Y"
+      "local": "visitante",
+      "contra_id": 4,
+      "contra": "Time M",
+      "ponto": 3
     }
   ]
 }

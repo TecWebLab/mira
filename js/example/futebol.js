@@ -1,59 +1,32 @@
 "use strict";
 
 var rules = [{
-        name: 'isResult',
-        validate: '$data.result != null'
-    },{
-        name: 'hasName',
-        validate: '$data.name != ""'
-    },{
-        name: 'hasType',
-        validate: '$data.notable != null && $data.notable.name != ""'
-    },{
-        name: 'hasIcon',
-        validate: '$data.notable != null && $data.notable.name != "" && icons[$data.notable.name] != undefined'
-    },{
-        name: 'isSecure',
-        validate: '$env.request.protocol == "https:"'
-    },{
-        name: 'isTopicDesktopOrTablet',
-        validate: '$data.property != null && ($env.device.desktop || $env.device.tablet)'
-    },{
-        name: 'isTopicMobile',
-        validate: '$data.property != null && !($env.device.desktop || $env.device.tablet)'
-    },{
-        name: 'isProperty',
-        validate: '_.keys($data.property).length == 1'
-    }
-];
-
-var icons = {
-    'College/University': 'book',
-    'Field of study': 'book',
-    'Book': 'book',
-    'Musical Artist': 'headphones',
-    'Musical Recording': 'headphones',
-    'Brazilian state': 'globe',
-    'Film festival event': 'video',
-    'Neighborhood': 'envelope',
-    'Location': 'home',
-    'Software': 'cog',
-    'Airport': 'plane',
-    'Holiday': 'calendar'
-};
+    name: 'Venceu',
+    validate: '$data.ponto == 3'
+},{
+    name: 'Empatou',
+    validate: '$data.ponto == 1'
+},{
+    name: 'Perdeu',
+    validate: '$data.ponto == 0'
+},{
+    name: 'Penaltis',
+    validate: '$data.penaltis_favor != null && $data.penaltis_contra != null'
+},{
+    name: 'Visitante',
+    validate: '$data.local == "visitante"'
+},{
+    name: 'Casa',
+    validate: '$data.local == "casa"'
+},{
+    name:'isTime',
+    validate: '$data.id != null'
+}];
 
 var selection = [
     {
-        when: 'isResult',
-        abstract: 'results'
-    },{
-        when: 'isTopicDesktopOrTablet',
-        abstract: 'topicComplete',
-        concrete: 'topicComplete'
-    },{
-        when: 'isTopicMobile',
-        abstract: 'topicMobile',
-        concrete: 'topic'
+        when: 'isTime',
+        abstract: 'time'
     }
 ];
 
@@ -61,205 +34,113 @@ var interface_abstracts = [
     {
         name:'landing',
         widgets : [
-            {'header': ['logo', {'search_form':{'search_group' : ['search_field', 'search_button']}}]},
-            {'footer': ['footer-content']}
+            {'container':[
+                {'head': 'title'},
+                {'content': {name: 'items', datasource:'url:<%= "/api/futebol" %>', children:[
+                    {'item':
+                    {'tipo': { 'link': ['nome', 'estado']}}
+                    }
+                ]}
+                }
+            ]}
         ]
-    },{
-        name:'not_found',
-        widgets : [
-            {'header': ['logo', {'search_form':{'search_group' : ['search_field', 'search_button']}}]},
-            {'content': 'warning'},
-            {'footer': ['footer-content']}
-        ]
-    },{
-        name: 'results',
-        widgets : [
-            {'header': ['logo', {'search_form':{'search_group' : ['search_field', 'search_button']}}]},
-            {'content': [
-                { name: "results", datasource: "$data.result",
-                children: [
-                    {name: 'result_panel', when:'hasName', children: {'result_item': {'result_link': ['result_icon', 'result_title', 'result_details']}}
-                }]}
-            ]},
-            {'footer': ['footer-content']}
-        ]
-    },{
-        name: 'topicComplete',
-        widgets : [
-            {'header': ['logo', {'search_form':{'search_group' : ['search_field', 'search_button']}}]},
-            {'content': [
-                {'meta': ['meta_type', {'meta_name': {'meta_legend' : ['meta_id', 'meta_creator', 'meta_timestamp']}},
-                    {name: 'image_group', datasource:'$data.property["/common/topic/image"].values', children:['image'], when:'$data.property["/common/topic/image"] != null'}
-                ]},
-                { name: "results", datasource: "_.pairs(_.groupBy(_.pairs($data.property), function(i){ return i[0].split('/')[1]} ))",
-                    children: [
-                        {'result_group_panel': [
-                            'result_group_name',
-                            {name: 'result_group', datasource: '$data[1]',
-                                children: [{name: 'result_panel',
-                                    children: [{'result_item': {'result_link': ['result_icon', 'result_title', 'result_details']}}]
-                                }]
-                            }]}
-                    ]}
-            ]},
-            {'footer': ['footer-content']}
+    }, {
+        name: 'time',
+        widgets: [
+            { 'display': 'nome' },
+            {
+                'content': [
+                    {'jogos_box' :
+                        ['jogos_title',
+                            {name:'jogos_lista', datasource:'$data.jogos', children:[
+                                {'item_box':[
+                                    'placar',
+                                    'penaltis'
+                                ]}
+                            ]}
+                    ]},
+                    {'mapa_box': 'mapa'}
+                ]
+            }
         ]
     }
-
 ];
 
-var head = [
+var GeralHead = [
     {name: 'main_css', widget:'Head', href:'css/bootstrap.css', tag: 'style'},
-    {name: 'secondary_css', widget:'Head', href:'css/freebase.css', tag: 'style'},
-    {name: 'viewport', widget:'Meta', content:'width=device-width, initial-scale=1'},
-    {name: 'title', widget:'Title', value: '"FreeBase"'}
+    {name: 'viewport', widget:'Meta', content:'width=device-width, initial-scale=1'}
 ];
 
 var concrete_interface = [
     {
         name: 'landing',
-        head: head,
+        head: GeralHead.concat([
+            {name: 'title', widget:'Title', value: '"Imovel"'}
+        ]),
         maps: [
 
-        { name: 'header', widget: 'SimpleHtml', tag:'div', class:'container-fluid text-center fundo' },
-        { name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
+            { name: 'container', widget: 'SimpleHtml', tag:'div', class:'container' },
+            { name: 'head', widget: 'SimpleHtml', tag:'div', class:'jumbotron' },
+            { name: 'title', widget: 'BootstrapSimple', tag:'h1', text:'center', value:'"Futebol"' },
 
-        { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
-        { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
-        { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
-        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
+            { name: 'content', widget: 'BootstrapSimple', class:'row', md:'10,offset-1' },
+            { name: 'items', widget: 'BootstrapSimple' },
+            { name: 'item', widget: 'BootstrapSimple', md:'6'},
+            { name: 'tipo', widget: 'BootstrapSimple', class:'panel-body', alert:'warning', when:'Empatou' },
+            { name: 'tipo', widget: 'BootstrapSimple', class:'panel-body', alert:'success', when:'Venceu' },
+            { name: 'tipo', widget: 'BootstrapSimple', class:'panel-body', alert:'danger', when:'Perdeu' },
+            { name: 'link', widget: 'BootstrapSimple', tag:'a', href:'navigate("/api/futebol/" + $data.id)' },
+            { name: 'nome', widget: 'BootstrapSimple', tag:'p', class:'lead', text:'center',  value:'$data.nome' },
+            { name: 'estado', widget: 'BootstrapSimple', tag:'p', text:'center', value:'$data.estado'}
 
-        { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
-        { name: 'footer-content', widget: 'BootstrapFooter' }
-    ]},{
-        name: 'not_found',
-        head: head,
-        maps: [
-        { name: 'header', widget: 'SimpleHtml', tag:'div', class:'container-fluid text-center fundo' },
-        { name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
-
-        { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
-        { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
-        { name: 'search_field', widget: 'Input', tag:'input', class:'form-control input-lg', value:'busca', placeholder:'"Escreve o que deseja buscar"' },
-        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
-
-        { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
-        { name: 'warning', widget: 'SimpleHtml', tag:'div', class:'alert alert-warning', value:'"Pagina nao encontrada"' },
-
-        { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
-        { name: 'footer-content', widget: 'BootstrapFooter' }
-    ]},{
-        name: 'results',
-        head:head,
-        maps: [
-        { name: 'header', widget: 'SimpleHtml', tag:'div', class:'container-fluid text-center fundo' },
-        { name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
-
-        { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
-        { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
-        { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
-        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
-
-        { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
-        { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
-        { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
-        { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'item well' },
-        { name: 'result_link', widget: 'SimpleHtml', tag:'a', href:'navigate("https://www.googleapis.com/freebase/v1/topic" + $data.id)' },
-        { name: 'result_icon', widget: 'BootstrapIcon', when:'hasIcon', class:'pull-left', icon:'icons[$data.notable.name]' },
-        { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'$data.name' },
-        { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data.notable.name', when:'hasType' },
-
-        { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
-        { name: 'footer-content', widget: 'BootstrapFooter' }
-    ]},{
-        name: 'topicComplete',
-        head:head,
-        maps: [
-            { name: 'header', widget: 'SimpleHtml', tag:'div', class:'container-fluid text-center fundo' },
-            //{ name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
-
-            { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
-            { name: 'search_group', widget: 'BootstrapSimple', tag:'div', class:'form_center', input:'group', form:'center', sm:'8' },
-
-            { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Freebase"' },
-            { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
-
-            { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
-            { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
-
-            { name: 'meta', widget: 'SimpleHtml', tag:'div', class:'well' },
-            { name: 'meta_type', widget: 'FreebaseTypes', class:'label_group', value: '$data.property["/type/object/type"].values', when: '$data.property["/type/object/type"] != null'},
-            { name: 'meta_name', widget: 'SimpleHtml', tag:'h2', class:'text-center', value: '$data.property["/type/object/name"].values[0].text', when:'$data.property["/type/object/name"] != null'},
-            { name: 'meta_legend', widget: 'SimpleHtml', tag:'small'},
-            { name: 'meta_id', widget: 'BootstrapIcon', tag: 'span', icon:'file', title: '$data.property["/type/object/id"].values[0].text' },
-            { name: 'meta_creator', widget: 'BootstrapIcon', tag: 'span', icon:'user', title: '$data.property["/type/object/creator"].values[0].text'},
-            { name: 'meta_timestamp', widget: 'BootstrapIcon', tag:'span', icon:'time', title: '$data.property["/type/object/timestamp"].values[0].text'},
-
-            { name: 'image_group', widget:'SimpleHtml', class:'label_group'},
-            { name: 'image', widget:'SimpleHtml', tag:'img', class:'thumbnail', src:'"https://usercontent.googleapis.com/freebase/v1/image" + $data.id'},
-
-            { name: 'result_group_name', widget: 'SimpleHtml', tag:'h3', class:'group text-center bg-info', value:'$data[0]'},
-            { name: 'result_group_panel', widget: 'SimpleHtml', class:'row'},
-            { name: 'result_group', widget: 'SimpleHtml'},
-            { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
-            { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'item well' },
-            { name: 'result_link', widget: 'SimpleHtml', tag:'a', href:'navigate($env.request.uri.protocol + "://" + $env.request.uri.host + $env.request.uri.path + "?filter=" + $data[0])' },
-            { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'_.last($data[0].split("/"))' },
-            { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data[1].values[0].value', when:'$data[1].values != null' },
-
-            { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
-            { name: 'footer-content', widget: 'BootstrapFooter' }
         ]},{
-        name: 'property',
-        head:head,
+        name: 'time',
+        head:GeralHead.concat([
+            {name: 'title', widget:'Title', value: '$data.nome'}
+        ]),
         maps: [
-            { name: 'header', widget: 'SimpleHtml', tag:'div', class:'container-fluid text-center fundo' },
-            { name: 'logo', widget: 'SimpleHtml', tag:'img', src:'"imgs/freebase_logo.png"' },
 
-            { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
-            { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
-            { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
-            { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
+            { name: 'display', widget: 'SimpleHtml', tag:'div', class:'container jumbotron' },
+            { name: 'nome', widget: 'BootstrapSimple', tag:'h1', text:'center', value:'$data.nome' },
 
-            { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
-            { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
-            { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-12 col-md-12 col-lg-12' },
-            { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'item well' },
-            { name: 'result_link', widget: 'SimpleHtml', tag:'a', href:'navigate($env.request.params.URI + "?filter=" + $data[0])' },
-            { name: 'result_icon', widget: 'BootstrapIcon', class:'pull-left', icon:'icons[$data[0]]' },
-            { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'$data[0]' },
-            { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data[0]', when:'hagsType' },
+            { name: 'content', widget: 'BootstrapSimple', class:'container' },
+            { name: 'jogos_box', widget: 'BootstrapSimple', md:'8' },
+            { name: 'jogos_title', widget: 'BootstrapSimple', tag:'h3', text:'center', value:'Partidas' },
+            { name: 'jogos_lista', widget: 'BootstrapSimple', class:'row' },
 
-            { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
-            { name: 'footer-content', widget: 'BootstrapFooter' }
+            { name: 'item_box', widget: 'BootstrapSimple', text:'center', alert:'warning', when:'Empatou' },
+            { name: 'item_box', widget: 'BootstrapSimple', text:'center', alert:'success', when:'Venceu' },
+            { name: 'item_box', widget: 'BootstrapSimple', text:'center', alert:'danger', when:'Perdeu' },
+
+            { name: 'placar', widget:'BootstrapSimple', tag:'h4', value:'$env.$data.nome + " " + $data.gols_favor + " X " + $data.gols_contra', when:'Casa'},
+            { name: 'penaltis', widget:'BootstrapSimple', tag:'p', value:'$data.penaltis_favor + " X " + $data.penaltis_contra', when:'Penaltis,Casa'},
+
+            { name: 'placar', widget:'BootstrapSimple', tag:'h4', value:'$data.gols_contra + " X " + $env.$data.nome + " " + $data.gols_favor', when:'Visitante'},
+            { name: 'penaltis', widget:'BootstrapSimple', tag:'p', value:'$data.penaltis_contra + " X " + $data.penaltis_favor', when:'Penaltis,Visitante'},
+
+            { name: 'adversario', widget:'BootstrapSimple', value:'$data.contra', href:'navigate("/api/futebol/" + $data.id)' },
+
+            { name: 'mapa_box', widget:'BootstrapSimple', md:"4"},
+            { name: 'mapa', widget:'MapStatic', value:'$data.sede', class:'thumbnail' },
+            { name: 'mapa', widget:"MapDynamic", address:'$data.sede', options:{ zoom:13 }, when:'$env.device.desktop == true'}
+
+
         ]}
 ];
 
 var ajaxSetup = {
-    data : {
-        'key': 'AIzaSyC6xDllQ_3e8Q3KWOlguRkg22ZlEekCaDY'
-    }
-};
-window.icons = icons;
-window.do_search = function(event){
-    event.preventDefault();
-    var search = document.getElementById('search_field');
-    window.busca = search.value;
-    window.location.href = navigate('https://www.googleapis.com/freebase/v1/search?query=' + encodeURIComponent(search.value));
-};
 
+};
 
 if(typeof define === 'function') {
     define([
-        // Load our app module and pass it to our definition function
         "jquery",
         "bootstrap",
         'mira/init'
     ], function ($, $bootstrap, Mira) {
 
-        return function Google() {
+        return function Futebol() {
             var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
-            $.ajaxSetup(ajaxSetup);
         };
 
     });

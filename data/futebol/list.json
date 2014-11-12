@@ -2,49 +2,38 @@
   {
     "id": 1,
     "nome": "Time J",
-    "brasileiro": 8,
-    "copadobrasil": "nao",
-    "libertadores": "perdeu",
-    "sulamericano": "nao"
+    "ponto": 0,
+    "estado": "Rio de Janeiro"
   },
   {
     "id": 2,
     "nome": "Time Y",
-    "brasileiro": 10,
-    "copadobrasil": "nao",
-    "libertadores": "ganhou",
-    "sulamericano": "nao"
+    "ponto": 1,
+    "estado": "São Paulo"
   },
   {
     "id": 3,
     "nome": "Time H",
-    "brasileiro": 18,
-    "copadobrasil": "nao",
-    "libertadores": "nao",
-    "sulamericano": "perdeu"
+    "ponto": 3,
+    "estado": "Rio Grande do Sul"
   },
   {
     "id": 4,
     "nome": "Time L",
-    "brasileiro": 2,
-    "copadobrasil": "nao",
-    "libertadores": "empatou",
-    "sulamericano": "nao"
+    "ponto": 3,
+    "estado": "Minas Gerais"
   },
   {
     "id": 5,
     "nome": "Time Q",
-    "brasileiro": 1,
-    "copadobrasil": "nao",
-    "libertadores": "empatou",
-    "sulamericano": "nao"
+    "ponto": 0,
+    "estado": "Pernambuco"
   },
   {
     "id": 6,
     "nome": "Time P",
     "brasileiro": 7,
-    "copadobrasil": "nao",
-    "libertadores": "empatou",
-    "sulamericano": "nao"
+    "ponto": 1,
+    "estado": "Amazonas"
   }
 ]
