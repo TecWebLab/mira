@@ -14,7 +14,7 @@ requirejs.config({
         bootstrap: 'libs/bootstrap',
         text: 'libs/text',
         async: 'libs/async',
-        gmaps3: 'libs/gmaps3.min',
+        gmap3: 'libs/gmap3.min',
         'string-format': 'libs/string-format',
         'backbone_cache': 'libs/backbone.fetch-cache',
         'modernizr': 'libs/modernizr',
