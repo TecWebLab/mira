@@ -21,8 +21,6 @@
     var Model = Base.Model.extend({
         __name__ : 'Widget.Model',
 
-        idAttribute: 'name',
-
         parse: function(data){
             if(_.isString(data)){
                 data = {'name': data}
