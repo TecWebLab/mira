@@ -17,6 +17,7 @@ define([
     return {
 
         Carousel: function($parent, name, $data, $env, options){
+            ativo = false;
             var new_options = _.clone(options);
             new_options.class = 'carousel slide';
             new_options['data-interval'] = new_options['data-interval'] || "false";
