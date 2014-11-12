@@ -19,6 +19,8 @@ define([
             var context = Helper.build_context($data, $env, options);
             var attrs_compiled = Helper.build_object_with_context(attrs, context);
 
+            attrs_compiled['size'] = attrs_compiled['size'] || '300x300';
+
             url += $.param(attrs_compiled);
             element.setAttribute('src', url);
 
@@ -34,19 +36,18 @@ define([
 
         Dynamic: function($parent, name, $data, $env, options){
             var element = document.createElement('div');
-            var $element = $(element);
 
-            var attrs = _.omit(options, 'tag', 'value', 'name', 'widget', 'class', 'alt', 'title', 'width', 'height');
+            var attrs = _.omit(options, 'tag', 'value', 'name', 'widget', 'class', 'alt', 'title', 'style', 'width', 'height');
             var context = Helper.build_context($data, $env, options);
             var attrs_compiled = Helper.build_object_with_context(attrs, context);
 
-            require('async!http://maps.google.com/maps/api/js?sensor=false', 'gmaps3', function(){
+            require(['async!http://maps.google.com/maps/api/js?sensor=false', 'gmap3'], function(){
+                var element_attributes = _.pick(options, 'class', 'style', 'width', 'height');
+                element_attributes['style'] = element_attributes['style'] || 'width:350px; height:350px;';
+                    Helper.build_attributes(element, element_attributes, context);
 
-                $("#test").gmap3({ map: attrs_compiled });
-
-                var element_attributes = _.pick(options, 'class', 'width', 'height');
-                Helper.build_attributes(element, element_attributes, context);
-
+                var $element = $(element);
+                $element.gmap3({ map: attrs_compiled });
                 $parent.append(element);
             });
 

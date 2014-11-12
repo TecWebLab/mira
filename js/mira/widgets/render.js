@@ -9,6 +9,7 @@ define([
     'mira/widgets/title',
     'mira/widgets/image-html',
     'mira/widgets/bootstrap-base',
+    'mira/widgets/bootstrap-carousel',
     'mira/widgets/bootstrap-image-box',
     'mira/widgets/bootstrap-navigation',
     'mira/widgets/bootstrap-footer',
@@ -16,7 +17,7 @@ define([
     'mira/widgets/profile',
     'mira/widgets/freebase'
     ],function (SimpleHtml, Map, Input, Head, Meta, Title, ImageHtml,
-                BootstrapBase, BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
+                BootstrapBase, BootstrapCarousel, BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
                 BootstrapForm, Profile, Freebase
     ) {
 
@@ -35,6 +36,8 @@ define([
         Title: Title,
         ImageHtml:ImageHtml,
         BootstrapSimple: BootstrapBase.Simple,
+        BootstrapCarousel: BootstrapCarousel.Carousel,
+        BootstrapCarouselItem: BootstrapCarousel.Item,
         BootstrapIcon: BootstrapBase.Icon,
         BootstrapImageBox: BootstrapImageBox,
         BootstrapFooter: BootstrapFooter,
