@@ -22,7 +22,18 @@ Cada objeto da seleção de interface é composta por 3 parâmetros:
 
 ### `when`
 
-Regra, da lista de regras do modelo, que será utilizada para validar e seleção.
+Informe a regra que deve ser avaliada para que seja selecionada a interface abstrata e concreta.
+
+Caso queira usar duas regras, você pode colocar uma seguida da outra separada por `,`, neste caso, todas as regras infomadas deverão retornar `true`
+para que esta seleção seja a escolhida.
+
+    { name: 'ambiente_seguro_mobile', when: 'isSecure,isMobile'}
+
+Você pode utilizar uma regra geral ou escrever uma expressão que deverá ser avaliada.
+
+    { name: 'preco' when:'$data.preco != null'}
+
+De preferência a escrever as regras na estrutura de regras do framework, assim será mais fácil de reaproveitar e dar manutenção as regras.
 
 ### `abstract`
 

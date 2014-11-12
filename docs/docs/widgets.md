@@ -1,3 +1,26 @@
+# Atributos Básicos
+
+## name
+
+Noma do widget, este nome será utilizado para fazer referencia a qual Widget Abstrato deverá ser mapeado por este Widget Concreto.
+
+## when
+
+*Opcional*
+
+Regra que deverá ser verdadeira para que este Widget Concreto mapeie o Widget Abstrato.
+
+Caso queira usar duas regras, você pode colocar uma seguida da outra separada por `,`, neste caso, todas as regras infomadas deverão retornar `true`
+para que esta seleção seja a escolhida.
+
+    { name: 'ambiente_seguro_mobile', when: 'isSecure,isMobile'}
+
+Você pode utilizar uma regra geral ou escrever uma expressão que deverá ser avaliada.
+
+    { name: 'preco' when:'$data.preco != null'}
+
+De preferência a escrever as regras na estrutura de regras do framework, assim será mais fácil de reaproveitar e dar manutenção as regras.
+
 # Comuns
 
 ## SimpleHtml

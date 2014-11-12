@@ -49,7 +49,6 @@ Um widget abstrato é composto pelos parâmetros:
 ### name
 
 Nome do widget abstrato, este nome será utilizado no mapeamento de widgets concretos na interface concreta.
-Não utilize o mesmo nome em widgets diferentes na mesma interface abstrata.
 
 ### when
 
@@ -57,9 +56,15 @@ Não utilize o mesmo nome em widgets diferentes na mesma interface abstrata.
 
 Informar a regra que deve ser avaliada para que este widget seja exibido na interface.
 
+Caso queira usar duas regras, você pode colocar uma seguida da outra separada por `,`
+
+    { name: 'ambiente_seguro_mobile', when: 'isSecure,isMobile'}
+
 Você pode utilizar uma regra geral ou escrever uma expressão que deverá ser avaliada.
 
-De preferência a escrever as regras na estrutura de regras do framework.
+    { name: 'preco' when:'$data.preco != null'}
+
+De preferência a escrever as regras na estrutura de regras do framework, assim será mais fácil de reaproveitar e dar manutenção as regras.
 
 [Mais informações sobre regras](rules.md)
 
