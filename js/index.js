@@ -39,7 +39,7 @@ var concrete_interface = [
 
         { name: 'header', widget: 'BootstrapSimple', class:'jumbotron' },
         { name: 'content', widget: 'BootstrapSimple', class:'container' },
-        { name: 'title', widget: 'BootstrapSimple', tag:'h1', value:'"MIRA"' },
+        { name: 'title', widget: 'Teste', tag:'h1', value:'"MIRA"' },
         { name: 'description', widget: 'BootstrapSimple', tag:'p', value:'"Model Interface for REST Application"' },
         { name: 'examples', widget: 'BootstrapSimple', tag:'p', value:'"Try some examples"' },
         { name: 'apps', widget: 'BootstrapSimple', class:'btn-toolbar' },
@@ -63,6 +63,19 @@ if(typeof define === 'function') {
 
         return function Index() {
             var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+            Mira.Widget.default = "BootstrapSimple";
+            Mira.Widget.register({
+                Teste: function($parent, name, $data, $env, options){
+                    var element = document.createElement('h1');
+                    element.innerHTML = 'Ezequiel';
+                    var $element = $(element);
+                    $parent.append(element);
+                    return {
+                        $children: $element,
+                        html: element.innerHTML
+                    }
+                }
+            })
         };
 
     });

@@ -26,7 +26,8 @@ define([
         var file = name.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();}).substring(1);
         return root + file;
     };
-    var widget = {
+    var default_widget = '';
+    var widgets = {
         SimpleHtml:SimpleHtml,
         MapStatic:Map.Static,
         MapDynamic:Map.Dynamic,
@@ -53,18 +54,14 @@ define([
     };
 
     return  {
-        load : function(name, callback){
-            if(!widget[name]) {
-                requirejs([pathToWidget(name)], function (Widget) {
-                    widget[name] = Widget;
-                    callback(Widget);
-                });
-            } else {
-                callback(widget[name]);
-            }
+        setDefault: function (widget) {
+            default_widget = widget;
         },
-        get: function(name){
-            return widget[name];
+        call: function(map, $parent, $data, $env){
+            return widgets[map.get('widget') || default_widget].call(map, $parent, map.get('name'), $data, $env, map.attributes);
+        },
+        register: function(custom_widgets){
+            _.extend(widgets, custom_widgets);
         }
     };
 });

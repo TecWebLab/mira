@@ -18,14 +18,6 @@ define([
             return data;
         },
 
-        load: function () {
-            if(!this.loaded) {
-                this.get('maps').invoke('load');
-                this.get('head').invoke('load');
-                this.loaded = true;
-            }
-        },
-
         buildHead: function($head, $data, $env){
             $(".navigate_remove").remove();
             this.get('head').each(function(map){

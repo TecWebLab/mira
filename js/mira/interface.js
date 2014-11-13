@@ -17,8 +17,6 @@ define([
             this.concrets = concrets;
             this.rules = rules;
             this.selection = selection;
-
-            this.concrets.invoke('load');
         },
 
         render: function(abstract, concrete, $data, $env){
