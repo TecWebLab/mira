@@ -52,16 +52,26 @@ var interface_abstracts = [
                 'content': [
                     {'jogos_box' :
                         ['jogos_title',
-                            {name:'jogos_lista', datasource:'$data.jogos', children:[
+                            {name:'jogos_lista', datasource:'$data.brasileiro', when:'$data.brasileiro != null', children:[
                                 {'item_box':[
                                     {'placar':[,
                                             {name: 'adversario', when:'Visitante'},
                                             'placar_texto',
                                             {name: 'adversario', when:'Casa'}
-                                        ]},
-                                    'penaltis'
+                                        ]}
                                 ]}
+                            ]},
+                            {name:'jogos_lista', datasource:'$data.copadobrasil || $data.libertadores', when:'$data.copadobrasil != null || $data.libertadores != null',
+                                children:[
+                            {'item_box':[
+                                {'placar':[,
+                                    {name: 'adversario', when:'Visitante'},
+                                    'placar_texto',
+                                    {name: 'adversario', when:'Casa'}
+                                ]},
+                                'penaltis'
                             ]}
+                        ]}
                     ]},
                     {'mapa_box': 'mapa'}
                 ]
