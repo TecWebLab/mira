@@ -132,7 +132,7 @@ if(typeof define === 'function') {
                     scope: 'email profile https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.circles.read https://www.googleapis.com/auth/plus.login',
                     response_type: 'token',
                     client_id: '43222689418-4oggh4169fu6htnon5gplqpiteor0uon.apps.googleusercontent.com',
-                    redirect_uri: 'https://localhost/?app=example/google'
+                    redirect_uri: mira.$env.request.href
                 };
                 var url = "https://accounts.google.com/o/oauth2/auth?" + $.param(params);
                 window.location.href = url;
