@@ -1,17 +1,30 @@
 # Variáveis de Contexto
 
 O MIRA disponibiliza algumas variáveis que podem ser usadas durante a validação de regras e atribuir valores a atributos
-de [abstract.md#widgets-abstratos](Widgets Abstratos) e [widgets.md](Widgets Concretos).
+de [Widgets Abstratos](abstract-interface.md#widgets-abstratos) e [Widgets Concretos](widgets.md).
 
 ## `$data`
 
 Nesta variável se encontra as informações retornadas pela requisição feita a URI da API REST que foi informada por parâmetro
 na URL navegada.
 
+Se em um [Widget Abstrato](abstract-interface.md#widgets-abstratos) existir o atributo `datasource`, o `$data` para os filhos deste Widget será cada
+item do datasource.
+
+Se dentro de um Widget filho de um Widget com `datasource` precisar de uma informação do dado retornado pela URI, utilize o [$env.$data](context.md#envdata)
+
+### `$data.$parent`
+
+Se o contexto atual for de um item de um `datasource`, está variável contem os itens do pai do item do datasource.
+
+Caso contrário, esta variável não será definida.
+
 ## `$env`
 
 Contem todas as informações além das informações retornadas pela API, como informações da requisição, do dispositivo, das
 funcionalidades do dispositivo.
+
+    { request: Object, device: Object, $data: null }
 
 ## `$env.request`
 
@@ -318,3 +331,7 @@ Veja como fica a tag do HTML:
     </html>
 
 Veja mais informações sobre na documentação do [Modernizr](http://modernizr.com/docs/)
+
+## $env.$data
+
+São os valores retornados durante a requisição da URI, não é alterado durante o contexto.

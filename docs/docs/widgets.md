@@ -1,3 +1,14 @@
+# Default
+
+Caso não seja informado o atributo `widget` durante o mapeamento, será assumido o widget padrão do MIRA, o **SimpleHtml**
+
+Caso deseje alterar o widget padrão, você pode fazer isto após o start da aplicação, como neste exemplo que altera para o **BootstrapSimple**:
+
+    return function Index() {
+        var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+        Mira.Widget.setDefault("BootstrapSimple");
+    };
+
 # Atributos Básicos
 
 ## name

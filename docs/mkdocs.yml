@@ -13,6 +13,7 @@ pages:
  - [abstract-interface.md, Interface Abstrata]
  - [concrete-interface.md, Interface Concreta]
  - [widgets.md, Widgets Concretos]
+ - [widgets-customizado.md, Widgets Customizados]
  - [context.md, Variáveis de Contexto]
  - [tips.md, Dicas]
  - [requirements.md, Dependências]
