@@ -19,6 +19,15 @@ var rules = [{
     name: 'Casa',
     validate: '$data.local == "casa"'
 },{
+    name: 'Brasileiro',
+    validate: '$data.brasileiro != null'
+},{
+    name: 'CopaDoBrasil',
+    validate: '$data.copadobrasil  != null'
+},{
+    name: 'Libertadores',
+    validate: '$data.libertadores  != null'
+},{
     name:'isTime',
     validate: '$data.id != null'
 }];
@@ -119,7 +128,9 @@ var concrete_interface = [
 
             { name: 'content', class:'container' },
             { name: 'jogos_box', md:'8' },
-            { name: 'jogos_title', tag:'h3', text:'center', value:'Partidas' },
+            { name: 'jogos_title', tag:'h3', text:'center', value:'Partidas do Brasileiros', when:"Brasileiro" },
+            { name: 'jogos_title', tag:'h3', text:'center', value:'Partidas da Copa do Brasil', when:"CopaDoBrasil" },
+            { name: 'jogos_title', tag:'h3', text:'center', value:'Partidas da Libertadores', when:"Libertadores" },
             { name: 'jogos_lista', class:'row' },
 
             { name: 'item_box', text:'center', alert:'warning', when:'Empatou' },
