@@ -4,9 +4,8 @@
   "ponto": 1,
   "estado": "São Paulo",
   "sede": "Vila Marinana, São Paulo, SP",
-  "jogos": [
+  "copadobrasil": [
     {
-      "campeonato": "brasileiro",
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "casa",
@@ -14,7 +13,6 @@
       "contra": "Time Y",
       "ponto": 1
     },{
-      "campeonato": "brasileiro",
       "gols_favor": "3",
       "gols_contra": "1",
       "local": "visitante",
@@ -22,7 +20,6 @@
       "contra": "Time K",
       "ponto": 3
     },{
-      "campeonato": "copadobrasil",
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "visitante",

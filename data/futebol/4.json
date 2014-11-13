@@ -4,9 +4,8 @@
   "ponto": 3,
   "estado": "Minas Gerais",
   "sede": "Ipatinga, MG",
-  "jogos": [
+  "brasileiro": [
     {
-      "campeonato": "brasileiro",
       "gols_favor": "3",
       "gols_contra": "2",
       "local": "casa",
@@ -14,17 +13,13 @@
       "contra": "Time Y",
       "ponto": 3
     },{
-      "campeonato": "copadobrasil",
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "visitante",
-      "penaltis_favor": "3",
-      "penaltis_contra": "2",
       "contra_id": 3,
       "contra": "Time K",
       "ponto": 3
     },{
-      "campeonato": "copadobrasil",
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "visitante",
