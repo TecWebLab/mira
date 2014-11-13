@@ -76,19 +76,19 @@ var concrete_interface = [
         ]),
         maps: [
 
-        { name: 'container', widget: 'SimpleHtml', tag:'div', class:'container' },
-        { name: 'head', widget: 'SimpleHtml', tag:'div', class:'jumbotron' },
-        { name: 'title', widget: 'BootstrapSimple', tag:'h1', text:'center', value:'"Escolha seu Imóvel"' },
+        { name: 'container', class:'container' },
+        { name: 'head', class:'jumbotron' },
+        { name: 'title', tag:'h1', text:'center', value:'"Escolha seu Imóvel"' },
 
-        { name: 'content', widget: 'BootstrapSimple', class:'row', md:'10,offset-1' },
+        { name: 'content',  class:'row', md:'10,offset-1' },
         { name: 'items', widget: 'BootstrapSimple' },
-        { name: 'item', widget: 'BootstrapSimple', md:'6'},
-        { name: 'tipo', widget: 'BootstrapSimple', class:'panel-body', alert:'info', when:'isAluguel' },
-        { name: 'tipo', widget: 'BootstrapSimple', class:'panel-body', alert:'success', when:'isLancamento' },
-        { name: 'tipo', widget: 'BootstrapSimple', class:'panel-body', alert:'warning', when:'isVenda' },
-        { name: 'link', widget: 'BootstrapSimple', tag:'a', href:'navigate("/api/imovel/" + $data.id)' },
-        { name: 'nome', widget: 'BootstrapSimple', tag:'p', class:'lead', text:'center',  value:'$data.nome' },
-        { name: 'bairro', widget: 'BootstrapSimple', tag:'p', text:'center', value:'$data.bairro'}
+        { name: 'item',  md:'6'},
+        { name: 'tipo',  class:'panel-body', alert:'info', when:'isAluguel' },
+        { name: 'tipo',  class:'panel-body', alert:'success', when:'isLancamento' },
+        { name: 'tipo',  class:'panel-body', alert:'warning', when:'isVenda' },
+        { name: 'link',  tag:'a', href:'navigate("/api/imovel/" + $data.id)' },
+        { name: 'nome',  tag:'p', class:'lead', text:'center',  value:'$data.nome' },
+        { name: 'bairro',  tag:'p', text:'center', value:'$data.bairro'}
 
     ]},{
         name: 'imovel',
@@ -101,23 +101,23 @@ var concrete_interface = [
             { name: 'carousel_item', widget: 'BootstrapCarouselItem', value:'$data.mobile', when:'$env.device.mobile == true' },
             { name: 'carousel_item', widget: 'BootstrapCarouselItem', value:'$data.tablet', when:'$env.device.tablet == true' },
 
-            { name: 'content', widget: 'BootstrapSimple', class:'container' },
-            { name: 'nome', widget: 'BootstrapSimple', tag:'h1', text:'center', alert:'info', value:'$data.nome', when:'isAluguel' },
-            { name: 'nome', widget: 'BootstrapSimple', tag:'h1', text:'center', alert:'success', value:'$data.nome', when:'isLancamento'},
-            { name: 'nome', widget: 'BootstrapSimple', tag:'h1', text:'center', alert:'warning', value:'$data.nome', when:'isVenda'},
-            { name: 'row', widget: 'BootstrapSimple', class:'row well' },
-            { name: 'detalhes', widget: 'BootstrapSimple', md:'8' },
-            { name: 'localizacao_box', widget: 'BootstrapSimple', md:'6' },
-            { name: 'localizacao_title', widget: 'BootstrapSimple', tag:'h3', value:'"Localização"' },
-            { name: 'localizacao_lista', widget: 'BootstrapSimple', tag:'ul' },
-            { name: 'localizacao_item', widget: 'BootstrapSimple', tag:'li', value:'$data.item'},
-            { name: 'negociacao_box', widget: 'BootstrapSimple', md:'6' },
-            { name: 'negociacao_title', widget: 'BootstrapSimple', tag:'h3', value:'"Formas de Pagamento"', when:'isVenda' },
-            { name: 'negociacao_title', widget: 'BootstrapSimple', tag:'h3', value:'"Contrato de Locação"', when:'isAluguel' },
-            { name: 'negociacao_title', widget: 'BootstrapSimple', tag:'h3', value:'"Lançamento"', when:'isLancamento' },
-            { name: 'negociacao_lista', widget: 'BootstrapSimple', tag:'ul' },
-            { name: 'negociacao_item', widget: 'BootstrapSimple', tag:'li', value:'$data.item' },
-            { name: 'descricao_title', widget: "BootstrapSimple", tag:'h3', text:'center', value:'"Descrição"'},
+            { name: 'content', class:'container' },
+            { name: 'nome', tag:'h1', text:'center', alert:'info', value:'$data.nome', when:'isAluguel' },
+            { name: 'nome', tag:'h1', text:'center', alert:'success', value:'$data.nome', when:'isLancamento'},
+            { name: 'nome', tag:'h1', text:'center', alert:'warning', value:'$data.nome', when:'isVenda'},
+            { name: 'row', class:'row well' },
+            { name: 'detalhes', md:'8' },
+            { name: 'localizacao_box', md:'6' },
+            { name: 'localizacao_title', tag:'h3', value:'"Localização"' },
+            { name: 'localizacao_lista', tag:'ul' },
+            { name: 'localizacao_item', tag:'li', value:'$data.item'},
+            { name: 'negociacao_box', md:'6' },
+            { name: 'negociacao_title', tag:'h3', value:'"Formas de Pagamento"', when:'isVenda' },
+            { name: 'negociacao_title', tag:'h3', value:'"Contrato de Locação"', when:'isAluguel' },
+            { name: 'negociacao_title', tag:'h3', value:'"Lançamento"', when:'isLancamento' },
+            { name: 'negociacao_lista', tag:'ul' },
+            { name: 'negociacao_item', tag:'li', value:'$data.item' },
+            { name: 'descricao_title', tag:'h3', text:'center', value:'"Descrição"'},
             { name: 'descricao', widget: "BootstrapSimple", tag:'p', value:'$data.descricao'},
             { name: 'mapa_box', widget: "BootstrapSimple", md:'4'},
             { name: 'mapa', widget:'MapStatic', value:'$data.bairro', class:'thumbnail' },
@@ -140,6 +140,7 @@ if(typeof define === 'function') {
 
         return function Imovel() {
             var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+            Mira.Widget.setDefault('BootstrapSimple');
         };
 
     });

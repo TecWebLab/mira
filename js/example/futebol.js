@@ -83,19 +83,19 @@ var concrete_interface = [
         ]),
         maps: [
 
-            { name: 'container', widget: 'SimpleHtml', tag:'div', class:'container' },
-            { name: 'head', widget: 'SimpleHtml', tag:'div', class:'jumbotron' },
-            { name: 'title', widget: 'BootstrapSimple', tag:'h1', text:'center', value:'"Futebol"' },
+            { name: 'container', tag:'div', class:'container' },
+            { name: 'head', tag:'div', class:'jumbotron' },
+            { name: 'title', tag:'h1', text:'center', value:'"Futebol"' },
 
-            { name: 'content', widget: 'BootstrapSimple', class:'row', md:'10,offset-1' },
-            { name: 'items', widget: 'BootstrapSimple' },
-            { name: 'item', widget: 'BootstrapSimple', md:'6'},
-            { name: 'tipo', widget: 'BootstrapSimple', class:'panel-body', alert:'warning', when:'Empatou' },
-            { name: 'tipo', widget: 'BootstrapSimple', class:'panel-body', alert:'success', when:'Venceu' },
-            { name: 'tipo', widget: 'BootstrapSimple', class:'panel-body', alert:'danger', when:'Perdeu' },
-            { name: 'link', widget: 'BootstrapSimple', tag:'a', href:'navigate("/api/futebol/" + $data.id)' },
-            { name: 'nome', widget: 'BootstrapSimple', tag:'p', class:'lead', text:'center',  value:'$data.nome' },
-            { name: 'estado', widget: 'BootstrapSimple', tag:'p', text:'center', value:'$data.estado'}
+            { name: 'content', class:'row', md:'10,offset-1' },
+            { name: 'items' },
+            { name: 'item', md:'6'},
+            { name: 'tipo', class:'panel-body', alert:'warning', when:'Empatou' },
+            { name: 'tipo', class:'panel-body', alert:'success', when:'Venceu' },
+            { name: 'tipo', class:'panel-body', alert:'danger', when:'Perdeu' },
+            { name: 'link', tag:'a', href:'navigate("/api/futebol/" + $data.id)' },
+            { name: 'nome', tag:'p', class:'lead', text:'center',  value:'$data.nome' },
+            { name: 'estado', tag:'p', text:'center', value:'$data.estado'}
 
         ]},{
         name: 'time',
@@ -105,27 +105,27 @@ var concrete_interface = [
         maps: [
 
             { name: 'display', widget: 'SimpleHtml', tag:'div', class:'container jumbotron' },
-            { name: 'nome', widget: 'BootstrapSimple', tag:'h1', text:'center,info', value:'$data.nome' },
+            { name: 'nome', tag:'h1', text:'center,info', value:'$data.nome' },
 
-            { name: 'content', widget: 'BootstrapSimple', class:'container' },
-            { name: 'jogos_box', widget: 'BootstrapSimple', md:'8' },
-            { name: 'jogos_title', widget: 'BootstrapSimple', tag:'h3', text:'center', value:'Partidas' },
-            { name: 'jogos_lista', widget: 'BootstrapSimple', class:'row' },
+            { name: 'content', class:'container' },
+            { name: 'jogos_box', md:'8' },
+            { name: 'jogos_title', tag:'h3', text:'center', value:'Partidas' },
+            { name: 'jogos_lista', class:'row' },
 
-            { name: 'item_box', widget: 'BootstrapSimple', text:'center', alert:'warning', when:'Empatou' },
-            { name: 'item_box', widget: 'BootstrapSimple', text:'center', alert:'success', when:'Venceu' },
-            { name: 'item_box', widget: 'BootstrapSimple', text:'center', alert:'danger', when:'Perdeu' },
+            { name: 'item_box', text:'center', alert:'warning', when:'Empatou' },
+            { name: 'item_box', text:'center', alert:'success', when:'Venceu' },
+            { name: 'item_box', text:'center', alert:'danger', when:'Perdeu' },
 
-            { name: 'placar', widget:'BootstrapSimple', tag:'h4'},
-            { name: 'placar_texto', widget:'BootstrapSimple', tag:'span', value:'" " + $data.gols_contra + " X " + $data.gols_favor + " " + $env.$data.nome', when:'Visitante'},
-            { name: 'placar_texto', widget:'BootstrapSimple', tag:'span', value:'$env.$data.nome + " " + $data.gols_favor + " X " + $data.gols_contra + " "', when:'Casa'},
+            { name: 'placar', tag:'h4'},
+            { name: 'placar_texto', tag:'span', value:'" " + $data.gols_contra + " X " + $data.gols_favor + " " + $env.$data.nome', when:'Visitante'},
+            { name: 'placar_texto', tag:'span', value:'$env.$data.nome + " " + $data.gols_favor + " X " + $data.gols_contra + " "', when:'Casa'},
 
-            { name: 'penaltis', widget:'BootstrapSimple', tag:'p', value:'$data.penaltis_contra + " X " + $data.penaltis_favor', when:'Penaltis,Visitante'},
-            { name: 'penaltis', widget:'BootstrapSimple', tag:'p', value:'$data.penaltis_favor + " X " + $data.penaltis_contra', when:'Penaltis,Casa'},
+            { name: 'penaltis', tag:'p', value:'$data.penaltis_contra + " X " + $data.penaltis_favor', when:'Penaltis,Visitante'},
+            { name: 'penaltis', tag:'p', value:'$data.penaltis_favor + " X " + $data.penaltis_contra', when:'Penaltis,Casa'},
 
-            { name: 'adversario', widget:'BootstrapSimple', tag:'a', value:'$data.contra', href:'navigate("/api/futebol/" + $data.contra_id)' },
+            { name: 'adversario', tag:'a', value:'$data.contra', href:'navigate("/api/futebol/" + $data.contra_id)' },
 
-            { name: 'mapa_box', widget:'BootstrapSimple', md:"4"},
+            { name: 'mapa_box', md:"4"},
             { name: 'mapa', widget:'MapStatic', value:'$data.sede', class:'thumbnail' },
             { name: 'mapa', widget:"MapDynamic", address:'$data.sede', options:{ zoom:13 }, when:'$env.device.desktop == true'}
 
@@ -146,6 +146,7 @@ if(typeof define === 'function') {
 
         return function Futebol() {
             var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+            Mira.Widget.setDefault('BootstrapSimple')
         };
 
     });

@@ -26,7 +26,7 @@ define([
         var file = name.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();}).substring(1);
         return root + file;
     };
-    var default_widget = '';
+    var default_widget = 'SimpleHtml';
     var widgets = {
         SimpleHtml:SimpleHtml,
         MapStatic:Map.Static,
@@ -58,7 +58,13 @@ define([
             default_widget = widget;
         },
         call: function(map, $parent, $data, $env){
-            return widgets[map.get('widget') || default_widget].call(map, $parent, map.get('name'), $data, $env, map.attributes);
+            var widget_name = map.get('widget') || default_widget;
+            var widget = widgets[widget_name];
+            if(widget) {
+                return widgets[widget_name].call(map, $parent, map.get('name'), $data, $env, map.attributes);
+            } else {
+                console.error('Widget Concreto not Founded', widget_name, map);
+            }
         },
         register: function(custom_widgets){
             _.extend(widgets, custom_widgets);
