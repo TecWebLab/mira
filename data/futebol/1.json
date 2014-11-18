@@ -4,28 +4,29 @@
   "ponto": 0,
   "estado": "Rio de Janeiro",
   "sede": "Ipanena, RJ",
-  "brasileiro": [
+  "campeonato": "Brasileiro",
+  "partidas": [
     {
       "gols_favor": "2",
       "gols_contra": "1",
       "local": "casa",
       "contra_id": 2,
       "contra": "Time Y",
-      "ponto": 3
+      "brasileiro": 3
     },{
       "gols_favor": "1",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 3,
       "contra": "Time K",
-      "ponto": 0
+      "brasileiro": 0
     },{
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 4,
       "contra": "Time M",
-      "ponto": 3
+      "brasileiro": 3
     }
   ]
 }

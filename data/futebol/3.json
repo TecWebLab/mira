@@ -4,7 +4,8 @@
   "ponto": 3,
   "estado": "Rio Grande do Sul",
   "sede": "Caxias do Sul, RS",
-  "libertadores": [
+  "campeonato": "Libertadores",
+  "partidas": [
     {
       "gols_favor": "1",
       "gols_contra": "1",
@@ -13,21 +14,21 @@
       "local": "casa",
       "contra_id": 2,
       "contra": "Time Y",
-      "ponto": 3
+      "libertadores": 3
     },{
       "gols_favor": "1",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 3,
       "contra": "Time K",
-      "ponto": 0
+      "libertadores": 0
     },{
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 4,
       "contra": "Time M",
-      "ponto": 1
+      "libertadores": 1
     }
   ]
 }

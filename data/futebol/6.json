@@ -4,28 +4,29 @@
   "ponto": 1,
   "estado": "Amazonas",
   "sede": "Manaus, AM",
-  "brasileiro": [
+  "campeonato": "Brasileiro",
+  "partida": [
     {
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "casa",
       "contra_id": 2,
       "contra": "Time Y",
-      "ponto": 1
+      "brasileiro": 1
     },{
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 3,
       "contra": "Time K",
-      "ponto": 3
+      "brasileiro": 3
     },{
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 4,
       "contra": "Time M",
-      "ponto": 0
+      "brasileiro": 0
     }
   ]
 }
