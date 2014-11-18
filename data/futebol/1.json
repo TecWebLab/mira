@@ -11,22 +11,22 @@
       "gols_contra": "1",
       "local": "casa",
       "contra_id": 2,
-      "contra": "Time Y",
-      "brasileiro": 3
+      "brasileiro": "Time Y",
+      "ponto": 3
     },{
       "gols_favor": "1",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 3,
-      "contra": "Time K",
-      "brasileiro": 0
+      "brasileiro": "Time K",
+      "ponto": 0
     },{
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 4,
-      "contra": "Time M",
-      "brasileiro": 3
+      "brasileiro": "Time M",
+      "ponto": 3
     }
   ]
 }

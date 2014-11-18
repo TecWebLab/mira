@@ -49,10 +49,7 @@ var interface_abstracts = [
                                 {name: 'localizacao_lista', datasource: '$data.localizacao', children: 'localizacao_item'}]
                         }, {
                             'negociacao_box': ['negociacao_title',
-                                {name: 'negociacao_lista', datasource: '$data.venda', children: 'negociacao_item', when: 'isVenda'},
-                                {name: 'negociacao_lista', datasource: '$data.lancamento', children: 'negociacao_item', when: 'isLancamento'},
-                                {name: 'negociacao_lista', datasource: '$data.aluguel', children: 'negociacao_item', when: 'isAluguel'}
-                            ]
+                                {name: 'negociacao_lista', datasource: '$data.negociacao', children: 'negociacao_item'}]
                         }]}, 'descricao_title', 'descricao'
                         ]
                     },
@@ -118,7 +115,9 @@ var concrete_interface = [
             { name: 'negociacao_lista', tag:'ul' },
             { name: 'negociacao_item', tag:'li', value:'$data.item' },
             { name: 'descricao_title', tag:'h3', text:'center', value:'"Descrição"'},
-            { name: 'descricao', widget: "BootstrapSimple", tag:'p', value:'$data.descricao'},
+            { name: 'descricao', widget: "BootstrapSimple", tag:'p', value:'$data.aluguel', when:'isAluguel'},
+            { name: 'descricao', widget: "BootstrapSimple", tag:'p', value:'$data.lancamento', when:'isLancamento'},
+            { name: 'descricao', widget: "BootstrapSimple", tag:'p', value:'$data.venda', when:'isVenda'},
             { name: 'mapa_box', widget: "BootstrapSimple", md:'4'},
             { name: 'mapa', widget:'MapStatic', value:'$data.bairro', class:'thumbnail' },
             { name: 'mapa', widget: "MapDynamic", address:'$data.bairro', options:{ zoom:13}, when:'$env.device.desktop == true'}

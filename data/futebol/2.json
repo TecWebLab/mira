@@ -11,22 +11,22 @@
       "gols_contra": "2",
       "local": "casa",
       "contra_id": 2,
-      "contra": "Time Y",
-      "copadobrasil": 1
+      "copadobrasil": "Time Y",
+      "ponto": 1
     },{
       "gols_favor": "3",
       "gols_contra": "1",
       "local": "visitante",
       "contra_id": 3,
-      "contra": "Time K",
-      "copadobrasil": 3
+      "copadobrasil": "Time K",
+      "ponto": 3
     },{
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 4,
-      "contra": "Time M",
-      "copadobrasil": 1
+      "copadobrasil": "Time M",
+      "ponto": 1
     }
   ]
 }

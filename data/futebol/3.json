@@ -13,22 +13,22 @@
       "penaltis_contra": "2",
       "local": "casa",
       "contra_id": 2,
-      "contra": "Time Y",
-      "libertadores": 3
+      "libertadores": "Time Y",
+      "ponto": 3
     },{
       "gols_favor": "1",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 3,
-      "contra": "Time K",
-      "libertadores": 0
+      "libertadores": "Time K",
+      "ponto": 0
     },{
       "gols_favor": "2",
       "gols_contra": "2",
       "local": "visitante",
       "contra_id": 4,
-      "contra": "Time M",
-      "libertadores": 1
+      "libertadores": "Time M",
+      "ponto": 1
     }
   ]
 }

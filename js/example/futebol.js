@@ -61,27 +61,17 @@ var interface_abstracts = [
                 'content': [
                     {'jogos_box' :
                         ['jogos_title',
-                            {name:'jogos_lista', datasource:'$data.brasileiro', when:'$data.brasileiro != null', children:[
+                            {name:'jogos_lista', datasource:'$data.partidas', children:[
                                 {'item_box':[
                                     {'placar':[,
                                             {name: 'adversario', when:'Visitante'},
                                             'placar_texto',
                                             {name: 'adversario', when:'Casa'}
-                                        ]}
+                                        ]},
+                                        'penaltis'
                                 ]}
-                            ]},
-                            {name:'jogos_lista', datasource:'$data.copadobrasil || $data.libertadores', when:'$data.copadobrasil != null || $data.libertadores != null',
-                                children:[
-                            {'item_box':[
-                                {'placar':[,
-                                    {name: 'adversario', when:'Visitante'},
-                                    'placar_texto',
-                                    {name: 'adversario', when:'Casa'}
-                                ]},
-                                'penaltis'
                             ]}
-                        ]}
-                    ]},
+                        ]},
                     {'mapa_box': 'mapa'}
                 ]
             }
@@ -144,7 +134,9 @@ var concrete_interface = [
             { name: 'penaltis', tag:'p', value:'$data.penaltis_contra + " X " + $data.penaltis_favor', when:'Penaltis,Visitante'},
             { name: 'penaltis', tag:'p', value:'$data.penaltis_favor + " X " + $data.penaltis_contra', when:'Penaltis,Casa'},
 
-            { name: 'adversario', tag:'a', value:'$data.contra', href:'navigate("/api/futebol/" + $data.contra_id)' },
+            { name: 'adversario', tag:'a', value:'$data.brasileiro', href:'navigate("/api/futebol/" + $data.contra_id)', when:'Brasileiro' },
+            { name: 'adversario', tag:'a', value:'$data.copadobrasil', href:'navigate("/api/futebol/" + $data.contra_id)', when:'CopaDoBrasil' },
+            { name: 'adversario', tag:'a', value:'$data.libertadores', href:'navigate("/api/futebol/" + $data.contra_id)', when:'Libertadores' },
 
             { name: 'mapa_box', md:"4"},
             { name: 'mapa', widget:'MapStatic', value:'$data.sede', class:'thumbnail' },
