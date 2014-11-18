@@ -5,7 +5,7 @@
   "estado": "Amazonas",
   "sede": "Manaus, AM",
   "campeonato": "Brasileiro",
-  "partida": [
+  "partidas": [
     {
       "gols_favor": "2",
       "gols_contra": "2",

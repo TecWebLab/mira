@@ -20,13 +20,13 @@ var rules = [{
     validate: '$data.local == "casa"'
 },{
     name: 'Brasileiro',
-    validate: '$data.brasileiro != null'
+    validate: '$env.$data.campeonato == "Brasileiro"'
 },{
     name: 'CopaDoBrasil',
-    validate: '$data.copadobrasil  != null'
+    validate: '$env.$data.campeonato  == "Copa do Brasil"'
 },{
     name: 'Libertadores',
-    validate: '$data.libertadores  != null'
+    validate: '$env.$data.campeonato  == "Libertadores"'
 },{
     name:'isTime',
     validate: '$data.id != null'
