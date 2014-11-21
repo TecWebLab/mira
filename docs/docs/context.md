@@ -21,7 +21,7 @@ Caso contrário, esta variável não será definida.
 
 ## `$env`
 
-Contem todas as informações além das informações retornadas pela API, como informações da requisição, do dispositivo, das
+Contém todas as informações além das informações retornadas pela API, como informações da requisição, do dispositivo, das
 funcionalidades do dispositivo.
 
     { request: Object, device: Object, $data: null }
