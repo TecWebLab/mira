@@ -1,6 +1,6 @@
 # Interface Abstrata
 
-É o esqueleto da interface, onde definimos a ordem, origem dos dados e hierarquia dos elementos para que virão a ser
+É o esqueleto da interface, onde definimos a ordem, origem dos dados e hierarquia dos elementos para que virão* (venham) a ser
 mapeados pela [Interface Concreta](concrete-interface.md).
 
     var abstracts = [ 
@@ -21,7 +21,7 @@ Cada interface abstrata é composta por 2 parâmetros:
 
 ### name
 
-Nome da interface abstrata, este nome será utilizado pela no parâmetro `abstract` de elementos da 
+Nome da interface abstrata, este nome será utilizado pela* (ou PELO ou só NO) no parâmetro `abstract` de elementos da 
 [Seleção de Interface](interface-selection.md).
 
 ### widgets
@@ -64,7 +64,7 @@ Você pode utilizar uma regra geral ou escrever uma expressão que deverá ser a
 
     { name: 'preco' when:'$data.preco != null'}
 
-De preferência a escrever as regras na estrutura de regras do framework, assim será mais fácil de reaproveitar e dar manutenção as regras.
+De preferência a escrever as regras na estrutura de regras do framework, assim será mais fácil de reaproveitar e dar manutenção* (manutenções) as regras.
 
 [Mais informações sobre regras](rules.md)
 
@@ -76,7 +76,7 @@ Se você desejar que alguma informação seja baixada em uma API, você pode inf
 
     datasource:"url:http://api.domain.com.br/exemplo/"
 
-Pode ser feita referencia a uma coleção que foi retornada da URI que foi navegada:
+Pode ser feita referência a uma coleção que foi retornada da URI que foi navegada:
 
     datasource:"$data.alguma_colecao"
 
@@ -149,7 +149,7 @@ Para facilitar a escrita dos widgets abstratos, foi criada uma forma reduzida pa
 ### Widget Abstrato apenas com o `name`
 
 Se dentro de children de um widget você só precisa de um widget, mas não precisa informar nenhum outro parâmetro,
-você pode fazer referencia a ele colocando somente uma `string`:
+você pode fazer referência a ele colocando somente uma `string`:
  
     {
         name:'composto',
