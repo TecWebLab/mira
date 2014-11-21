@@ -17,7 +17,7 @@ Cada objeto da regra é composta por 2 parâmetros:
 
 ### name
 
-Nome da regra, este nome será utilizado pela no parâmetro `when` de elementos da
+Nome da regra, este nome será utilizado pela* (só PELO ou só NO) no parâmetro `when` de elementos da
 [Seleção de Interface](interface-selection.md), 
 [Interface Abstrata](concrete-interface.md) e
 [Interface Concreta](abstract-interface.md).
@@ -51,9 +51,9 @@ Validar se estamos em um ambiente `https`:
         validate: '$env.request.protocol == "https:"'
     }
     
-Validar se um objecto possui apenas uma propriedade:
+Validar se um objeto possui apenas uma propriedade:
 
     {
         name: 'isProperty',
         validate: '_.keys($data.property).length == 1'
-    }
+    }s
