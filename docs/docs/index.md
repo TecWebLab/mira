@@ -2,15 +2,15 @@
 
 **Model Interface for Rest Application**
 
-Um framework baseado em padrões que permitirá a uma aplicação qualquer definir uma interface segundo o modelo de interfaces do **SHDM**.
+Um framework baseado em padrões que permitirá à uma aplicação qualquer definir uma interface segundo o modelo de interfaces do **SHDM**.
 A funcionalidade da aplicação será ativada através de interfaces **REST**.
 
 Através de um modelo composto por [Interface Abstrata](concrete-interface.md) e [Interface Concreta](abstract-interface.md),
 o projetista da aplicação poderá montar a interface da sua aplicação e ainda utilizar [Regras](rules.md) para
 a [Seleção de Interface](interface-selection.md) e mapeamento de [Widgets](widgets.md) compondo sua interface de acordo
-com suas definições e adaptando-a para diversos ambiente e dispositivos.
+com suas definições e adaptando-a para diversos ambientes e dispositivos.
 
-## Sequencia de execução
+## Sequência de execução
 
 ![Sequencia de execução](img/sequencia.jpg)
 
