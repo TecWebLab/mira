@@ -5,7 +5,8 @@ var exemplos = [
     {name: "Google", href:"/?app=example/google"},
     {name: "Github", href:"/?app=example/github"},
     {name: "Imobiliária", href:"/?app=example/imovel"},
-    {name: "Futebol", href:"/?app=example/futebol"}
+    {name: "Futebol", href:"/?app=example/futebol"},
+    {name: "Flickr", href:"/?app=example/flickr"}
 ];
 
 var rules = [];
