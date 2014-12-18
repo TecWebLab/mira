@@ -22,7 +22,7 @@
         buildFunction: function (value, context) {
             var func;
             if (_.isString(value)) {
-                func = function (data) {
+                func = function ($data) {
                     try {
                         return eval(value);
                     } catch (ex) {
@@ -68,7 +68,53 @@
             return ret
         },
 
-        navigate: function (uri) {
+        toQueryString: function(val, namePrefix) {
+            /*jshint eqnull:true */
+            var splitChar = Backbone.Router.arrayValueSplit;
+            function encodeSplit(val) { return String(val).replace(splitChar, encodeURIComponent(splitChar)); }
+
+            if (!val) {
+                return '';
+            }
+
+            namePrefix = namePrefix || '';
+            var rtn = [];
+            _.each(val, function(_val, name) {
+                name = namePrefix + name;
+
+                if (_.isString(_val) || _.isNumber(_val) || _.isBoolean(_val) || _.isDate(_val)) {
+                    // primitive type
+                    if (_val != null) {
+                        rtn.push(name + '=' + encodeSplit(encodeURIComponent(_val)));
+                    }
+                } else if (_.isArray(_val)) {
+                    // arrays use Backbone.Router.arrayValueSplit separator
+                    var str = '';
+                    for (var i = 0; i < _val.length; i++) {
+                        var param = _val[i];
+                        if (param != null) {
+                            str += splitChar + encodeSplit(param);
+                        }
+                    }
+                    if (str) {
+                        rtn.push(name + '=' + str);
+                    }
+                } else {
+                    // dig into hash
+                    var result = toQueryString(_val, name + '.');
+                    if (result) {
+                        rtn.push(result);
+                    }
+                }
+            });
+
+            return rtn.join('&');
+        },
+
+        navigate: function (uri, params) {
+            if(params) {
+                return '#?URI=' + uri + '&' + esse.toQueryString(params);
+            }
             return '#?URI=' + uri;
         },
 

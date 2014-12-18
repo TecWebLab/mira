@@ -72,7 +72,7 @@ define([
             }
             $parent.append(element);
             return {
-                $children: $(element),
+                $children: $(link || element),
                 html: element.innerHTML
             }
         }

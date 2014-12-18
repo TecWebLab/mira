@@ -1,0 +1,28 @@
+body {
+  padding-top: 70px
+}
+
+footer {
+  margin: 50px 0;
+}
+
+.lslide {
+  position:relative;
+  text-align: center;
+}
+
+.lslide-description {
+  bottom: 0;
+  left:0;
+  position: absolute;
+  background-color:black;
+  color:white;
+  opacity:0.6; /* transparency */
+  filter:alpha(opacity=60); /* IE transparency */
+  width: 100%;
+}
+
+.lslide-description h4{
+  padding:10px;
+  margin:0px;
+}

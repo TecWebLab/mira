@@ -37,6 +37,7 @@ define([
         Title: Title,
         ImageHtml:ImageHtml,
         BootstrapSimple: BootstrapBase.Simple,
+        BootstrapPanelBody: BootstrapBase.PanelBody,
         BootstrapCarousel: BootstrapCarousel.Carousel,
         BootstrapCarouselItem: BootstrapCarousel.Item,
         BootstrapIcon: BootstrapBase.Icon,

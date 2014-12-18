@@ -9,7 +9,8 @@ define([
 
     var displays = ['xs', 'sm', 'md', 'lg', 'print'];
     var visible_types = ['block', 'inline', 'inline-block'];
-    var raw_types = ['img', 'text', 'bg', 'pull', 'list', 'dl', 'table', 'form', 'btn', 'input', 'sr', 'has', 'alert'];
+    var raw_types = ['img', 'text', 'bg', 'pull', 'list', 'dl', 'table', 'form', 'btn', 'input', 'sr', 'has', 'alert', 'label'];
+    var repeat_types = ['btn', 'alert', 'label'];
 
     var ignored_options = _.union(displays, raw_types);
 
@@ -18,7 +19,12 @@ define([
             val = [val];
         }
         if(!_.isArray(val)){
-            val = _.invoke(val.split(','), 'trim')
+            if(_.isString(val)) {
+                val = _.invoke(val.split(','), 'trim')
+            }
+            else {
+                val = [val];
+            }
         }
         _.each(val, each_callback);
     };
@@ -54,13 +60,13 @@ define([
             }
         });
 
-        if(options.btn){
-            classes.push('btn');
-        }
-
-        if(options.alert){
-            classes.push('alert');
-        }
+        _.each(repeat_types, function(type){
+            if(options[type] != undefined){
+                as_array(options[type], function(val){
+                    classes.push(type);
+                });
+            }
+        });
 
         if(suffix_classes) {
             classes.push(suffix_classes);
@@ -79,6 +85,14 @@ define([
             var new_options = _.clone(options);
             new_options.class = get_bootstrap_class(options, options.class);
             return SimpleHtml($parent, name, $data, $env, new_options, ignored_options)
+        },
+
+        PanelBody: function($parent, name, $data, $env, options){
+            var new_options = _.clone(options);
+            new_options.class = get_bootstrap_class(options, 'panel ' + options.class);
+            var ret = SimpleHtml($parent, name, $data, $env, new_options, ignored_options);
+            var inner_option = {'class':'panel-body'};
+            return SimpleHtml(ret.$children, '', $data, $env, inner_option)
         },
 
         Icon: function($parent, name, $data, $env, options){

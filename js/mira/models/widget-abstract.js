@@ -63,7 +63,7 @@
                     ret.view = this.buildView(ret.$el, $data);
                     var itemWidget = this.get('children').at(0);
                     this.requestData($data, $env, function(collection){
-                        collection.each(function(m){
+                        collection.each(function(m, i){
                             if($data) {
                                 m.$parente_data = $data;
                                 m.set('$parent_data', $data.attributes);
@@ -73,13 +73,35 @@
                                 var subview = esse.buildView(retSubview.$el);
                                 ret.view.subview.push(subview);
                             }
+
+                            if(i + 1 == collection.length){
+                                $data.trigger('complete', {
+                                    $parent: $parent,
+                                    $data: $data,
+                                    $env: $env,
+                                    $children: ret.$children,
+                                    html: ret.html
+                                });
+                            }
                         });
+
                     });
                 } else {
-                    this.get('children').each(function (widget) {
+                    this.get('children').each(function (widget, i) {
                         widget.getHtml(ret.$children, concrete, $data, $env);
+
+                        if(i + 1 == this.get('children').length){
+                            $data.trigger('complete', {
+                                $parent: $parent,
+                                $data: $data,
+                                $env: $env,
+                                $children: ret.$children,
+                                html: ret.html
+                            });
+                        }
                     }, this);
                 }
+
                 return ret;
             }
         },

@@ -1,0 +1,11 @@
+<ul id="<%= name %>">
+    <% _.each($data.data, function(image){ %>
+    <li data-thumb="<%= image.thumbnail %>">
+        <img src="<%= image.picture %>" />
+        <div class="lslide-description">
+            <h4><%= image.title %></h4>
+        </div>
+    </li>
+    <% }); %>
+</ul>
+

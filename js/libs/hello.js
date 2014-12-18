@@ -1746,8 +1746,6 @@ hello.utils.responseHandler( window, window.opener || window.parent );
 
 hello.api = function(){
 
-	debugger;
-
 	// get arguments
 	var p = this.utils.args({path:'s!', query : "o", method : "s", data:'o', timeout:'i', callback:"f" }, arguments);
 
@@ -3644,8 +3642,7 @@ function getBuddyIcon(profile, size){
 	if (profile.nsid && profile.iconserver && profile.iconfarm){
 		url="https://farm" + profile.iconfarm + ".staticflickr.com/" +
 			profile.iconserver + "/" +
-			"buddyicons/" + profile.nsid +
-			((size) ? "_"+size : "") + ".jpg";
+			"buddyicons/" + profile.nsid + ".jpg";
 	}
 	return url;
 }
@@ -3667,6 +3664,37 @@ function formatError(o){
 	}
 }
 
+var flickr_sizes = {
+	square:'s',
+	large_square:'q',
+	thumbnail:'t',
+	s240:'m',
+	s320:'n',
+	s500:'',
+	s640:'z',
+	s800:'c',
+	s1024:'b'
+};
+
+function formatPhoto(o){
+	if (o.photo){
+		var photo = o.photo;
+		photo.type = 'photo';
+		photo.name = photo.title;
+		photo.picture = getPhoto(photo.id, photo.farm, photo.server, photo.secret, '');
+		photo.source = getPhoto(photo.id, photo.farm, photo.server, photo.secret, 'b');
+		photo.thumbnail = getPhoto(photo.id, photo.farm, photo.server, photo.secret, 'm');
+
+		photo.owner.thumbnail = getBuddyIcon(photo.owner);
+
+		photo.size = {};
+		for(var size in flickr_sizes){
+			photo.size[size] = getPhoto(photo.id, photo.farm, photo.server, photo.secret, flickr_sizes[size]);
+		}
+	}
+	return o.photo;
+}
+
 function formatPhotos(o){
 	if (o.photoset || o.photos){
 		var set = ("photoset" in o) ? 'photoset' : 'photos';
@@ -3680,6 +3708,11 @@ function formatPhotos(o){
 			photo.picture = getPhoto(photo.id, photo.farm, photo.server, photo.secret, '');
 			photo.source = getPhoto(photo.id, photo.farm, photo.server, photo.secret, 'b');
 			photo.thumbnail = getPhoto(photo.id, photo.farm, photo.server, photo.secret, 'm');
+
+			photo.size = {};
+			for(var size in flickr_sizes){
+				photo.size[size] = getPhoto(photo.id, photo.farm, photo.server, photo.secret, flickr_sizes[size]);
+			}
 		}
 	}
 	return o;
@@ -3742,12 +3775,16 @@ hello.init({
 		// Map GET resquests
 		get : {
 			"me"		: sign("flickr.people.getInfo"),
-			"me/friends": sign("flickr.contacts.getList", {per_page:"@{limit|50}"}),
-			"me/following": sign("flickr.contacts.getList", {per_page:"@{limit|50}"}),
-			"me/followers": sign("flickr.contacts.getList", {per_page:"@{limit|50}"}),
+			"me/friends": sign("flickr.contacts.getList", {per_page:"@{limit|50}", sort:'time'}),
+			"me/following": sign("flickr.contacts.getList", {per_page:"@{limit|5}", sort:'time'}),
+			"me/followers": sign("flickr.contacts.getList", {per_page:"@{limit|50}", sort:'time'}),
 			"me/albums"	: sign("flickr.photosets.getList", {per_page:"@{limit|50}"}),
 			"me/photos" : sign("flickr.people.getPhotos", {per_page:"@{limit|50}"}),
-			"photos" : withoutSign("flickr.people.getPhotos")
+			"photos" : sign("flickr.people.getPhotos", {per_page:"@{limit|5}"}),
+			"photo" : withoutSign("flickr.photos.getInfo", {}),
+			"favorites" : withoutSign("flickr.photos.getFavorites", {per_page:"@{limit|50}"}),
+			"comments" : withoutSign("flickr.photos.comments.getList", {}),
+			"interestingness" : sign("flickr.interestingness.getList", {per_page:"@{limit|6}"})
 		},
 
 		wrap : {
@@ -3792,7 +3829,26 @@ hello.init({
 				formatError(o);
 				return formatPhotos(o);
 			},
+			'photo': function(o){
+				formatError(o);
+				return formatPhoto(o);
+			},
 			'photos': function(o){
+				formatError(o);
+				return formatPhotos(o);
+			},
+			'comments': function(o){
+				var comments = o.comments.comment;
+
+				for(var i = 0; i < comments.length; i++){
+					var c = comments[i];
+					c.nsid = c.author;
+					c.thumbnail = getBuddyIcon(c);
+				}
+
+				return comments;
+			},
+			'interestingness': function(o){
 				formatError(o);
 				return formatPhotos(o);
 			}
