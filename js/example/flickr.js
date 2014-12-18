@@ -251,7 +251,7 @@ var concrete_interface = [
             { name: 'sidebar', md:4 },
             { name: 'commons_box', widget:'BootstrapPanelBody', class:'panel-default' },
             { name: 'common_title', tag:'h3', value:'"Destaques"' },
-            { name: 'commons_item', tag:'a'  },
+            { name: 'commons_item', tag:'a', href:'navigate("/photo?photo_id=" + $data.id)'  },
             { name: 'commons_img', tag: 'img', md:"4", class:'thumbnail', src:'$data.size.square' },
 
 
