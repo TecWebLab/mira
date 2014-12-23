@@ -3782,9 +3782,11 @@ hello.init({
 			"me/photos" : sign("flickr.people.getPhotos", {per_page:"@{limit|50}"}),
 			"photos" : sign("flickr.people.getPhotos", {per_page:"@{limit|5}"}),
 			"photo" : withoutSign("flickr.photos.getInfo", {}),
+			"photo/context" : withoutSign("flickr.photos.getAllContexts", {}),
 			"favorites" : withoutSign("flickr.photos.getFavorites", {per_page:"@{limit|50}"}),
 			"comments" : withoutSign("flickr.photos.comments.getList", {}),
-			"interestingness" : sign("flickr.interestingness.getList", {per_page:"@{limit|6}"})
+			"interestingness" : sign("flickr.interestingness.getList", {per_page:"@{limit|6}"}),
+			"groups" : sign("flickr.people.getGroups", {})
 		},
 
 		wrap : {

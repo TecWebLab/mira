@@ -148,18 +148,6 @@ var interface_abstracts = [
                              {name: "user-name"},
                              {name: "photo-name"}]
                      },{
-                         name:'star-box',
-                         datasource:'url:/favorites?photo_id=<%= $data.id %>',
-                         parse:'[$data]',
-                         children:[
-                             {name: 'star-item',
-                              children:[
-                                  {name: 'star-desc'},
-                                  {name: 'star-qtd'}
-                              ]
-                             }
-                         ]
-                     },{
                          name:'comment-box',
                          datasource:'url:/comments?photo_id=<%= $data.id %>',
                          children:[
@@ -178,6 +166,106 @@ var interface_abstracts = [
                      }
 
 
+                     ]
+                 },{
+                     name: 'sidebar',
+                     children:[
+                         {name:'count-box',
+                          children:[
+                              {
+                                  name:'star-box',
+                                  datasource:'url:/favorites?photo_id=<%= $data.id %>',
+                                  parse:'[$data]',
+                                  children:[
+                                      {name: 'star-item',
+                                          children:[
+                                              {name: 'star-desc'},
+                                              {name: 'star-qtd'}
+                                          ]
+                                      }
+                                  ]
+                              },
+                              {
+                                  name:'view-count-box',
+                                  children:[
+                                      {name: 'view-count-item',
+                                          children:[
+                                              {name: 'view-count-desc'},
+                                              {name: 'view-count-qtd'}
+                                          ]
+                                      }
+                                  ]
+                              },
+                              {
+                                  name:'comment-count-box',
+                                  children:[
+                                      {name: 'comment-count-item',
+                                          children:[
+                                              {name: 'comment-count-desc'},
+                                              {name: 'comment-count-qtd'}
+                                          ]
+                                      }
+                                  ]
+                              },
+                              {
+                                  name:'taken-box',
+                                  children:[
+                                      {name: 'taken-item',
+                                          children:[
+                                              {name: 'taken-desc'},
+                                              {name: 'taken-qtd'}
+                                          ]
+                                      }
+                                  ]
+                              }
+                          ]
+                         },{
+                             name: "groups-box",
+                             children: [
+                                 {name: 'group-submit'},
+                                 {name: "groups-title"},
+                                 {
+                                     name: "groups-itens",
+                                     datasource: 'url:/photo/context?photo_id=<%= $env.$data.id %>',
+                                     parse: '$data.pool',
+                                     children: [{
+                                         name: "groups-item",
+                                         children: [
+                                             {name: "group-thumb"},
+                                             {name: "group-name"},
+                                             {name: "group-status"}
+                                         ]
+                                     }]
+                                 },
+                                 {name:'group-submit-box',
+                                  children:[
+                                      {name:'group-submit-box-header',
+                                       children:[
+                                           {name:'group-submit-box-header-title'}
+                                       ]},
+                                      {name:'group-submit-box-body',
+                                       children:[
+                                          {
+                                              name:'group-submit-box-body-groups',
+                                              datasource: '',
+                                              children:[{
+                                                      name: "group-submit-box-body-groups-item",
+                                                      children: [
+                                                          {name: "group-submit-box-body-groups-thumb"},
+                                                          {name: "group-submit-box-body-groups-name"},
+                                                          {name: "group-submit-box-body-groups-status"}
+                                                      ]
+                                                  }
+                                              ]
+                                          }
+                                       ]
+                                      },
+                                      {name:'group-submit-box-footer'}
+                                  ]
+
+                                 }
+                             ]
+                         }
                      ]
                  }
              ]
@@ -288,11 +376,6 @@ var concrete_interface = [
             { name: "user-name", tag:'h4', value:'$data.owner.realname' },
             { name: "photo-name", tag:'h4', value:'$data.title._content' },
 
-            { name: "star-box", class:'row', md:'offset-2'  },
-            { name: 'star-item', label:'info' },
-            { name: 'star-desc', widget:'BootstrapIcon', icon:'star' },
-            { name: 'star-qtd', tag:'span', value:'$data.photo.person.length' },
-
             { name: 'comment-box', class:'row' },
             { name: 'comment-item', widget:'BootstrapPanelBody', class:'panel-default' },
             { name: 'comment-author', tag:'a', md:'2' },
@@ -300,6 +383,45 @@ var concrete_interface = [
             { name: 'comment-author-name', tag:'h4', value:'$data.realname || $data.authorname' },
             { name: 'comment-content', tag:'blockquote', md:'9,offset-2', value:'$data._content' },
 
+
+            { name: 'sidebar', md:5},
+            { name: 'count-box', widget:'BootstrapPanelBody', class:'panel-default' },
+
+            { name: "star-box", md:2  },
+            { name: 'star-item', label:'info', title:'Favoritos'  },
+            { name: 'star-desc', widget:'BootstrapIcon', icon:'star' },
+            { name: 'star-qtd', tag:'span', value:'$data.photo.person.length' },
+
+
+            { name: "view-count-box", md:2  },
+            { name: 'view-count-item', label:'info', title:'Visualizações' },
+            { name: 'view-count-desc', widget:'BootstrapIcon', icon:'eye-open' },
+            { name: 'view-count-qtd', tag:'span', value:'$data.views' },
+
+
+            { name: "comment-count-box", md:2  },
+            { name: 'comment-count-item', label:'info', title:'Comentários' },
+            { name: 'comment-count-desc', widget:'BootstrapIcon', icon:'comment' },
+            { name: 'comment-count-qtd', tag:'span', value:'$data.comments._content' },
+
+            { name: "taken-box", md:2  },
+            { name: 'taken-item', label:'info', title:'Tirada em' },
+            { name: 'taken-desc', widget:'BootstrapIcon', icon:'calendar' },
+            { name: 'taken-qtd', tag:'span', value:'$data.dates.taken' },
+
+            { name: 'groups-box', widget:'BootstrapPanelBody', class:'panel-default' },
+            { name: 'groups-title', tag:'h3', value:'Groups' },
+            { name: 'groups-itens' },
+            { name: 'groups-item', md:12 },
+            { name: 'group-name', value:'$data.title' },
+            { name: 'group-thumb', tag:'img', img:'circle', md:3, src:'getThumbnail($data.id, $data.iconserver, $data.iconfarm)' },
+            { name: 'group-status' },
+            { name: 'group-submit', value:'Add Group', tag:'button', class:'pull-right', onclick:'"show_modal(\'group-submit-box\')"' },
+            { name: 'group-submit-box', widget:'BootstrapModalDialog' },
+            { name: 'group-submit-box-header', widget:'BootstrapModalHeader' },
+            { name: 'group-submit-box-header-title', tag:'h3', value:'Adicionar Grupos' },
+            { name: 'group-submit-box-body', widget:'BootstrapModalBody' },
+            { name: 'group-submit-box-footer', widget:'BootstrapModalFooter' },
 
             { name: "footer" }
         ]
@@ -363,6 +485,20 @@ if(typeof define === 'function') {
                 Hello('flickr').login().then(function(){
                     window.location.href = '#?URI=/me'
                 });
+            };
+
+            window.show_modal = function(id){
+                $('#' + id).modal();
+            };
+
+            window.getThumbnail = function(nsid, iconserver, iconfarm){
+                var url="https://www.flickr.com/images/buddyicon.gif";
+                if (nsid && iconserver && iconfarm){
+                    url="https://farm" + iconfarm + ".staticflickr.com/" +
+                    iconserver + "/" +
+                    "buddyicons/" + nsid + ".jpg";
+                }
+                return url;
             };
 
             window.datasource = function (uri, params) {
