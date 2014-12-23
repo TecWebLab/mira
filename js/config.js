@@ -19,7 +19,8 @@ requirejs.config({
         'backbone_cache': 'libs/backbone.fetch-cache',
         'modernizr': 'libs/modernizr',
         'device': 'libs/device',
-        'hello': 'libs/hello'
+        'hello': 'libs/hello',
+        'collagePlus': 'libs/jquery.collagePlus.min.js'
     },
     shim: {
         "underscore": {

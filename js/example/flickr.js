@@ -1,11 +1,11 @@
 "use strict";
 
 var rules = [{
-    name: 'isPerson',
-    validate: '$data.username != null'
+    name: 'isMe',
+    validate: '$data.me == true'
 },{
     name: 'isPerson',
-    validate: '$data.username != null'
+    validate: '$data.person != null'
 },{
     name: 'isPhoto',
     validate: '$data.type == "photo"'
@@ -17,8 +17,11 @@ var rules = [{
 
 var selection = [
     {
-        when: 'isPerson',
+        when: 'isMe',
         abstract: 'timeline'
+    },{
+        when: 'isPerson',
+        abstract: 'user'
     },
     {
         when: 'isPhoto',
@@ -101,6 +104,39 @@ var interface_abstracts = [
             },
             {name: "footer"}]
     },{
+        name:'user',
+        widgets: [
+            { name: 'navigation',
+                children: [
+                    { name:'navigation-list',
+                        children:[
+                            {name:'navigation-list-item'},
+                            {name:'navigation-avatar',
+                                children:[
+                                    {name:'navigation-avatar-img'}
+                                ]
+                            }
+                        ]
+                    }]
+            },
+            {
+                name: "content",
+                children: [{
+                    name: "photos_box",
+                    datasource: "url:/photos?user_id=<%= $data.person.id %>&per_page=50",
+                    parse:'$data.data',
+                    children: [{
+                        name: "photo_item",
+                        children: [
+                            {name: "photo_title"},
+                            {name: "photo_src"}
+                        ]
+                    }]
+                }]
+            },
+            {name: "footer"}]
+    }
+    ,{
         name:'photo',
         widgets : [
             { name: 'navigation',
@@ -318,7 +354,7 @@ var concrete_interface = [
             { name: 'navigation', widget: 'BootstrapNavigation', value:'"Flickr"'},
             { name: 'navigation-list', widget: 'BootstrapNavigationList'},
             { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'$data.realname._content', href:'navigate("/me")'},
-            { name: 'navigation-avatar', widget: 'BootstrapNavigationListItem', tag:'a', class:'navbar-brand', href:'navigate("/me")'},
+            { name: 'navigation-avatar', widget: 'BootstrapNavigationListItem', tag:'a', class:'navbar-brand', href:'navigate("/user?user_id=" + $data.id)'},
             { name: 'navigation-avatar-img', tag:'img', class:'img-circle', src:'$data.picture', width:"33", height:'33'},
             { name: "busca" },
             { name: "foto", tag:'img', src:'' },
@@ -344,6 +380,23 @@ var concrete_interface = [
 
 
             { name: "footer" }
+        ]
+    },{
+        name: 'user',
+        head: head.concat([
+            {name: 'title', widget:'Title', value: '$data.person.realname._content'}
+        ]),
+        maps:[
+            { name: 'navigation', widget: 'BootstrapNavigation', value:'"Flickr"'},
+            { name: 'navigation-list', widget: 'BootstrapNavigationList'},
+            { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'$data.person.realname._content', href:'navigate("/me")'},
+            { name: 'navigation-avatar', widget: 'BootstrapNavigationListItem', tag:'a', class:'navbar-brand', href:'navigate("/me")'},
+            { name: 'navigation-avatar-img', tag:'img', class:'img-circle', src:'getThumbnail($data.person.id, $data.person.iconserver, $data.person.iconfarm)', width:"33", height:'33'},
+            { name: 'content', class:'container-fluid'},
+            { name: 'photos_box', widget:'FlickrCollage'},
+            { name: 'photo_item', tag:'a', href:'navigate("/photo?photo_id=" + $data.id)' },
+            { name: 'photo_title' },
+            { name: 'photo_src', tag:'img', src:'$data.size.s500'}
         ]
     },{
 

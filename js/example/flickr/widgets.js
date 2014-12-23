@@ -6,8 +6,9 @@ define([
     'backbone',
     'mira/helper',
     'mira/widgets/bootstrap-base',
-    'example/flickr/jquery.lightSlider.min'
-], function ($, _, Backbone, Helper, BootstrapBase, lightSlider) {
+    'example/flickr/jquery.lightSlider.min',
+    'example/flickr/jquery.collagePlus.min'
+], function ($, _, Backbone, Helper, BootstrapBase, lightSlider, collage) {
 
     var flickr = {
         FlickrGallery : function($parent, name, $data, $env, options){
@@ -52,6 +53,19 @@ define([
 
             return ret;
 
+        },
+
+        FlickrCollage: function($parent, name, $data, $env, options) {
+            var options = _.defaults(options, { class:'' });
+            options.class += 'Collage';
+
+            var ret = BootstrapBase.Simple($parent, name, $data, $env, options);
+
+            $data.on('complete', function(opt){
+                ret.$children.collagePlus();
+            });
+
+            return ret;
         }
 
 

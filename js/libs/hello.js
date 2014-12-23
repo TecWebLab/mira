@@ -3652,9 +3652,6 @@ function getPhoto(id, farm, server, secret, size){
 	return "https://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+size+".jpg";
 }
 
-function formatUser(o){
-}
-
 function formatError(o){
 	if(o && o.stat && o.stat.toLowerCase()!='ok'){
 		o.error = {
@@ -3775,6 +3772,7 @@ hello.init({
 		// Map GET resquests
 		get : {
 			"me"		: sign("flickr.people.getInfo"),
+			"user"		: withoutSign("flickr.people.getInfo"),
 			"me/friends": sign("flickr.contacts.getList", {per_page:"@{limit|50}", sort:'time'}),
 			"me/following": sign("flickr.contacts.getList", {per_page:"@{limit|5}", sort:'time'}),
 			"me/followers": sign("flickr.contacts.getList", {per_page:"@{limit|50}", sort:'time'}),
@@ -3803,6 +3801,7 @@ hello.init({
 					o.thumbnail = getBuddyIcon(o, 'l');
 					o.picture = getBuddyIcon(o, 'l');
 				}
+				o.me = true;
 				return o;
 			},
 			"me/friends" : formatFriends,

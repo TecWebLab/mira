@@ -34,3 +34,10 @@ footer {
 blockquote  img{
   display: block;
 }
+.Collage{
+  padding:10px;
+}
+
+.Collage img{
+  vertical-align:bottom;
+}
