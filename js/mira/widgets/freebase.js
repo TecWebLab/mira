@@ -6,20 +6,24 @@ define([
     'mira/helper'
 ], function ($, _, Helper) {
 
+    var values = function(string_value, $data, $env, $bind, $dataObj){
+        return eval(string_value);
+    };
+
     return {
-        Types: function($parent, name, $data, $env, options){
+        Types: function($parent, name, $context, options){
             var element = document.createElement('div');
 
             var classes = ['label-success', 'label-info', 'label-warning', 'label-danger', 'label-default'];
 
-            $data = $data.attributes;
-
-            _.each(eval(options.value), function(item, index){
-                var label = document.createElement('span');
-                label.className = 'label ' + classes[index % classes.length];
-                label.innerHTML = item.text;
-                element.appendChild(label);
-            });
+            _.each(values(options.value, $context.$data, $context.$env, $context.$bind, $context.$dataObj),
+                function(item, index){
+                    var label = document.createElement('span');
+                    label.className = 'label ' + classes[index % classes.length];
+                    label.innerHTML = item.text;
+                    element.appendChild(label);
+                }
+            );
 
             element.className += ' ' + options.class;
             element.id = name;

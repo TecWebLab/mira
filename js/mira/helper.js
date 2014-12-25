@@ -39,18 +39,20 @@
             return func
         },
 
-        buildObjectToValidate: function ($data, $env, options) {
+        buildObjectToValidate: function ($data, $env, $bind, options) {
             if ($data instanceof Backbone.Model) {
                 $data = $data.attributes;
             }
             options || (options = {});
             return _.extend({}, {
                 $data: $data,
-                $env: $env
+                $env: $env,
+                $bind: $bind
             }, options)
         },
 
-        evaluate: function (when, $data, $env) {
+        evaluate: function (when, $data, $env, $bind) {
+            var $dataObj = $data;
             if ($data instanceof Backbone.Model) {
                 $data = $data.attributes;
             }
@@ -63,7 +65,7 @@
             var ret = true;
             _.each(array_when, function(w){
                 var rule = mira.interface.rules.get_or_create(w);
-                    ret = ret && rule.evaluate($data, $env, $data);
+                ret = ret && rule.evaluate($data, $env, $dataObj, $bind);
             });
             return ret
         },
@@ -118,12 +120,8 @@
             return '#?URI=' + uri;
         },
 
-        build_context: function($data, $env, options, extra) {
-            return _.extend({}, options, {
-                $data:$data.attributes,
-                $env:$env,
-                $dataObj: $data
-            }, extra);
+        build_context: function($context, options, extra) {
+            return _.extend({}, options, $context, extra);
         },
 
         build_object_with_context: function(attrs, context){
@@ -157,7 +155,6 @@
             } catch (ex){
                 return value
             }
-
         },
 
         parseURL: function(url) {

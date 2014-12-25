@@ -16,13 +16,13 @@ define([
 
     return {
 
-        Carousel: function($parent, name, $data, $env, options){
+        Carousel: function($parent, name, $context, options){
             ativo = false;
             var new_options = _.clone(options);
             new_options.class = 'carousel slide';
             new_options['data-interval'] = new_options['data-interval'] || "false";
             new_options['data-ride'] = new_options['data-ride'] || "carousel";
-            var element = BootstrapBase.Simple($parent, name, $data, $env, new_options);
+            var element = BootstrapBase.Simple($parent, name, $context, new_options);
 
             if(_.isString(template_carousel)){
                 template_carousel = _.template(template_carousel);
@@ -41,7 +41,7 @@ define([
 
         },
 
-        Item: function($parent, name, $data, $env, options){
+        Item: function($parent, name, $context, options){
 
             var new_options = _.clone(options);
             new_options.class = 'item ';
@@ -51,11 +51,11 @@ define([
                 ativo = true;
             }
 
-            var element = BootstrapBase.Simple($parent, name + _.uniqueId(), $data, $env, new_options);
+            var element = BootstrapBase.Simple($parent, name + _.uniqueId(), $context, new_options);
 
             element.$children.html("");
 
-            var context = Helper.build_context($data, $env, options);
+            var context = Helper.build_context($context, options);
             var img = document.createElement('img');
 
             img.setAttribute('src', Helper.build_value(options.value, context));

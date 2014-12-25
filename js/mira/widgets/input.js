@@ -6,7 +6,7 @@ define([
     'mira/helper'
 ], function ($, _, Helper) {
 
-    return function($parent, name, $data, $env, options){
+    return function($parent, name, $context, options){
         var element = document.createElement(options.tag || 'div');
         element.id = name;
 
@@ -15,9 +15,7 @@ define([
         _.each(atrs, function(value, atr){
             var template = "<%= " + value + '%>';
             try {
-                var build = _.template(template, _.extend({}, options,
-                    {$data:$data.attributes, $env:$env, $dataObj: $data})
-                );
+                var build = _.template(template, _.extend({}, options, $context));
                 element.setAttribute(atr,  build)
             } catch (ex){
                 element.setAttribute(atr,  value)

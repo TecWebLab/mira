@@ -81,23 +81,23 @@ define([
         get_bootstrap_class: get_bootstrap_class,
         ignored_options: ignored_options,
 
-        Simple: function($parent, name, $data, $env, options){
+        Simple: function($parent, name, $context, options){
             var new_options = _.clone(options);
             new_options.class = get_bootstrap_class(options, options.class);
-            return SimpleHtml($parent, name, $data, $env, new_options, ignored_options)
+            return SimpleHtml($parent, name, $context, new_options, ignored_options)
         },
 
-        PanelBody: function($parent, name, $data, $env, options){
+        PanelBody: function($parent, name,  $context, options){
             var new_options = _.clone(options);
             new_options.class = get_bootstrap_class(options, 'panel ' + options.class);
-            var ret = SimpleHtml($parent, name, $data, $env, new_options, ignored_options);
+            var ret = SimpleHtml($parent, name,  $context, new_options, ignored_options);
             var inner_option = {'class':'panel-body'};
-            return SimpleHtml(ret.$children, '', $data, $env, inner_option)
+            return SimpleHtml(ret.$children, '', $context, inner_option)
         },
 
-        Icon: function($parent, name, $data, $env, options){
+        Icon: function($parent, name, $context, options){
             var element = document.createElement(options.tag || 'span');
-            var context = Helper.build_context($data, $env, options);
+            var context = Helper.build_context($context, options);
             var icon = Helper.build_value(options.icon, context);
 
             var atrs = _.omit(options, ignored_options, 'tag', 'value', 'name', 'widget', 'icon');

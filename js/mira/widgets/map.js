@@ -7,7 +7,7 @@ define([
 ], function ($, _, Helper) {
 
     return {
-        Static: function($parent, name, $data, $env, options) {
+        Static: function($parent, name, $context, options) {
 
             var element = document.createElement('img');
             element.id = name;
@@ -16,7 +16,7 @@ define([
 
             attrs['center'] = options['value'];
 
-            var context = Helper.build_context($data, $env, options);
+            var context = Helper.build_context($context, options);
             var attrs_compiled = Helper.build_object_with_context(attrs, context);
 
             attrs_compiled['size'] = attrs_compiled['size'] || '300x300';
@@ -34,11 +34,11 @@ define([
             }
         },
 
-        Dynamic: function($parent, name, $data, $env, options){
+        Dynamic: function($parent, name, $context, options){
             var element = document.createElement('div');
 
             var attrs = _.omit(options, 'tag', 'value', 'name', 'widget', 'class', 'alt', 'title', 'style', 'width', 'height');
-            var context = Helper.build_context($data, $env, options);
+            var context = Helper.build_context($context, options);
             var attrs_compiled = Helper.build_object_with_context(attrs, context);
 
             require(['async!http://maps.google.com/maps/api/js?sensor=false', 'gmap3'], function(){

@@ -56,34 +56,34 @@ define([
 
     return {
 
-        Dialog: function($parent, name, $data, $env, options) {
+        Dialog: function($parent, name, $context, options) {
 
             options.class = add_class(options.class, 'modal');
             options.class = add_class(options.class, options.effect);
 
-            var modal = BootstrapBase.Simple($parent, name, $data, $env, options);
+            var modal = BootstrapBase.Simple($parent, name, $context, options);
 
             options.dialog = _.defaults(options.dialog || {}, {
                class: 'modal-dialog'
             });
 
-            var dialog = BootstrapBase.Simple(modal.$children, name + '-dialog', $data, $env, options.dialog);
+            var dialog = BootstrapBase.Simple(modal.$children, name + '-dialog', $context, options.dialog);
 
             options.content = _.defaults(options.content || {}, {
                 class: 'modal-content'
             });
 
-            var content = BootstrapBase.Simple(dialog.$children, name + '-content', $data, $env, options.content);
+            var content = BootstrapBase.Simple(dialog.$children, name + '-content', $context, options.content);
 
             return content;
         },
 
-        Header: function($parent, name, $data, $env, options) {
+        Header: function($parent, name, $context, options) {
             options.class = add_class(options.class, 'modal-header');
             var value = options.value;
             var inner = '';
-            var context = Helper.build_context($data, $env, options);
-            var header = BootstrapBase.Simple($parent, name, $data, $env, options);
+            var context = Helper.build_context($context, options);
+            var header = BootstrapBase.Simple($parent, name, $context, options);
             if (options.class != false){
                 inner += '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>';
             }
@@ -95,14 +95,14 @@ define([
             return header;
         },
 
-        Body: function($parent, name, $data, $env, options) {
+        Body: function($parent, name, $context, options) {
             options.class = add_class(options.class, 'modal-body');
-            return BootstrapBase.Simple($parent, name, $data, $env, options);
+            return BootstrapBase.Simple($parent, name, $context, options);
         },
 
-        Footer: function($parent, name, $data, $env, options) {
+        Footer: function($parent, name, $context, options) {
             options.class = add_class(options.class, 'modal-footer');
-            return BootstrapBase.Simple($parent, name, $data, $env, options);
+            return BootstrapBase.Simple($parent, name, $context, options);
         }
 
     };

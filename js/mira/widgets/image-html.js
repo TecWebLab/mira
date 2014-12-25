@@ -6,15 +6,13 @@ define([
     'mira/helper'
 ], function ($, _, Helper) {
 
-    return function($parent, name, $data, $env, options){
+    return function($parent, name, $context, options){
 
         var element = document.createElement('img');
         element.id = name;
         if(options.value) {
             var template = "<%= " + options.value + '%>';
-            element.src = _.template(template, _.extend({}, options,
-                {$data:$data.attributes, $env:$env, $dataObj: $data}
-            ));
+            element.src = _.template(template, _.extend({}, options, $context ));
         }
         $parent.append(element);
         return {

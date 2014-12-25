@@ -10,17 +10,17 @@ define([
     var Model = Base.Model.extend({
         __name__ : 'Map.Model',
 
-        getHtml: function($parent, $data, $env){
-            return Render.call(this, $parent, $data, $env);
+        getHtml: function($parent, $data, $env, $bind){
+            return Render.call(this, $parent, $data, $env, $bind);
         },
 
         has_rule: function () {
             return this.get('when') != undefined;
         },
 
-        isVisible: function($data, $env){
+        isVisible: function($data, $env, $bind){
             if(this.get('when')) {
-                return Helper.evaluate(this.get('when'), $data.attributes, $env);
+                return Helper.evaluate(this.get('when'), $data.attributes, $env, $data, $bind);
             }
             return true;
         }

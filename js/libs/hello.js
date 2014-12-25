@@ -3065,6 +3065,7 @@ var Thenable = (function(){
 				var result;
 				try { result = cb(value); }                          /*  [Promises/A+ 2.2.2.1, 2.2.3.1, 2.2.5, 3.2]  */
 				catch (e) {
+					debugger;
 					next.reject(e);                                  /*  [Promises/A+ 2.2.7.2]  */
 					return;
 				}

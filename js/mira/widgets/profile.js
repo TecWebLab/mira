@@ -18,7 +18,7 @@ define([
     </div>';
 
     return {
-        Container: function($parent, name, $data, $env, options) {
+        Container: function($parent, name, $context, options) {
             var element = document.createElement('div');
             element.id = name;
             element.innerHTML = template;
@@ -29,7 +29,7 @@ define([
                 html: element.outerHTML
             }
         },
-        Detail : function($parent, name, $data, $env, options){
+        Detail : function($parent, name, $context, options){
             var element = document.createElement('p');
             element.id = name;
             var strong = document.createElement('strong');
@@ -37,9 +37,7 @@ define([
             element.appendChild(strong);
             if(options.value) {
                 var template = "<%= " + options.value + '%>';
-                element.innerHTML = element.innerHTML + _.template(template, _.extend({}, options,
-                    {$data:$data.attributes, $env:$env, $dataObj: $data}
-                ));
+                element.innerHTML = element.innerHTML + _.template(template, _.extend({}, options, $context));
             }
             $parent.append(element);
             return {
@@ -47,7 +45,7 @@ define([
                 html: element.outerHTML
             }
         },
-        Image:function($parent, name, $data, $env, options){
+        Image:function($parent, name, $context, options){
             var element = document.createElement('div');
             element.id = name;
             element.className = options.class || 'col-xs-12 col-sm-4 text-center';
@@ -55,9 +53,7 @@ define([
             image.className = 'center-block img-circle img-responsive';
             if(options.value) {
                 var template = "<%= " + options.value + '%>';
-                var src = _.template(template, _.extend({}, options,
-                    {$data:$data.attributes, $env:$env, $dataObj: $data}
-                ));
+                var src = _.template(template, _.extend({}, options, $context));
                 image.setAttribute('src', src);
             }
             element.appendChild(image);
@@ -67,14 +63,12 @@ define([
                 html: element.outerHTML
             }
         },
-        MiniUser: function($parent, name, $data, $env, options){
+        MiniUser: function($parent, name, $context, options){
             var image = document.createElement('img');
             image.className = 'center-block img-circle img-responsive';
             if(options.value) {
                 var template = "<%= " + options.value + '%>';
-                var src = _.template(template, _.extend({}, options,
-                    {$data:$data.attributes, $env:$env, $dataObj: $data}
-                ));
+                var src = _.template(template, _.extend({}, options, $context));
                 image.setAttribute('src', src);
             }
             $parent.append(image);
@@ -83,7 +77,7 @@ define([
                 html: image.outerHTML
             }
         },
-        Counts: function($parent, name, $data, $env, options){
+        Counts: function($parent, name, $context, options){
             var item = document.createElement('li');
             item.className = options.class || 'badge';
 
@@ -95,9 +89,7 @@ define([
 
             if(options.value) {
                 var template = "<%= " + options.value + '%>';
-                item.innerHTML = item.innerHTML + ' ' + _.template(template, _.extend({}, options,
-                    {$data:$data.attributes, $env:$env, $dataObj: $data}
-                ));
+                item.innerHTML = item.innerHTML + ' ' + _.template(template, _.extend({}, options, $context));
             }
 
             $parent.append(item);

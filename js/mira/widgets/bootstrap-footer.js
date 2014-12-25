@@ -12,7 +12,7 @@ define([
     </div> \
     </div>';
 
-    return function($parent, name, $data, $env, options){
+    return function($parent, name, $context, options){
         var hr = document.createElement('hr');
         var element = document.createElement('footer');
         element.id = name;

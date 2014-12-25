@@ -6,12 +6,12 @@ define([
     'mira/helper'
 ], function ($, _, Helper) {
 
-    return function($parent, name, $data, $env, options, ignored_options){
+    return function($parent, name, $context, options, ignored_options){
         var element = document.createElement(options.tag || 'div');
         element.id = name;
 
         var atrs = _.omit(options, 'tag', 'value', 'name', 'widget', ignored_options);
-        var context = Helper.build_context($data, $env, options);
+        var context = Helper.build_context($context, options);
         Helper.build_attributes(element, atrs, context);
 
         if(options.value) {

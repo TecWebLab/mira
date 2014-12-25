@@ -8,7 +8,7 @@ define([
 
 
     return {
-        GroupButton: function($parent, name, $data, $env, options){
+        GroupButton: function($parent, name, $context, options){
             var element = document.createElement('span');
             element.className = "input-group-btn";
             element.id = name;
@@ -23,7 +23,7 @@ define([
             if(options.value) {
                 var templateValue = "<%= " + options.value + '%>';
                 $button.html(_.template(templateValue, _.extend({}, options,
-                    {$data:$data.attributes, $env:$env, $dataObj: $data})));
+                    $context)));
             }
             $parent.append(element);
             return {

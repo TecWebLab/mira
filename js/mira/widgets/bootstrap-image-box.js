@@ -6,7 +6,7 @@ define([
     'mira/helper'
 ], function ($, _, Helper) {
 
-    return function($parent, name, $data, $env, options){
+    return function($parent, name, $context, options){
 
         var element = document.createElement('div');
         element.className = options.class || "col-sm-4 col-lg-4 col-md-4";
@@ -22,7 +22,7 @@ define([
         if(options.value) {
             var template = "<%= " + options.value + '%>';
             $thumbnail.innerHTML = _.template(template, _.extend({}, options,
-                {$data:$data.attributes, $env:$env, $dataObj: $data}));
+                $context));
         }
         $parent.append(element);
         return {

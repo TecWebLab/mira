@@ -11,13 +11,13 @@ define([
 ], function ($, _, Backbone, Helper, BootstrapBase, lightSlider, collage) {
 
     var flickr = {
-        FlickrGallery : function($parent, name, $data, $env, options){
+        FlickrGallery : function($parent, name, $context, options){
             var new_options = _.defaults(options, {
                     tag: 'ul'
                 });
-            var ret = BootstrapBase.Simple($parent, name, $data, $env, new_options);
+            var ret = BootstrapBase.Simple($parent, name, $context, new_options);
 
-            $data.on('complete', function(opt){
+            $context.$dataObj.on('complete', function(opt){
                 ret.$children.lightSlider({
                     gallery: true,
                     item: 1,
@@ -32,34 +32,34 @@ define([
 
             return ret;
         },
-        FlickrGalleryItem : function($parent, name, $data, $env, options){
+        FlickrGalleryItem : function($parent, name, $context, options){
             var new_options = _.omit(_.defaults(options, {
                 tag: 'li'
             }), 'img', 'link');
-            var ret = BootstrapBase.Simple($parent, name, $data, $env, new_options);
+            var ret = BootstrapBase.Simple($parent, name, $context, new_options);
             var children = ret.$children;
             if(options.link){
                 var link_options = _.defaults(options.link || {}, {
                     tag: 'a'
                 });
-                var link = BootstrapBase.Simple(ret.$children, name, $data, $env, link_options);
+                var link = BootstrapBase.Simple(ret.$children, name, $context, link_options);
                 children = link.$children;
             }
 
             var img_options = _.defaults(options.img || {}, {
                 tag: 'img'
             });
-            var img = BootstrapBase.Simple(children, name, $data, $env, img_options);
+            var img = BootstrapBase.Simple(children, name, $context, img_options);
 
             return ret;
 
         },
 
-        FlickrCollage: function($parent, name, $data, $env, options) {
+        FlickrCollage: function($parent, name, $context, options) {
             var options = _.defaults(options, { class:'' });
             options.class += 'Collage';
 
-            var ret = BootstrapBase.Simple($parent, name, $data, $env, options);
+            var ret = BootstrapBase.Simple($parent, name, $context, options);
 
             $data.on('complete', function(opt){
                 ret.$children.collagePlus();

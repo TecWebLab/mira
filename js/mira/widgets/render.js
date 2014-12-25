@@ -1,6 +1,7 @@
 "use strict";
 
 define([
+    'mira/helper',
     'mira/widgets/simple-html',
     'mira/widgets/map',
     'mira/widgets/input',
@@ -17,7 +18,7 @@ define([
     'mira/widgets/bootstrap-form',
     'mira/widgets/profile',
     'mira/widgets/freebase'
-    ],function (SimpleHtml, Map, Input, Head, Meta, Title, ImageHtml,
+    ],function (Helper, SimpleHtml, Map, Input, Head, Meta, Title, ImageHtml,
                 BootstrapBase, BootstrapModal, BootstrapCarousel, BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
                 BootstrapForm, Profile, Freebase
     ) {
@@ -63,11 +64,18 @@ define([
         setDefault: function (widget) {
             default_widget = widget;
         },
-        call: function(map, $parent, $data, $env){
+        call: function(map, $parent, $data, $env, $bind){
             var widget_name = map.get('widget') || default_widget;
             var widget = widgets[widget_name];
             if(widget) {
-                return widgets[widget_name].call(map, $parent, map.get('name'), $data, $env, _.clone(map.attributes));
+                var $context = {
+                    $data: $data.attributes || $data,
+                    $env: $env,
+                    $bind: $bind,
+                    $dataObj: $data
+                };
+
+                return widgets[widget_name].call(map, $parent, map.get('name'), $context, _.clone(map.attributes));
             } else {
                 console.error('Widget Concreto not Founded', widget_name, map);
             }

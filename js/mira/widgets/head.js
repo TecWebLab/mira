@@ -20,7 +20,7 @@ define([
         }
     };
 
-    return function($head, name, $data, $env, options){
+    return function($head, name, $context, options){
         var element = null;
 
         if(map_type[options.tag]){
@@ -37,7 +37,7 @@ define([
         element.className = 'navigate_remove'; // remove every navigate
 
         var attrs = _.omit(options, 'name', 'tag', 'type', 'rel', 'widget');
-        var context = Helper.build_context($data, $env, options);
+        var context = Helper.build_context($context, options);
         Helper.build_attributes(element, attrs, context);
 
         $head.append(element);

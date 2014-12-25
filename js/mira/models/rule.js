@@ -18,11 +18,11 @@
 
         idAttribute: 'name',
 
-        evaluate: function($data, $env, $dataObj){
+        evaluate: function($data, $env, $dataObj, $bind){
             try {
                 return eval(this.get('validate')) == true;
             } catch (e){
-                console.log("Error on rule" + this.get('name'), this, $data, $env);
+                console.log("Error on rule" + this.get('name'), this, $data, $env, $bind);
                 return false;
             }
         }

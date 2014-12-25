@@ -21,7 +21,7 @@ define([
 </div>';
 
     return {
-        Main: function($parent, name, $data, $env, options){
+        Main: function($parent, name, $context, options){
             var element = document.createElement('nav');
             element.className = "navbar navbar-inverse navbar-fixed-top";
             element.id = name;
@@ -33,7 +33,7 @@ define([
             if(options.value) {
                 var templateValue = "<%= " + options.value + '%>';
                 value.html(_.template(templateValue, _.extend({}, options,
-                    {$data:$data.attributes, $env:$env, $dataObj: $data})));
+                    $context)));
             }
             $parent.append(element);
             return {
@@ -41,7 +41,7 @@ define([
                 html: element.outerHTML
             }
         },
-        List: function($parent, name, $data, $env, options){
+        List: function($parent, name, $context, options){
             var element = document.createElement('ul');
             element.className = 'nav navbar-nav';
             element.id = name;
@@ -51,22 +51,18 @@ define([
                 html: element.innerHTML
             }
         },
-        ListItem: function($parent, name, $data, $env, options){
+        ListItem: function($parent, name, $context, options){
             var element = document.createElement('li');
             if(options.href || options.value) {
                 var link = document.createElement('a');
                 link.setAttribute('href', '#');
                 if (options.href) {
                     var template = "<%= " + options.href + '%>';
-                    link.setAttribute('href', _.template(template, _.extend({}, options,
-                        {$data:$data.attributes, $env:$env, $dataObj: $data}))
-                    );
+                    link.setAttribute('href', _.template(template, _.extend({}, options, $context)));
                 }
                 if (options.value) {
                     var template = "<%= " + options.value + '%>';
-                    link.innerHTML = _.template(template, _.extend({}, options,
-                        {$data:$data.attributes, $env:$env, $dataObj: $data}
-                    ));
+                    link.innerHTML = _.template(template, _.extend({}, options, $context));
                 }
                 element.appendChild(link);
             }

@@ -36,14 +36,26 @@
             return data;
         },
 
-        isVisible: function($data, $env){
+        isVisible: function($data, $env, $bind){
             if(this.get('when')) {
-                return Helper.evaluate(this.get('when'), $data.attributes, $env);
+                return Helper.evaluate(this.get('when'), $data.attributes, $env, $data, $bind);
             }
             return true;
         },
 
-        getRender: function(concrete, $data, $env){
+        getBind: function($data, $env){
+            if(this.get('bind')){
+                try{
+                    return eval(this.get('bind'))
+                } catch (e){
+                    console.log('Error on bind attr of widget abstract', this, this.get('bind'));
+                    return null;
+                }
+            }
+            return null;
+        },
+
+        getRender: function(concrete, $data, $env, $bind){
             var maps = concrete.get('maps').where({'name': this.get('name')});
             var map_selected = null;
             _.each(maps, function(map){
@@ -56,13 +68,14 @@
 
         getHtml: function($parent, concrete, $data, $env){
             var esse = this;
-            var map = this.getRender(concrete, $data, $env);
-            if(map && this.isVisible($data, $env)) {
-                var ret = map.getHtml($parent, $data, $env);
+            var $bind = this.getBind($data.attributes, $env);
+            var map = this.getRender(concrete, $data, $env, $bind);
+            if(map && this.isVisible($data, $env, $bind)) {
+                var ret = map.getHtml($parent, $data, $env, $bind);
                 if(this.get('datasource')){
                     ret.view = this.buildView(ret.$el, $data);
                     var itemWidget = this.get('children').at(0);
-                    this.requestData($data, $env, function(collection){
+                    this.requestData($data, $env, $bind, function(collection){
                         collection.each(function(m, i){
                             if($data) {
                                 m.$parente_data = $data;
@@ -79,6 +92,7 @@
                                     $parent: $parent,
                                     $data: $data,
                                     $env: $env,
+                                    $bind: $bind,
                                     $children: ret.$children,
                                     html: ret.html
                                 });
@@ -95,6 +109,7 @@
                                 $parent: $parent,
                                 $data: $data,
                                 $env: $env,
+                                $bind: $bind,
                                 $children: ret.$children,
                                 html: ret.html
                             });
@@ -115,9 +130,9 @@
             return view;
         },
 
-        buildUrlDatasource: function(parentData, $env){
+        buildUrlDatasource: function(parentData, $env, $bind){
             var datasource = this.get('datasource');
-            var endpoint_build = _.template(datasource.substring(4), Helper.buildObjectToValidate(parentData, $env));
+            var endpoint_build = _.template(datasource.substring(4), Helper.buildObjectToValidate(parentData, $env, $bind));
             return endpoint_build;
         },
 
@@ -125,7 +140,7 @@
             return eval(this.get('datasource'));
         },
 
-        requestData: function(parentData, $env, callback){
+        requestData: function(parentData, $env, $bind, callback){
             var esse = this;
             var datasource = this.get('datasource');
             var parse = Helper.buildFunction(this.get('parse'), this);

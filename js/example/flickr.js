@@ -500,13 +500,13 @@ if(typeof define === 'function') {
         return function Flickr() {
             // substituindo fabricas
             Mira.Selection = FlickrSelection;
-            Mira.Abstract.Widget.Model.prototype.requestData = function(parentData, $env, callback){
+            Mira.Abstract.Widget.Model.prototype.requestData = function(parentData, $env, $bind, callback){
                 var esse = this;
                 var datasource = this.get('datasource');
                 var parse = Mira.Helper.buildFunction(this.get('parse'), this);
 
                 if(datasource.indexOf('url:') == 0) {
-                    var endpoint = this.buildUrlDatasource(parentData, $env);
+                    var endpoint = this.buildUrlDatasource(parentData, $env, $bind);
                     Hello('flickr').api(endpoint).then(function(data){
                         var CollectionClass = Mira.Api.Collection.extend({
                                 'parse': parse || Mira.Api.Collection.prototype.parse
