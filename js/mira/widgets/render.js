@@ -67,7 +67,7 @@ define([
             var widget_name = map.get('widget') || default_widget;
             var widget = widgets[widget_name];
             if(widget) {
-                return widgets[widget_name].call(map, $parent, map.get('name'), $data, $env, map.attributes);
+                return widgets[widget_name].call(map, $parent, map.get('name'), $data, $env, _.clone(map.attributes));
             } else {
                 console.error('Widget Concreto not Founded', widget_name, map);
             }

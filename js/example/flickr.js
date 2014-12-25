@@ -63,8 +63,11 @@ var interface_abstracts = [
                     children: [{
                         name: "amigo_box",
                         children: [
-                            {name: "amigo_avatar"},
-                            {name: "amigo_link"},
+                            {name: 'amigo_link',
+                             children:[
+                                 {name: "amigo_avatar"},
+                                 {name: "amigo_name"}
+                             ]},
                             {name: "slide_gallery",
                              parse:'$data.data',
                              datasource:"url:/photos?user_id=<%= $data.nsid %>",
@@ -363,8 +366,9 @@ var concrete_interface = [
             { name: "amigo_box", widget:'BootstrapPanelBody', class:'panel-default'},
             { name: "amigo_box_body", class:'panel-body'},
 
+            { name: "amigo_link", tag:'a', href:'navigate("/user?user_id=" + $data.nsid)'},
             { name: "amigo_avatar", tag: 'img', md:"2", img:'circle,responsive', src:'$data.thumbnail'},
-            { name: "amigo_link", tag:'h3', value:'$data.realname' },
+            { name: "amigo_name", tag:'h3', value:'$data.realname' },
 
             { name: "slide_gallery", widget:'FlickrGallery' },
             { name: "slide_item", widget:'FlickrGalleryItem', 'data-thumb':'$data.thumbnail', img:{ src:"$data.picture"}, link: { href:'navigate("/photo?photo_id=" + $data.id)' } },
@@ -424,14 +428,14 @@ var concrete_interface = [
 
             { name: "main", md:7 },
             { name: "user-box", class:'row' },
-            { name: "user-avatar-link", tag:'a', href:'navigate("/user?id=" + $data.owner.nsid)' },
+            { name: "user-avatar-link", tag:'a', href:'navigate("/user?user_id=" + $data.owner.nsid)' },
             { name: "user-avatar", tag:'img', md:"2", img:'circle,responsive', src:'$data.owner.thumbnail' },
             { name: "user-name", tag:'h4', value:'$data.owner.realname' },
             { name: "photo-name", tag:'h4', value:'$data.title._content' },
 
             { name: 'comment-box', class:'row' },
             { name: 'comment-item', widget:'BootstrapPanelBody', class:'panel-default' },
-            { name: 'comment-author', tag:'a', md:'2' },
+            { name: 'comment-author', tag:'a', md:'2', href:'navigate("/user?user_id=" + $data.author)' },
             { name: 'comment-avatar', tag:'img', img:'circle', src:'$data.thumbnail' },
             { name: 'comment-author-name', tag:'h4', value:'$data.realname || $data.authorname' },
             { name: 'comment-content', tag:'blockquote', md:'9,offset-2', value:'$data._content' },
