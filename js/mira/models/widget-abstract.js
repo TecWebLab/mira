@@ -6,6 +6,7 @@
             'underscore',
             'mira/helper',
             'mira/base/init',
+            'mira/base/view',
             'mira/models/api'
         ], factory);
     } else if (typeof exports === 'object') {
@@ -13,10 +14,11 @@
             require('underscore'),
             require('../helper.js'),
             require('../base/init.js'),
+            require('../base/view.js'),
             require('./api.js')
         );
     }
-}(this, function (_, Helper, Base, Api) {
+}(this, function (_, Helper, Base, MiraView, Api) {
 
     var Model = Base.Model.extend({
         __name__ : 'Widget.Model',
@@ -66,68 +68,49 @@
             return map_selected
         },
 
-        getHtml: function($parent, concrete, $data, $env){
-            var esse = this;
+        buildWidget: function($parent, concrete, $data, $env){
             var $bind = this.getBind($data.attributes, $env);
             var map = this.getRender(concrete, $data, $env, $bind);
             if(map && this.isVisible($data, $env, $bind)) {
-                var ret = map.getHtml($parent, $data, $env, $bind);
-                if(this.get('datasource')){
-                    ret.view = this.buildView(ret.$el, $data);
-                    var itemWidget = this.get('children').at(0);
-                    this.requestData($data, $env, $bind, function(collection){
-                        collection.each(function(m, i){
-                            if($data) {
-                                m.$parente_data = $data;
-                                m.set('$parent_data', $data.attributes);
-                            }
-                            var retSubview = itemWidget.getHtml(ret.$children, concrete, m, $env);
-                            if(retSubview) {
-                                var subview = esse.buildView(retSubview.$el);
-                                ret.view.subview.push(subview);
-                            }
-
-                            if(i + 1 == collection.length){
-                                $data.trigger('complete', {
-                                    $parent: $parent,
-                                    $data: $data,
-                                    $env: $env,
-                                    $bind: $bind,
-                                    $children: ret.$children,
-                                    html: ret.html
-                                });
-                            }
-                        });
-
-                    });
-                } else {
-                    this.get('children').each(function (widget, i) {
-                        widget.getHtml(ret.$children, concrete, $data, $env);
-
-                        if(i + 1 == this.get('children').length){
-                            $data.trigger('complete', {
-                                $parent: $parent,
-                                $data: $data,
-                                $env: $env,
-                                $bind: $bind,
-                                $children: ret.$children,
-                                html: ret.html
-                            });
-                        }
-                    }, this);
-                }
-
-                return ret;
+                map.getHtml($parent, $data, $env, $bind);
             }
         },
 
-        buildView: function($el, $data){
-            var view = new Base.View({
-                el: $el,
-                model: $data
-            });
-            view.subview = [];
-            return view;
+        buildChildren: function($parent, concrete, $data, $env){
+            var $bind = this.getBind($data.attributes, $env);
+            if(this.get('datasource')){
+                var itemWidget = this.get('children').at(0);
+                this.requestData($data, $env, $bind, function(collection){
+
+                    var view = new MiraView.Collection({
+                        collection: collection,
+                        model: $data,
+                        $el: $parent,
+                        $env: $env,
+                        $bind: $bind,
+                        widget: this,
+                        concrete: concrete,
+                        itemWidget: itemWidget
+                    });
+
+                    view.render();
+
+                });
+            } else {
+                this.get('children').each(function (widget, i) {
+                    widget.getHtml($parent, concrete, $data, $env);
+                }, this);
+            }
+        },
+
+        getHtml: function($parent, concrete, $data, $env){
+            var esse = this;
+            var $bind = this.getBind($data.attributes, $env);
+            var ret = this.buildWidget($parent, concrete, $data, $env);
+            if(ret) {
+                this.buildChildren(ret.$children, concrete, $data, $env);
+                return ret;
+            }
         },
 
         buildUrlDatasource: function(parentData, $env, $bind){
