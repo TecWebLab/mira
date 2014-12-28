@@ -49,8 +49,8 @@ var concrete_interface = [
         { name: 'docs', widget: 'BootstrapSimple', tag:'h3', value:'"Please, visit our documentations"' },
         { name: 'docs_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Documentations"', href:'"http://mestrado.amazingworks.com.br/documentacao"'},
 
-        { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container'},
-        { name: 'footer-content', widget: 'BootstrapFooter' }
+        //{ name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container'},
+        //{ name: 'footer-content', widget: 'BootstrapFooter' }
     ]}
 ];
 

@@ -10,8 +10,8 @@ define([
     var Model = Base.Model.extend({
         __name__ : 'Map.Model',
 
-        getHtml: function($parent, $data, $env, $bind){
-            return Render.call(this, $parent, $data, $env, $bind);
+        getHtml: function($parent, $data, $env, $bind, callback){
+            return Render.call(this, $parent, $data, $env, $bind, callback);
         },
 
         has_rule: function () {

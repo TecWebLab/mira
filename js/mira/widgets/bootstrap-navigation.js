@@ -21,7 +21,7 @@ define([
 </div>';
 
     return {
-        Main: function($parent, name, $context, options){
+        Main: function($parent, name, $context, options, callback){
             var element = document.createElement('nav');
             element.className = "navbar navbar-inverse navbar-fixed-top";
             element.id = name;
@@ -36,22 +36,26 @@ define([
                     $context)));
             }
             $parent.append(element);
-            return {
-                $children: $element.find('.js_child'),
-                html: element.outerHTML
+            if(callback){
+                callback({
+                    $children: $element.find('.js_child'),
+                    html: element.outerHTML
+                })
             }
         },
-        List: function($parent, name, $context, options){
+        List: function($parent, name, $context, options, callback){
             var element = document.createElement('ul');
             element.className = 'nav navbar-nav';
             element.id = name;
             $parent.append(element);
-            return {
-                $children: $(element),
-                html: element.innerHTML
+            if(callback){
+                callback({
+                    $children: $(element),
+                    html: element.innerHTML
+                })
             }
         },
-        ListItem: function($parent, name, $context, options){
+        ListItem: function($parent, name, $context, options, callback){
             var element = document.createElement('li');
             if(options.href || options.value) {
                 var link = document.createElement('a');
@@ -67,9 +71,11 @@ define([
                 element.appendChild(link);
             }
             $parent.append(element);
-            return {
-                $children: $(link || element),
-                html: element.innerHTML
+            if(callback){
+                callback({
+                    $children: $(link || element),
+                    html: element.innerHTML
+                })
             }
         }
     };

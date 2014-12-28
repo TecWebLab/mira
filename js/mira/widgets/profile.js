@@ -18,18 +18,20 @@ define([
     </div>';
 
     return {
-        Container: function($parent, name, $context, options) {
+        Container: function($parent, name, $context, options, callback) {
             var element = document.createElement('div');
             element.id = name;
             element.innerHTML = template;
             element.className = options.class || 'container';
             $parent.append(element);
-            return {
-                $children: $(element).find('.js_child'),
-                html: element.outerHTML
+            if(callback){
+                callback({
+                    $children: $(element).find('.js_child'),
+                    html: element.outerHTML
+                });
             }
         },
-        Detail : function($parent, name, $context, options){
+        Detail : function($parent, name, $context, options, callback){
             var element = document.createElement('p');
             element.id = name;
             var strong = document.createElement('strong');
@@ -40,12 +42,14 @@ define([
                 element.innerHTML = element.innerHTML + _.template(template, _.extend({}, options, $context));
             }
             $parent.append(element);
-            return {
-                $children: $(element),
-                html: element.outerHTML
+            if(callback){
+                callback({
+                    $children: $(element),
+                    html: element.outerHTML
+                })
             }
         },
-        Image:function($parent, name, $context, options){
+        Image:function($parent, name, $context, options, callback){
             var element = document.createElement('div');
             element.id = name;
             element.className = options.class || 'col-xs-12 col-sm-4 text-center';
@@ -58,12 +62,14 @@ define([
             }
             element.appendChild(image);
             $parent.append(element);
-            return {
-                $children: $(element),
-                html: element.outerHTML
+            if(callback){
+                callback({
+                    $children: $(element),
+                    html: element.outerHTML
+                })
             }
         },
-        MiniUser: function($parent, name, $context, options){
+        MiniUser: function($parent, name, $context, options, callback){
             var image = document.createElement('img');
             image.className = 'center-block img-circle img-responsive';
             if(options.value) {
@@ -72,12 +78,14 @@ define([
                 image.setAttribute('src', src);
             }
             $parent.append(image);
-            return {
-                $children: $(image),
-                html: image.outerHTML
+            if(callback){
+                callback({
+                    $children: $(image),
+                    html: image.outerHTML
+                })
             }
         },
-        Counts: function($parent, name, $context, options){
+        Counts: function($parent, name, $context, options, callback){
             var item = document.createElement('li');
             item.className = options.class || 'badge';
 
@@ -93,9 +101,12 @@ define([
             }
 
             $parent.append(item);
-            return {
-                $children: $(item),
-                html: item.outerHTML
+
+            if(callback){
+                callback({
+                    $children: $(item),
+                    html: item.outerHTML
+                })
             }
         }
     };

@@ -31,12 +31,13 @@ define([
         },
 
         render: function(){
+            var esse = this;
             this.$el.remove();
 
-            var ret = this.widget.buildWidget(this.$parent, this.concrete, this.model, this.$env);
-            this.setElement(ret.$children);
-
-            this.widget.buildChildren(this.$el, this.concrete, this.model, this.$env);
+            this.widget.buildWidget(this.$parent, this.concrete, this.model, this.$env, function(options){
+                esse.setElement(options.$children);
+                esse.widget.buildChildren(options.$children, esse.concrete, esse.model, esse.$env);
+            });
 
             if(this.collectionView){
                 this.collectionView.subviews.push(this);

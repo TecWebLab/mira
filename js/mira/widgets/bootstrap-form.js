@@ -8,7 +8,7 @@ define([
 
 
     return {
-        GroupButton: function($parent, name, $context, options){
+        GroupButton: function($parent, name, $context, options, callback){
             var element = document.createElement('span');
             element.className = "input-group-btn";
             element.id = name;
@@ -26,9 +26,12 @@ define([
                     $context)));
             }
             $parent.append(element);
-            return {
-                $children: $element,
-                html: element.outerHTML
+
+            if(callback){
+                callback({
+                    $children: $element,
+                    html: element.outerHTML
+                })
             }
         }
     };

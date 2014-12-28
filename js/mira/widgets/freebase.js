@@ -11,7 +11,7 @@ define([
     };
 
     return {
-        Types: function($parent, name, $context, options){
+        Types: function($parent, name, $context, options, callback){
             var element = document.createElement('div');
 
             var classes = ['label-success', 'label-info', 'label-warning', 'label-danger', 'label-default'];
@@ -29,9 +29,12 @@ define([
             element.id = name;
 
             $parent.append(element);
-            return {
-                $children: $(element),
-                html: element.outerHTML
+
+            if(callback){
+                callback({
+                    $children: $(element),
+                    html: element.outerHTML
+                })
             }
         }
     };

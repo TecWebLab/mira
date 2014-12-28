@@ -68,11 +68,11 @@
             return map_selected
         },
 
-        buildWidget: function($parent, concrete, $data, $env){
+        buildWidget: function($parent, concrete, $data, $env, callback){
             var $bind = this.getBind($data.attributes, $env);
             var map = this.getRender(concrete, $data, $env, $bind);
             if(map && this.isVisible($data, $env, $bind)) {
-                map.getHtml($parent, $data, $env, $bind);
+                map.getHtml($parent, $data, $env, $bind, callback);
             }
         },
 
@@ -105,12 +105,9 @@
 
         getHtml: function($parent, concrete, $data, $env){
             var esse = this;
-            var $bind = this.getBind($data.attributes, $env);
-            var ret = this.buildWidget($parent, concrete, $data, $env);
-            if(ret) {
-                this.buildChildren(ret.$children, concrete, $data, $env);
-                return ret;
-            }
+            this.buildWidget($parent, concrete, $data, $env, function(options){
+                esse.buildChildren(options.$children, concrete, $data, $env);
+            });
         },
 
         buildUrlDatasource: function(parentData, $env, $bind){

@@ -6,7 +6,7 @@ define([
     'mira/helper'
 ], function ($, _, Helper) {
 
-    return function($parent, name, $context, options){
+    return function($parent, name, $context, options, callback){
 
         var element = document.createElement('div');
         element.className = options.class || "col-sm-4 col-lg-4 col-md-4";
@@ -25,9 +25,11 @@ define([
                 $context));
         }
         $parent.append(element);
-        return {
-            $children: $thumbnail,
-            html: element.outerHTML
+        if(callback){
+            callback({
+                $children: $thumbnail,
+                html: element.outerHTML
+            })
         }
     };
 });

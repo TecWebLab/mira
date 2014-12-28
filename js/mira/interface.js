@@ -25,7 +25,7 @@ define([
             this.concrete = concrete;
             var dataobj = new Base.Model($data);
             this.concrete.buildHead($head, dataobj, $env);
-            var ret = abstract.getHtml(this.$el, this.concrete, dataobj, $env);
+            abstract.getHtml(this.$el, this.concrete, dataobj, $env);
             return this;
         }
 

@@ -7,7 +7,7 @@ define([
 ], function ($, _, Helper) {
 
     return {
-        Static: function($parent, name, $context, options) {
+        Static: function($parent, name, $context, options, callback) {
 
             var element = document.createElement('img');
             element.id = name;
@@ -28,13 +28,15 @@ define([
             Helper.build_attributes(element, element_attributes, context);
 
             $parent.append(element);
-            return {
-                $children: $(element),
-                html: element.innerHTML
+            if(callback){
+                callback({
+                    $children: $(element),
+                    html: element.innerHTML
+                })
             }
         },
 
-        Dynamic: function($parent, name, $context, options){
+        Dynamic: function($parent, name, $context, options, callback){
             var element = document.createElement('div');
 
             var attrs = _.omit(options, 'tag', 'value', 'name', 'widget', 'class', 'alt', 'title', 'style', 'width', 'height');
@@ -51,9 +53,11 @@ define([
                 $parent.append(element);
             });
 
-            return {
-                $children: $(element),
-                html: element.innerHTML
+            if(callback){
+                callback({
+                    $children: $(element),
+                    html: element.innerHTML
+                })
             }
         }
     };

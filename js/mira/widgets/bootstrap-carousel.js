@@ -16,32 +16,34 @@ define([
 
     return {
 
-        Carousel: function($parent, name, $context, options){
+        Carousel: function($parent, name, $context, options, callback){
             ativo = false;
             var new_options = _.clone(options);
             new_options.class = 'carousel slide';
             new_options['data-interval'] = new_options['data-interval'] || "false";
             new_options['data-ride'] = new_options['data-ride'] || "carousel";
-            var element = BootstrapBase.Simple($parent, name, $context, new_options);
+            BootstrapBase.Simple($parent, name, $context, new_options, function(element){
 
-            if(_.isString(template_carousel)){
-                template_carousel = _.template(template_carousel);
-            }
+                if(_.isString(template_carousel)){
+                    template_carousel = _.template(template_carousel);
+                }
 
-            element.$children.html(template_carousel({
-                parent_name:name
-            }));
+                element.$children.html(template_carousel({
+                    parent_name:name
+                }));
 
-            element.$children.carousel();
+                element.$children.carousel();
 
-            return {
-                $children: $(element.$children.find('.js_child')),
-                html: element.innerHTML
-            }
-
+                if(callback) {
+                    callback({
+                        $children: $(element.$children.find('.js_child')),
+                        html: element.innerHTML
+                    })
+                }
+            });
         },
 
-        Item: function($parent, name, $context, options){
+        Item: function($parent, name, $context, options, callback){
 
             var new_options = _.clone(options);
             new_options.class = 'item ';
@@ -51,18 +53,18 @@ define([
                 ativo = true;
             }
 
-            var element = BootstrapBase.Simple($parent, name + _.uniqueId(), $context, new_options);
+            BootstrapBase.Simple($parent, name + _.uniqueId(), $context, new_options, function(element){
+                element.$children.html("");
+                var context = Helper.build_context($context, options);
+                var img = document.createElement('img');
 
-            element.$children.html("");
+                img.setAttribute('src', Helper.build_value(options.value, context));
+                element.$children.append(img);
 
-            var context = Helper.build_context($context, options);
-            var img = document.createElement('img');
-
-            img.setAttribute('src', Helper.build_value(options.value, context));
-            element.$children.append(img);
-
-            return element;
-
+                if(callback){
+                    callback(element);
+                }
+            });
         }
 
     };

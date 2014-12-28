@@ -56,53 +56,54 @@ define([
 
     return {
 
-        Dialog: function($parent, name, $context, options) {
-
+        Dialog: function($parent, name, $context, options, callback) {
             options.class = add_class(options.class, 'modal');
             options.class = add_class(options.class, options.effect);
 
-            var modal = BootstrapBase.Simple($parent, name, $context, options);
+            BootstrapBase.Simple($parent, name, $context, options, function(modal){
 
-            options.dialog = _.defaults(options.dialog || {}, {
-               class: 'modal-dialog'
+                options.dialog = _.defaults(options.dialog || {}, {
+                    class: 'modal-dialog'
+                });
+
+                BootstrapBase.Simple(modal.$children, name + '-dialog', $context, options.dialog, function (dialog) {
+                    options.content = _.defaults(options.content || {}, {
+                        class: 'modal-content'
+                    });
+                    BootstrapBase.Simple(dialog.$children, name + '-content', $context, options.content, callback);
+                });
             });
-
-            var dialog = BootstrapBase.Simple(modal.$children, name + '-dialog', $context, options.dialog);
-
-            options.content = _.defaults(options.content || {}, {
-                class: 'modal-content'
-            });
-
-            var content = BootstrapBase.Simple(dialog.$children, name + '-content', $context, options.content);
-
-            return content;
         },
 
-        Header: function($parent, name, $context, options) {
+        Header: function($parent, name, $context, options, callback) {
             options.class = add_class(options.class, 'modal-header');
             var value = options.value;
             var inner = '';
             var context = Helper.build_context($context, options);
-            var header = BootstrapBase.Simple($parent, name, $context, options);
-            if (options.class != false){
-                inner += '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>';
-            }
-            if(value){
-                inner += '<h4 class="modal-title">' + Helper.build_value(value, context) + '</h4>';
-            }
-            header.$children.html(inner);
+            BootstrapBase.Simple($parent, name, $context, options, function(header){
 
-            return header;
+                if (options.class != false){
+                    inner += '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>';
+                }
+                if(value){
+                    inner += '<h4 class="modal-title">' + Helper.build_value(value, context) + '</h4>';
+                }
+                header.$children.html(inner);
+
+                if(callback){
+                    callback(header);
+                }
+            });
         },
 
-        Body: function($parent, name, $context, options) {
+        Body: function($parent, name, $context, options, callback) {
             options.class = add_class(options.class, 'modal-body');
-            return BootstrapBase.Simple($parent, name, $context, options);
+            BootstrapBase.Simple($parent, name, $context, options, callback);
         },
 
-        Footer: function($parent, name, $context, options) {
+        Footer: function($parent, name, $context, options, callback) {
             options.class = add_class(options.class, 'modal-footer');
-            return BootstrapBase.Simple($parent, name, $context, options);
+            return BootstrapBase.Simple($parent, name, $context, options, callback);
         }
 
     };

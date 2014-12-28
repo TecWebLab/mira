@@ -6,7 +6,7 @@ define([
     'mira/helper'
 ], function ($, _, Helper) {
 
-    return function($parent, name, $context, options, ignored_options){
+    return function($parent, name, $context, options, callback, ignored_options){
         var element = document.createElement(options.tag || 'div');
         element.id = name;
 
@@ -19,9 +19,12 @@ define([
         }
 
         $parent.append(element);
-        return {
-            $children: $(element),
-            html: element.innerHTML
+
+        if(callback){
+            callback({
+                $children: $(element),
+                html: element.innerHTML
+            })
         }
     };
 });

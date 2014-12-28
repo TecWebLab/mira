@@ -41,7 +41,6 @@
             widgets.each(function(widget){
                 widget.getHtml($parent, concrete, $data, $env);
             });
-            return $parent.html();
         },
 
         handle: function(concrete, $data, $env){

@@ -12,16 +12,19 @@ define([
     </div> \
     </div>';
 
-    return function($parent, name, $context, options){
+    return function($parent, name, $context, options, callback){
         var hr = document.createElement('hr');
         var element = document.createElement('footer');
         element.id = name;
         element.innerHTML = template;
         $parent.append(hr);
         $parent.append(element);
-        return {
-            $children: $parent,
-            html: element.outerHTML
+
+        if(callback){
+            callback({
+                $children: $parent,
+                html: element.outerHTML
+            })
         }
     };
 });

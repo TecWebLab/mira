@@ -81,21 +81,22 @@ define([
         get_bootstrap_class: get_bootstrap_class,
         ignored_options: ignored_options,
 
-        Simple: function($parent, name, $context, options){
+        Simple: function($parent, name, $context, options, callback){
             var new_options = _.clone(options);
             new_options.class = get_bootstrap_class(options, options.class);
-            return SimpleHtml($parent, name, $context, new_options, ignored_options)
+            SimpleHtml($parent, name, $context, new_options, callback, ignored_options)
         },
 
-        PanelBody: function($parent, name,  $context, options){
+        PanelBody: function($parent, name,  $context, options, callback){
             var new_options = _.clone(options);
             new_options.class = get_bootstrap_class(options, 'panel ' + options.class);
-            var ret = SimpleHtml($parent, name,  $context, new_options, ignored_options);
-            var inner_option = {'class':'panel-body'};
-            return SimpleHtml(ret.$children, '', $context, inner_option)
+            SimpleHtml($parent, name,  $context, new_options, function(ret){
+                var inner_option = {'class':'panel-body'};
+                SimpleHtml(ret.$children, '', $context, inner_option, callback)
+            }, ignored_options);
         },
 
-        Icon: function($parent, name, $context, options){
+        Icon: function($parent, name, $context, options, callback){
             var element = document.createElement(options.tag || 'span');
             var context = Helper.build_context($context, options);
             var icon = Helper.build_value(options.icon, context);
@@ -110,9 +111,12 @@ define([
             element.id = name;
 
             $parent.append(element);
-            return {
-                $children: $(element),
-                html: element.outerHTML
+
+            if(callback){
+                callback({
+                    $children: $(element),
+                    html: element.outerHTML
+                })
             }
         }
     };
