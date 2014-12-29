@@ -27,7 +27,7 @@
                         return eval(value);
                     } catch (ex) {
                         console.log('erro na funcao do parser da rota ', value);
-                        return data
+                        return $data
                     }
                 };
             } else if (_.isFunction(value)) {
@@ -37,6 +37,30 @@
                 func = _.bind(func, context);
             }
             return func
+        },
+
+        build_events: function ($element, events, context) {
+
+            _.each(events, function(value, name){
+
+                var m = function(el){
+                    try {
+                        var all_context = _.extend({}, context,{
+                            $element: $element
+                        });
+                        if(_.isFunction(value)){
+                            value(all_context);
+                        } else {
+                            window[value](all_context);
+                        }
+                    } catch (ex){
+                        console.error('error event', name, $element, context, ex);
+                    }
+                };
+
+                $element.on(name, m);
+            })
+
         },
 
         buildObjectToValidate: function ($data, $env, $bind, options) {

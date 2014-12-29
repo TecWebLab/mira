@@ -32,17 +32,25 @@ define([
 
         render: function(){
             var esse = this;
-            this.$el.remove();
+            var old_$el = this.$el;
+            var parent = $('<div/>');
+            if(old_$el) {
+                old_$el.hide();
+            }
+            this.widget.buildWidget(parent, this.concrete, this.model, this.$env, function(options){
+                esse.setElement(options.$element || options.$children);
+                esse.widget.buildChildren(esse.$el, esse.concrete, esse.model, esse.$env);
 
-            this.widget.buildWidget(this.$parent, this.concrete, this.model, this.$env, function(options){
-                esse.setElement(options.$children);
-                esse.widget.buildChildren(options.$children, esse.concrete, esse.model, esse.$env);
+                if(old_$el.html()){
+                    old_$el.after(parent.children());
+                    parent.children().insertAfter(old_$el);
+                    old_$el.remove();
+                } else {
+                    parent.children().insertAfter(esse.$parent);
+                }
             });
 
-            if(this.collectionView){
-                this.collectionView.subviews.push(this);
-            }
-            window.view = this;
+
             return this;
         }
 

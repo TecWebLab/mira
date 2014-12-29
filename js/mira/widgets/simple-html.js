@@ -10,7 +10,9 @@ define([
         var element = document.createElement(options.tag || 'div');
         element.id = name;
 
-        var atrs = _.omit(options, 'tag', 'value', 'name', 'widget', ignored_options);
+
+        var atrs = _.omit(options, 'tag', 'value', 'name', 'widget', 'events', ignored_options);
+
         var context = Helper.build_context($context, options);
         Helper.build_attributes(element, atrs, context);
 
@@ -19,10 +21,16 @@ define([
         }
 
         $parent.append(element);
+        var $element = $(element);
+
+        if(options.events) {
+            Helper.build_events($element, options.events, context);
+        }
 
         if(callback){
             callback({
-                $children: $(element),
+                $children: $element,
+                $element: $element,
                 html: element.innerHTML
             })
         }
