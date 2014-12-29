@@ -3,14 +3,16 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define([
-            'underscore'
+            'underscore',
+            'jquery'
         ], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory(
-            require('underscore')
+            require('underscore'),
+            require('jquery')
         );
     }
-}(this, function (_) {
+}(this, function (_, $) {
 
     var KEYWORD_REGEXP = /^(abstract|boolean|break|byte|case|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|for|function|goto|if|implements|import|in|instanceof|int|interface|long|native|new|null|package|private|protected|public|return|short|static|super|switch|synchronized|this|throw|throws|transient|true|try|typeof|undefined|var|void|volatile|while|with)$/;
 
@@ -62,6 +64,10 @@
                 $element.on(name, m);
             })
 
+        },
+
+        buildAnchor: function(){
+            return $('<div/>');
         },
 
         buildObjectToValidate: function ($data, $env, $bind, options) {

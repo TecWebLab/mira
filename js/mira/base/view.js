@@ -3,8 +3,9 @@
 define([
     'jquery',
     'underscore',
-    'mira/base/init'
-], function ($, _, Base) {
+    'mira/base/init',
+    'mira/helper'
+], function ($, _, Base, Helper) {
 
     var ViewData = Base.View.extend({
         __name__: 'View.Data',
@@ -34,7 +35,7 @@ define([
         render: function(){
             var esse = this;
             var old_$el = this.$el;
-            var parent = $('<div/>');
+            var parent = Helper.buildAnchor();
             if(old_$el) {
                 old_$el.hide();
             }

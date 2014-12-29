@@ -105,8 +105,13 @@
 
         getHtml: function($parent, concrete, $data, $env){
             var esse = this;
-            this.buildWidget($parent, concrete, $data, $env, function(options){
+            var anchor = Helper.buildAnchor();
+            var temp = Helper.buildAnchor();
+            $parent.append(anchor);
+            this.buildWidget(temp, concrete, $data, $env, function(options){
                 esse.buildChildren(options.$children, concrete, $data, $env);
+                anchor.after(temp.children());
+                anchor.remove();
             });
         },
 
