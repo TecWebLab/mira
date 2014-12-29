@@ -43,10 +43,9 @@ define([
 
                 if(old_$el.html()){
                     old_$el.after(parent.children());
-                    parent.children().insertAfter(old_$el);
                     old_$el.remove();
                 } else {
-                    parent.children().insertAfter(esse.$parent);
+                    esse.$parent.append(parent.children());
                 }
             });
 

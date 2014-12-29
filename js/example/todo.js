@@ -75,7 +75,7 @@ if(typeof define === 'function') {
         'mira/init'
     ], function ($, $bootstrap, Mira) {
 
-        return function Imovel() {
+        return function Todo() {
             var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
             Mira.Widget.setDefault('BootstrapSimple');
 
@@ -96,7 +96,7 @@ if(typeof define === 'function') {
                     window.todo_list.add({
                         tarefa: options.$event.target.value,
                         feito: false
-                    });
+                    }, {at: 0});
                     options.$dataObj.trigger('change');
                 }
             };
