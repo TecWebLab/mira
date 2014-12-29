@@ -3,10 +3,11 @@
 define([
     'underscore',
     'jquery',
-    'mira/base/init'
-], function (_, $, Base) {
+    'mira/base/init',
+    'mira/base/view'
+], function (_, $, Base, View) {
 
-    return Base.View.extend({
+    return View.Data.extend({
 
         __name__ : 'Interface',
 
@@ -19,13 +20,20 @@ define([
             this.selection = selection;
         },
 
-        render: function(abstract, concrete, $data, $env){
+        full_render: function(abstract, concrete, $data, $env){
+            this.abstract = abstract;
+            this.concrete = concrete;
+            this.setModel(new Base.Model($data));
+            this.$env = $env;
+
+            this.render()
+        },
+
+        render: function(){
             this.$el.empty();
             var $head = $('head');
-            this.concrete = concrete;
-            var dataobj = new Base.Model($data);
-            this.concrete.buildHead($head, dataobj, $env);
-            abstract.getHtml(this.$el, this.concrete, dataobj, $env);
+            this.concrete.buildHead($head, this.model, this.$env);
+            this.abstract.getHtml(this.$el, this.concrete, this.model, this.$env);
             return this;
         }
 

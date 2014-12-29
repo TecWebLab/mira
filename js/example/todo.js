@@ -8,14 +8,6 @@ var rules = [{
 var selection = [
 ];
 
-var todo_list = [{
-    tarefa: 'Programar em JS',
-    feito: true
-},{
-    tarefa: 'Ir a PUC',
-    feito: false
-}];
-
 var interface_abstracts = [
     {
         name:'landing',
@@ -25,7 +17,7 @@ var interface_abstracts = [
                 {'content': [
                  { 'form_tarefa': 'input_tarefa'},
                  {name: 'items',
-                  datasource:todo_list,
+                  datasource:'todo_list',
                   children:[
                     {'item':
                         {'tipo': [
@@ -59,6 +51,9 @@ var concrete_interface = [
         { name: 'title', tag:'h1', text:'center', value:'"Tarefas"' },
 
         { name: 'content',  class:'row', md:'6,offset-3' },
+        { name: 'form_tarefa', form:'group'},
+        { name: 'input_tarefa', tag:'input', type:'text', events:{ keydown:'adicionar' }, form:'control', placeholder:'Descrição da Tarefa'},
+
         { name: 'items' },
         { name: 'item', class:"row", events:{ click: 'marcar' } },
         { name: 'tipo', alert:"warning" },
@@ -84,8 +79,26 @@ if(typeof define === 'function') {
             var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
             Mira.Widget.setDefault('BootstrapSimple');
 
+            window.todo_list = new Mira.Api.Collection([{
+                tarefa: 'Programar em JS',
+                feito: true
+            },{
+                tarefa: 'Ir a PUC',
+                feito: false
+            }]);
+
             window.marcar = function(options){
                 options.$dataObj.set('feito', !options.$dataObj.get('feito'))
+            };
+
+            window.adicionar = function(options){
+                if(options.$event.keyCode == 13 && options.$event.target.value) {
+                    window.todo_list.add({
+                        tarefa: options.$event.target.value,
+                        feito: false
+                    });
+                    options.$dataObj.trigger('change');
+                }
             };
         };
 

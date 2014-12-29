@@ -43,10 +43,11 @@
 
             _.each(events, function(value, name){
 
-                var m = function(el){
+                var m = function($event, target){
                     try {
                         var all_context = _.extend({}, context,{
-                            $element: $element
+                            $element: $element,
+                            $event: $event
                         });
                         if(_.isFunction(value)){
                             value(all_context);

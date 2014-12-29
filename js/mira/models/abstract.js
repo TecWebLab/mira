@@ -44,7 +44,7 @@
         },
 
         handle: function(concrete, $data, $env){
-            mira.interface.render(this, concrete,  $data, $env);
+            mira.interface.full_render(this, concrete,  $data, $env);
         },
 
         prettyPrint: function(){

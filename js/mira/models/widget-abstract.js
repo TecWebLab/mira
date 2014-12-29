@@ -141,9 +141,13 @@
                 });
             } else {
                 var data = this.buildParentDataDatasource(parentData.attributes);
-                var collection = new Api.Collection(data, {
-                    parse: parse || Api.Collection.prototype.parse
-                });
+                if(data instanceof Backbone.Collection){
+                    collection = data;
+                } else {
+                    var collection = new Api.Collection(data, {
+                        parse: parse || Api.Collection.prototype.parse
+                    });
+                }
                 callback(collection);
             }
         },

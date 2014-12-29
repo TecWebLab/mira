@@ -50,6 +50,9 @@ define([
                 }
             });
 
+            if(this.collectionView && this in this.collectionView.subviews){
+                this.collectionView.subviews.push(this);
+            }
 
             return this;
         }
