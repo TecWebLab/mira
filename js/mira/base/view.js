@@ -27,7 +27,8 @@ define([
             if(model) {
                 this.model = model;
             }
-            this.listenTo(this.model, 'change', this.render, this)
+            this.listenTo(this.model, 'change', this.render, this);
+            this.listenTo(this.model, 'destroy', this.remove, this);
         },
 
         render: function(){
@@ -40,8 +41,7 @@ define([
             this.widget.buildWidget(parent, this.concrete, this.model, this.$env, function(options){
                 esse.setElement(options.$element || options.$children);
                 esse.widget.buildChildren(esse.$el, esse.concrete, esse.model, esse.$env);
-
-                if(old_$el.html()){
+                if(old_$el.parent().length){
                     old_$el.after(parent.children());
                     old_$el.remove();
                 } else {

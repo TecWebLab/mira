@@ -6,7 +6,7 @@ define([
     'mira/helper'
 ], function ($, _, Helper) {
 
-    return function($parent, name, $context, options, callback, ignored_options){
+    return function($parent, name, $context, options, callback, ignored_options) {
         var element = document.createElement(options.tag || 'div');
         element.id = name;
 
@@ -17,7 +17,11 @@ define([
         Helper.build_attributes(element, atrs, context);
 
         if(options.value) {
-            element.innerHTML = Helper.build_value(options.value, context);
+            if (options.tag == 'input') {
+                element.setAttribute('value', Helper.build_value(options.value, context));
+            } else {
+                element.innerHTML = Helper.build_value(options.value, context);
+            }
         }
 
         $parent.append(element);

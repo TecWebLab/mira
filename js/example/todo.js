@@ -3,6 +3,12 @@
 var rules = [{
     name: 'isFeito',
     validate: '$data.feito == true'
+},{
+    name: 'hasLocation',
+    validate: '$data.tarefa.indexOf("@") != -1'
+},{
+    name: 'inEdition',
+    validate: '$data.$edit != null'
 }];
 
 var selection = [
@@ -21,8 +27,13 @@ var interface_abstracts = [
                   children:[
                     {'item':
                         {'tipo': [
-                            {name:'feito', bind:'$data.feito'},
-                            {name:'tarefa', bind:'$data.tarefa'}
+                            {controls: [
+                                {name:'feito', bind:'$data.feito'},
+                                {name:'editar'},
+                                {name:'remover'}
+                            ]},
+                            {name:'tarefa', bind:'$data.tarefa'},
+                            {name:'imagem_tarefa'}
                          ]
                         }
                     }
@@ -47,20 +58,25 @@ var concrete_interface = [
         maps: [
 
         { name: 'container', class:'container' },
-        { name: 'head', class:'jumbotron' },
+        { name: 'head', alert:'success' },
         { name: 'title', tag:'h1', text:'center', value:'"Tarefas"' },
 
-        { name: 'content',  class:'row', md:'6,offset-3' },
-        { name: 'form_tarefa', form:'group'},
-        { name: 'input_tarefa', tag:'input', type:'text', events:{ keydown:'adicionar' }, form:'control', placeholder:'Descrição da Tarefa'},
+        { name: 'content', class:'row', md:'6,offset-3' },
+        { name: 'form_tarefa'},
+        { name: 'input_tarefa', widget:'BootstrapFormControl', input:{type:'text', events:{ keydown:'adicionar' }, placeholder:'Descrição da Tarefa'} },
 
         { name: 'items' },
-        { name: 'item', class:"row", events:{ click: 'marcar' } },
-        { name: 'tipo', alert:"warning" },
-        { name: 'tipo', alert:"info", when:'isFeito'},
-        { name: 'feito', tag:'input', pull:'left', type:'checkbox' },
-        { name: 'feito', tag:'input', pull:'left', type:'checkbox', checked:'true', when:'isFeito' },
-        { name: 'tarefa', tag:'h3', value:'$bind' }
+        { name: 'item', form:'horizontal' },
+        { name: 'tipo', alert:"warning", class:'row' },
+        { name: 'tipo', alert:"info", class:'row', when:'isFeito'},
+        { name: 'controls', md:1 },
+        { name: 'feito', widget:'BootstrapIcon', value:'unchecked',  events: { click: 'marcar' } },
+        { name: 'feito', widget:'BootstrapIcon', value:'check',  events: { click: 'marcar' }, when:'isFeito' },
+        { name: 'editar', widget:'BootstrapIcon', value:'edit',  events: { click: 'habilitar_edicao' } },
+        { name: 'remover', widget:'BootstrapIcon', value:'remove',  events: { click: 'remover' } },
+        { name: 'imagem_tarefa', widget:'MapStatic', size:'450x200', value:'$data.tarefa.substring($data.tarefa.indexOf("@"))', class:'thumbnail', when:'hasLocation' },
+        { name: 'tarefa', class:'lead', value:'$bind', md:'8', events: { click:'habilitar_edicao' } },
+        { name: 'tarefa', widget:'BootstrapFormControl', md:8, input:{ value:'$bind', events:{ keydown:'editar' } }, when:'inEdition' }
     ]}
 ];
 
@@ -85,6 +101,9 @@ if(typeof define === 'function') {
             },{
                 tarefa: 'Ir a PUC',
                 feito: false
+            },{
+                tarefa: 'Visitar @ London',
+                feito: false
             }]);
 
             window.marcar = function(options){
@@ -100,6 +119,32 @@ if(typeof define === 'function') {
                     options.$dataObj.trigger('change');
                 }
             };
+
+            window.habilitar_edicao = function(options){
+                if(!options.$dataObj.get('$edit')) {
+                    options.$dataObj.set('$edit', true);
+                }
+                options.$event.stopPropagation();
+
+            };
+
+            window.editar = function(options){
+                if(options.$event.keyCode == 13) {
+                    if(options.$event.target.value){
+                        options.$dataObj.set('tarefa', options.$event.target.value);
+                    } else {
+                        options.$dataObj.remove();
+                    }
+                    options.$dataObj.set('$edit', undefined);
+                }
+                if(options.$event.keyCode == 27){
+                    options.$dataObj.set('$edit', undefined);
+                }
+            };
+
+            window.remover = function (options) {
+                options.$dataObj.destroy();
+            }
         };
 
     });

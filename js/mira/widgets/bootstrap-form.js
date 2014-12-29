@@ -30,9 +30,25 @@ define([
             if(callback){
                 callback({
                     $children: $element,
+                    $element: $element,
                     html: element.outerHTML
                 })
             }
+        },
+        FormControl: function($parent, name, $context, options, callback){
+            options.tag = 'div';
+            options.form  = options.form || 'group';
+            var new_options = _.omit(options, 'input');
+            requirejs(['mira/widgets/bootstrap-base'] , function(BootstrapBase){
+                BootstrapBase.Simple($parent, name, $context, new_options, function(ret){
+                    options.input = _.defaults(options.input || {}, {
+                            tag: 'input',
+                            type: 'text',
+                            form: 'control'
+                        });
+                    BootstrapBase.Simple(ret.$children, 'input-' + name, $context, options.input, callback)
+                });
+            });
         }
     };
 });

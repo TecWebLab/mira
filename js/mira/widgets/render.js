@@ -39,6 +39,7 @@ define([
         Title: Title,
         ImageHtml:ImageHtml,
         BootstrapSimple: BootstrapBase.Simple,
+        BootstrapFormControl: BootstrapForm.FormControl,
         BootstrapModalDialog: BootstrapModal.Dialog,
         BootstrapModalHeader: BootstrapModal.Header,
         BootstrapModalBody: BootstrapModal.Body,

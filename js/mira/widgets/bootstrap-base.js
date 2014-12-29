@@ -97,27 +97,12 @@ define([
         },
 
         Icon: function($parent, name, $context, options, callback){
-            var element = document.createElement(options.tag || 'span');
-            var context = Helper.build_context($context, options);
-            var icon = Helper.build_value(options.icon, context);
+            options.tag = options.tag || 'span';
+            options.class  = options.class || '';
+            var new_options = _.omit(options, 'value');
+            new_options.class = get_bootstrap_class(new_options, "glyphicon glyphicon-" +  options.value + ' ' + options.class);
+            SimpleHtml($parent, name, $context, new_options, callback, ignored_options);
 
-            var atrs = _.omit(options, ignored_options, 'tag', 'value', 'name', 'widget', 'icon');
-            Helper.build_attributes(element, atrs, context);
-
-            element.className = "glyphicon glyphicon-" +  icon;
-            if(options.class){
-                element.className += ' ' + options.class;
-            }
-            element.id = name;
-
-            $parent.append(element);
-
-            if(callback){
-                callback({
-                    $children: $(element),
-                    html: element.outerHTML
-                })
-            }
         }
     };
 });
