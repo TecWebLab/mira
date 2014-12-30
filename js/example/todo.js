@@ -123,6 +123,8 @@ if(typeof define === 'function') {
             window.habilitar_edicao = function(options){
                 if(!options.$dataObj.get('$edit')) {
                     options.$dataObj.set('$edit', true);
+                } else {
+                    options.$dataObj.set('$edit', undefined);
                 }
                 options.$event.stopPropagation();
 
