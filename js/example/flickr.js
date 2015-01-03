@@ -12,6 +12,9 @@ var rules = [{
 },{
     name: 'actualPhoto',
     validate: '$env.$data.id == $data.id'
+},{
+    name:'isUserPhoto',
+    validate: '$env.$login.user_nsid == $data.owner.nsid'
 }
 ];
 
@@ -261,7 +264,7 @@ var interface_abstracts = [
                          },{
                              name: "groups-box",
                              children: [
-                                 {name: 'group-submit'},
+                                 {name: 'group-submit', when:'isUserPhoto'},
                                  {name: "groups-title"},
                                  {
                                      name: "groups-itens",
@@ -277,6 +280,7 @@ var interface_abstracts = [
                                      }]
                                  },
                                  {name:'group-submit-box',
+                                  when:'isUserPhoto',
                                   children:[
                                       {name:'group-submit-box-header',
                                        children:[
@@ -341,7 +345,7 @@ var concrete_interface = [
             { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
             { name: 'texto', widget: 'SimpleHtml', tag:'h1', value:'"Faça sua autenticação"' },
 
-            { name: 'oauth', widget: 'SimpleHtml', tag:'button', value:'"Flickr"', onclick:'"request_oauth()"' },
+            { name: 'oauth', widget: 'SimpleHtml', tag:'button', value:'"Flickr"', events: {click: 'request_oauth'} },
 
             { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
             { name: 'footer-content', widget: 'BootstrapFooter' }
@@ -537,10 +541,20 @@ if(typeof define === 'function') {
             Mira.Widget.register(FlickrWidgets);
             Mira.Widget.setDefault('BootstrapSimple');
 
+            app.on('build_env', function($env){
+                if(!$env.$login){
+                    $env.$login = JSON.parse(localStorage.getItem('flickr_login'));
+                }
+            });
 
-            window.request_oauth = function(){
-                Hello('flickr').login().then(function(){
-                    window.location.href = '#?URI=/me'
+
+            window.request_oauth = function(options){
+                Hello('flickr').login().then(function(data){
+                    window.location.href = '#?URI=/me';
+                    if(Modernizr.localstorage) {
+                        localStorage.setItem('flickr_login', JSON.stringify(data.authResponse));
+                    }
+                    options.$env.$login = data.authResponse;
                 });
             };
 
@@ -574,5 +588,4 @@ if(typeof define === 'function') {
     exports.selection = selection;
     exports.rules = rules;
 }
-
 
