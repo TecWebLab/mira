@@ -46,7 +46,9 @@ define([
         },
 
         buildEnv: function(params){
-            this.$env = {};
+            if(!this.$env) {
+                this.$env = {};
+            }
 
             this.$env.request = _.pick(Backbone.history.location,
                 'hash', 'host', 'hostname', 'href', 'origin', 'pathname', 'port', 'protocol', 'search');
@@ -57,6 +59,8 @@ define([
             }
             this.$env.device = Device;
             this.$env.device.features = Modernizr;
+
+            this.trigger('build_env', this.$env);
 
             return this.$env;
         }
