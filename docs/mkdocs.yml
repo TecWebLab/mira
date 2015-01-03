@@ -2,7 +2,7 @@ site_name: MIRA
 theme_dir: theme
 repo_url: https://github.com/tecweblab/mira
 site_author: Ezequiel Bertti
-site_description: Documentação do MIRA - Model Interface for REST Application
+site_description: Documentação do MIRA - Model Interface for REST Applications
 include_search: true
 
 pages:
