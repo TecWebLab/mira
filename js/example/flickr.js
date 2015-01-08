@@ -17,7 +17,7 @@ var rules = [{
     validate: '$env.$login.user_nsid == $data.owner.nsid'
 },{
     name:'groupToAdd',
-    validate: '($data.admin == 1 && $data.moderador == 1) || $env.$login.user_nsid == $env.$data.owner.nsid'
+    validate: '($data.admin == 1 || $data.moderador == 1) || $env.$login.user_nsid == $env.$data.owner.nsid'
 },{
     name:'needApprove',
     validate: '$data.privacy == 2'
@@ -27,6 +27,9 @@ var rules = [{
 },{
     name:'approved',
     validate: '$data.$status == "ok"'
+},{
+    name:'groupShow',
+    validate: '$data.$hide == null'
 }];
 
 var selection = [
@@ -203,6 +206,7 @@ var interface_abstracts = [
                      },{
                          name:'comment-box',
                          datasource:'url:/comments?photo_id=<%= $data.id %>',
+                         parse:'$data.comments.comment',
                          children:[
                              {name: 'comment-item',
                                  children:[
@@ -294,7 +298,8 @@ var interface_abstracts = [
                                   children:[
                                       {name:'group-submit-box-header',
                                        children:[
-                                           {name:'group-submit-box-header-title'}
+                                           {name:'group-submit-box-header-title'},
+                                           {name:'group-submit-box-header-title-filter'}
                                        ]},
                                       {name:'group-submit-box-body',
                                        children:[
@@ -451,7 +456,7 @@ var concrete_interface = [
             { name: 'comment-box', class:'row' },
             { name: 'comment-item', widget:'BootstrapPanelBody', class:'panel-default' },
             { name: 'comment-author', tag:'a', md:'2', href:'navigate("/user?user_id=" + $data.author)' },
-            { name: 'comment-avatar', tag:'img', img:'circle', src:'$data.thumbnail' },
+            { name: 'comment-avatar', tag:'img', img:'circle', src:'getThumbnail($data.author, $data.iconserver, $data.iconfarm)' },
             { name: 'comment-author-name', tag:'h4', value:'$data.realname || $data.authorname' },
             { name: 'comment-content', tag:'blockquote', md:'9,offset-2', value:'$data._content' },
 
@@ -497,7 +502,8 @@ var concrete_interface = [
 
 
             {name: "group-submit-box-body-groups", class:'row' },
-            {name: "group-submit-box-body-groups-item", md:12, when:'groupToAdd'},
+            {name: "group-submit-box-header-title-filter", tag:'input', events:{ keyup:'filtrarGrupos'} },
+            {name: "group-submit-box-body-groups-item", md:12, when:'groupToAdd,groupShow'},
             {name: "group-submit-box-body-groups-thumb", tag:'img', img:'circle', pull:'left', src:'getThumbnail($data.id, $data.iconserver, $data.iconfarm)'},
             {name: "group-submit-box-body-groups-name", value:'$data.name' },
             {name: "group-submit-box-body-groups-status", tag:'button', events: {click: 'addGroup'}, value:'Request', btn:'default'},
@@ -593,6 +599,23 @@ if(typeof define === 'function') {
                     col.trigger('reset');
                 }
 
+            };
+
+            window.filtrarGrupos = function(options){
+                var text = options.$event.target.value.toLowerCase();
+                var collection = options.$env.collections['group-submit-box-body-groups'];
+
+                collection.each(function(model){
+                    if(text) {
+                        if (model.get('name').toLowerCase().indexOf(text) != -1) {
+                            model.set('$hide', undefined);
+                        } else {
+                            model.set('$hide', true);
+                        }
+                    } else {
+                        model.set('$hide', undefined);
+                    }
+                });
             };
 
             window.show_modal = function(id){
