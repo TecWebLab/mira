@@ -76,11 +76,26 @@
             }
         },
 
+        registerCollection: function($env, collection){
+            if($env.collections[this.get('name')]){
+                if(typeof $env.collections[this.get('name')] != Array){
+                    $env.collections[this.get('name')] = [$env.collections[this.get('name')]];
+                }
+                $env.collections[this.get('name')].push(collection);
+
+            } else {
+                $env.collections[this.get('name')] = collection;
+            }
+        },
+
         buildChildren: function($parent, concrete, $data, $env){
+            var esse = this;
             var $bind = this.getBind($data.attributes, $env);
             if(this.get('datasource')){
                 var itemWidget = this.get('children').at(0);
                 this.requestData($data, $env, $bind, function(collection){
+
+                    esse.registerCollection($env, collection);
 
                     var view = new MiraView.Collection({
                         collection: collection,

@@ -2650,7 +2650,7 @@ hello.utils.extend( hello.utils, {
 							inputs = [inputs];
 						}
 						for(i=0;i<inputs.length;i++){
-							inputs[i].parentNode.removeChild(inputs[i]);
+							inputs[i].parentNode.removeChild(inputs[i]); // TODO
 						}
 
 					}
@@ -3782,10 +3782,14 @@ hello.init({
 			"photos" : sign("flickr.people.getPhotos", {per_page:"@{limit|5}"}),
 			"photo" : withoutSign("flickr.photos.getInfo", {}),
 			"photo/context" : withoutSign("flickr.photos.getAllContexts", {}),
+			"photo/listGroups" : sign("flickr.groups.pools.getGroups", {}),
 			"favorites" : withoutSign("flickr.photos.getFavorites", {per_page:"@{limit|50}"}),
 			"comments" : withoutSign("flickr.photos.comments.getList", {}),
 			"interestingness" : sign("flickr.interestingness.getList", {per_page:"@{limit|6}"}),
 			"groups" : sign("flickr.people.getGroups", {})
+		},
+		post:{
+			"photo/addGroup" : sign("flickr.groups.pools.add", {})
 		},
 
 		wrap : {
@@ -3838,17 +3842,6 @@ hello.init({
 			'photos': function(o){
 				formatError(o);
 				return formatPhotos(o);
-			},
-			'comments': function(o){
-				var comments = o.comments.comment;
-
-				for(var i = 0; i < comments.length; i++){
-					var c = comments[i];
-					c.nsid = c.author;
-					c.thumbnail = getBuddyIcon(c);
-				}
-
-				return comments;
 			},
 			'interestingness': function(o){
 				formatError(o);

@@ -73,7 +73,8 @@ define([
                     $data: $data.attributes || $data,
                     $env: $env,
                     $bind: $bind,
-                    $dataObj: $data
+                    $dataObj: $data,
+                    $map: map
                 };
 
                 return widgets[widget_name].call(

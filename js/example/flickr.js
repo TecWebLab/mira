@@ -15,8 +15,19 @@ var rules = [{
 },{
     name:'isUserPhoto',
     validate: '$env.$login.user_nsid == $data.owner.nsid'
-}
-];
+},{
+    name:'groupToAdd',
+    validate: '($data.admin == 1 && $data.moderador == 1) || $env.$login.user_nsid == $env.$data.owner.nsid'
+},{
+    name:'needApprove',
+    validate: '$data.privacy == 2'
+},{
+    name:'waitingApprove',
+    validate: '$data.$status == 2'
+},{
+    name:'approved',
+    validate: '$data.$status == "ok"'
+}];
 
 var selection = [
     {
@@ -264,7 +275,7 @@ var interface_abstracts = [
                          },{
                              name: "groups-box",
                              children: [
-                                 {name: 'group-submit', when:'isUserPhoto'},
+                                 {name: 'group-submit'},
                                  {name: "groups-title"},
                                  {
                                      name: "groups-itens",
@@ -280,7 +291,6 @@ var interface_abstracts = [
                                      }]
                                  },
                                  {name:'group-submit-box',
-                                  when:'isUserPhoto',
                                   children:[
                                       {name:'group-submit-box-header',
                                        children:[
@@ -290,7 +300,8 @@ var interface_abstracts = [
                                        children:[
                                           {
                                               name:'group-submit-box-body-groups',
-                                              datasource: '',
+                                              datasource: 'url:/photo/listGroups',
+                                              parse:'$data.groups.group',
                                               children:[{
                                                       name: "group-submit-box-body-groups-item",
                                                       children: [
@@ -360,9 +371,9 @@ var concrete_interface = [
         maps: [
             { name: 'navigation', widget: 'BootstrapNavigation', value:'"Flickr"'},
             { name: 'navigation-list', widget: 'BootstrapNavigationList'},
-            { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'$data.realname._content', href:'navigate("/me")'},
-            { name: 'navigation-avatar', widget: 'BootstrapNavigationListItem', tag:'a', class:'navbar-brand', href:'navigate("/user?user_id=" + $data.id)'},
-            { name: 'navigation-avatar-img', tag:'img', class:'img-circle', src:'$data.picture', width:"33", height:'33'},
+            { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'$env.$login.fullname', href:'navigate("/me")'},
+            { name: 'navigation-avatar', widget: 'BootstrapNavigationListItem', tag:'a', class:'navbar-brand', href:'navigate("/user?user_id=" + $env.$login.user_nsid)'},
+            { name: 'navigation-avatar-img', tag:'img', class:'img-circle', src:'$env.$login.info.picture', width:"33", height:'33'},
             { name: "busca" },
             { name: "foto", tag:'img', src:'' },
             { name: "content", class:'container' },
@@ -397,9 +408,9 @@ var concrete_interface = [
         maps:[
             { name: 'navigation', widget: 'BootstrapNavigation', value:'"Flickr"'},
             { name: 'navigation-list', widget: 'BootstrapNavigationList'},
-            { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'$data.person.realname._content', href:'navigate("/me")'},
-            { name: 'navigation-avatar', widget: 'BootstrapNavigationListItem', tag:'a', class:'navbar-brand', href:'navigate("/me")'},
-            { name: 'navigation-avatar-img', tag:'img', class:'img-circle', src:'getThumbnail($data.person.id, $data.person.iconserver, $data.person.iconfarm)', width:"33", height:'33'},
+            { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'$env.$login.fullname', href:'navigate("/me")'},
+            { name: 'navigation-avatar', widget: 'BootstrapNavigationListItem', tag:'a', class:'navbar-brand', href:'navigate("/user?user_id=" + $env.$login.user_nsid)'},
+            { name: 'navigation-avatar-img', tag:'img', class:'img-circle', src:'$env.$login.info.picture', width:"33", height:'33'},
             { name: 'content', class:'container-fluid'},
             { name: 'photos_box', widget:'FlickrCollage'},
             { name: 'photo_item', tag:'a', href:'navigate("/photo?photo_id=" + $data.id)' },
@@ -414,10 +425,10 @@ var concrete_interface = [
         ]),
         maps: [
             { name: 'navigation', widget: 'BootstrapNavigation', value:'"Flickr"'},
-            //{ name: 'navigation-list', widget: 'BootstrapNavigationList'},
-            { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'', href:'navigate("/me")'},
-            { name: 'navigation-avatar', widget: 'BootstrapNavigationListItem', tag:'a', class:'navbar-brand', href:'navigate("/me")'},
-            { name: 'navigation-avatar-img', tag:'img', class:'img-circle', src:'', width:"33", height:'33'},
+            { name: 'navigation-list', widget: 'BootstrapNavigationList'},
+            { name: 'navigation-list-item', widget: 'BootstrapNavigationListItem', value:'$env.$login.fullname', href:'navigate("/me")'},
+            { name: 'navigation-avatar', widget: 'BootstrapNavigationListItem', tag:'a', class:'navbar-brand', href:'navigate("/user?user_id=" + $env.$login.user_nsid)'},
+            { name: 'navigation-avatar-img', tag:'img', class:'img-circle', src:'$env.$login.info.picture', width:"33", height:'33'},
 
             { name: 'head', class:'jumbotron'},
             { name: 'image-box', class:'container', text:'center'},
@@ -474,7 +485,7 @@ var concrete_interface = [
             { name: 'groups-title', tag:'h3', value:'Groups' },
             { name: 'groups-itens' },
             { name: 'groups-item', md:12 },
-            { name: 'group-name', value:'$data.title' },
+            { name: 'group-name', value:'$data.title || $data.name' },
             { name: 'group-thumb', tag:'img', img:'circle', md:3, src:'getThumbnail($data.id, $data.iconserver, $data.iconfarm)' },
             { name: 'group-status' },
             { name: 'group-submit', value:'Add Group', tag:'button', class:'pull-right', onclick:'"show_modal(\'group-submit-box\')"' },
@@ -483,6 +494,16 @@ var concrete_interface = [
             { name: 'group-submit-box-header-title', tag:'h3', value:'Adicionar Grupos' },
             { name: 'group-submit-box-body', widget:'BootstrapModalBody' },
             { name: 'group-submit-box-footer', widget:'BootstrapModalFooter' },
+
+
+            {name: "group-submit-box-body-groups", class:'row' },
+            {name: "group-submit-box-body-groups-item", md:12, when:'groupToAdd'},
+            {name: "group-submit-box-body-groups-thumb", tag:'img', img:'circle', pull:'left', src:'getThumbnail($data.id, $data.iconserver, $data.iconfarm)'},
+            {name: "group-submit-box-body-groups-name", value:'$data.name' },
+            {name: "group-submit-box-body-groups-status", tag:'button', events: {click: 'addGroup'}, value:'Request', btn:'default'},
+            {name: "group-submit-box-body-groups-status", tag:'button', events: {click: 'addGroup'}, value:'Request', btn:'warning', when: 'needApprove'},
+            {name: "group-submit-box-body-groups-status", tag:'span', events: {click: 'addGroup'}, value:'Waiting', class:'disabled', btn:'warning', when: 'waitingApprove'},
+            {name: "group-submit-box-body-groups-status", tag:'span', events: {click: 'addGroup'}, value:'Added', class:'disabled', btn:'success', when: 'approved'},
 
             { name: "footer" }
         ]
@@ -512,6 +533,7 @@ if(typeof define === 'function') {
                 if(datasource.indexOf('url:') == 0) {
                     var endpoint = this.buildUrlDatasource(parentData, $env, $bind);
                     Hello('flickr').api(endpoint).then(function(data){
+                        console.log('request ', endpoint, data);
                         var CollectionClass = Mira.Api.Collection.extend({
                                 'parse': parse || Mira.Api.Collection.prototype.parse
                             });
@@ -543,19 +565,34 @@ if(typeof define === 'function') {
 
             app.on('build_env', function($env){
                 if(!$env.$login){
-                    $env.$login = JSON.parse(localStorage.getItem('flickr_login'));
+                    $env.$login = hello.getAuthResponse('flickr');
+                }
+                if(!$env.$login.info){
+                    Hello('flickr').api('/me').then(function(data){
+                        $env.$login.info = data;
+                    })
                 }
             });
 
 
             window.request_oauth = function(options){
                 Hello('flickr').login().then(function(data){
+                    options.$env.$login = hello.getAuthResponse('flickr');
                     window.location.href = '#?URI=/me';
-                    if(Modernizr.localstorage) {
-                        localStorage.setItem('flickr_login', JSON.stringify(data.authResponse));
-                    }
-                    options.$env.$login = data.authResponse;
                 });
+            };
+
+            window.addGroup = function (options) {
+
+                if(options.$data.privacy == 2) {
+                    options.$dataObj.set('$status', 2);
+                } else {
+                    options.$dataObj.set('$status', 'ok');
+                    var col = options.$env.collections['groups-itens'];
+                    col.add(options.$data);
+                    col.trigger('reset');
+                }
+
             };
 
             window.show_modal = function(id){

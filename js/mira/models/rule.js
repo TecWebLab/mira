@@ -22,7 +22,7 @@
             try {
                 return eval(this.get('validate')) == true;
             } catch (e){
-                console.log("Error on rule" + this.get('name'), this, $data, $env, $bind);
+                console.log("Error on rule " + this.get('name'), e.message, this, $data, $env, $bind);
                 return false;
             }
         }

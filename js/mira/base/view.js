@@ -69,7 +69,16 @@ define([
             var plus = _.pick(options, 'concrete', 'widget', 'itemWidget', '$env', '$bind');
             _.extend(this, plus);
 
+            this.setCollection();
+
             this.subviews = [];
+        },
+
+        setCollection: function(collection){
+            if(collection) {
+                this.collection = collection;
+            }
+            this.listenTo(this.collection, 'reset', this.render, this);
         },
 
         render: function(){

@@ -60,6 +60,8 @@ define([
             this.$env.device = Device;
             this.$env.device.features = Modernizr;
 
+            this.$env.collections = {};
+
             this.trigger('build_env', this.$env);
 
             return this.$env;
