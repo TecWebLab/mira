@@ -3779,6 +3779,7 @@ hello.init({
 			"me/followers": sign("flickr.contacts.getList", {per_page:"@{limit|50}", sort:'time'}),
 			"me/albums"	: sign("flickr.photosets.getList", {per_page:"@{limit|50}"}),
 			"me/photos" : sign("flickr.people.getPhotos", {per_page:"@{limit|50}"}),
+			"cont" : sign("flickr.photos.getContext", {}),
 			"photos" : sign("flickr.people.getPhotos", {per_page:"@{limit|5}"}),
 			"photo" : withoutSign("flickr.photos.getInfo", {}),
 			"photo/context" : withoutSign("flickr.photos.getAllContexts", {}),

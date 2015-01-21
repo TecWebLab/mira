@@ -31,6 +31,7 @@ define([
             if(callback){
                 callback({
                     $children: $(element),
+                    $element: $(element),
                     html: element.innerHTML
                 })
             }
@@ -51,14 +52,16 @@ define([
                 var $element = $(element);
                 $element.gmap3({ map: attrs_compiled });
                 $parent.append(element);
+                
+                if(callback){
+                    callback({
+                        $children: $element,
+                        $element: $element,
+                        html: element.innerHTML
+                    })
+                }
             });
 
-            if(callback){
-                callback({
-                    $children: $(element),
-                    html: element.innerHTML
-                })
-            }
         }
     };
 });

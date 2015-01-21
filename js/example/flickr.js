@@ -1,8 +1,14 @@
 "use strict";
-
+// mudar para condicoes
 var rules = [{
     name: 'isMe',
     validate: '$data.me == true'
+},{
+    name: 'isMobile',
+    validate: '$env.device.mobile == true'
+},{
+    name: 'notMobile',
+    validate: '$env.device.mobile == false'
 },{
     name: 'isPerson',
     validate: '$data.person != null'
@@ -30,6 +36,12 @@ var rules = [{
 },{
     name:'groupShow',
     validate: '$data.$hide == null'
+},{
+    name:'hasPreviousPhoto',
+    validate: '$data.prevphoto.id != 0'
+},{
+    name:'hasNextPhoto',
+    validate: '$data.nextphoto.id != 0'
 }];
 
 var selection = [
@@ -177,17 +189,28 @@ var interface_abstracts = [
                  {name: 'image-box',
                   children:[
                       {name:'imagem-principal'},
-                     {name:'mais-box',
-                         datasource:'url:/photos?per_page=12&user_id=<%= $data.owner.nsid %>',
-                         parse:'$data.data',
+                      {name: 'imagem-context',
+                         datasource: 'url:/cont?photo_id=<%= $data.id %>',
                          children:[
-                             {   name:'mais-item',
-                                 children:[
-                                     { name:'mais-img'}
-                                 ]
+                             { name:'imagem-context-item',
+                               children:[
+                                 {name:'imagem-context-item-prev'},
+                                 {name:'imagem-context-item-next'}
+                               ]
                              }
-                         ]
-                     }
+                       ]
+                      },
+                      {name:'mais-box',
+                          datasource:'url:/photos?per_page=12&user_id=<%= $data.owner.nsid %>',
+                          parse:'$data.data',
+                          children:[
+                              {   name:'mais-item',
+                                  children:[
+                                      { name:'mais-img'}
+                                  ]
+                              }
+                          ]
+                      }
                   ]
                  }
              ]},
@@ -390,7 +413,7 @@ var concrete_interface = [
             { name: "amigo_avatar", tag: 'img', md:"2", img:'circle,responsive', src:'$data.thumbnail'},
             { name: "amigo_name", tag:'h3', value:'$data.realname' },
 
-            { name: "slide_gallery", widget:'FlickrGallery' },
+            { name: "slide_gallery", widget:'FlickrGallery', when:'notMobile' },
             { name: "slide_item", widget:'FlickrGalleryItem', 'data-thumb':'$data.thumbnail', img:{ src:"$data.picture"}, link: { href:'navigate("/photo?photo_id=" + $data.id)' } },
             { name: "slide_desc",  class:"lslide-description" },
             { name: "slide_title", tag:'h4', value:'$data.title' },
@@ -401,6 +424,7 @@ var concrete_interface = [
             { name: 'common_title', tag:'h3', value:'"Destaques"' },
             { name: 'commons_item', tag:'a', href:'navigate("/photo?photo_id=" + $data.id)'  },
             { name: 'commons_img', tag: 'img', md:"4", class:'thumbnail', src:'$data.size.square' },
+            { name: 'commons_img', tag: 'img', img:'responsive', class:'thumbnail', src:'$data.size.s320', when:'isMobile' },
 
 
             { name: "footer" }
@@ -420,7 +444,8 @@ var concrete_interface = [
             { name: 'photos_box', widget:'FlickrCollage'},
             { name: 'photo_item', tag:'a', href:'navigate("/photo?photo_id=" + $data.id)' },
             { name: 'photo_title' },
-            { name: 'photo_src', tag:'img', src:'$data.size.s500'}
+            { name: 'photo_src', tag:'img', src:'$data.size.s500'},
+            { name: 'photo_src', tag:'img', src:'$data.size.s320', img:'responsive', when:'isMobile'}
         ]
     },{
 
@@ -438,8 +463,14 @@ var concrete_interface = [
             { name: 'head', class:'jumbotron'},
             { name: 'image-box', class:'container', text:'center'},
             { name: "imagem-principal", tag:'img', src:"$data.size.s1024" },
+            { name: "imagem-principal", tag:'img', src:"$data.size.s320", img:'responsive' },
 
-            {name:'mais-box', class:'row'},
+            {name:'imagem-context', when:'isMobile'},
+            {name:'imagem-context-item'},
+            {name:'imagem-context-item-prev', tag:'a', btn:'info', value:'Prev', when:'hasPreviousPhoto', href:'navigate("/photo?photo_id=" + $data.prevphoto.id)'},
+            {name:'imagem-context-item-next', tag:'a', btn:'info', value:'Next', when:'hasNextPhoto', href:'navigate("/photo?photo_id=" + $data.nextphoto.id)'},
+
+            {name:'mais-box', class:'row', when:'notMobile'},
             {name:'mais-item', tag:'a', href:'navigate("/photo?photo_id=" + $data.id)', md:1, class:'thumbnail'},
             {name:'mais-item', tag:'a', href:'navigate("/photo?photo_id=" + $data.id)', md:1, class:'thumbnail alert-info', when:'actualPhoto'},
             {name:'mais-img', tag:'img', src:'$data.size.square'},
@@ -461,7 +492,7 @@ var concrete_interface = [
             { name: 'comment-content', tag:'blockquote', md:'9,offset-2', value:'$data._content' },
 
 
-            { name: 'sidebar', md:5},
+            { name: 'sidebar', md:5, when:'notMobile'},
             { name: 'count-box', widget:'BootstrapPanelBody', class:'panel-default' },
 
             { name: "star-box", md:2  },
