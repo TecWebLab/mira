@@ -463,7 +463,7 @@ var concrete_interface = [
             { name: 'head', class:'jumbotron'},
             { name: 'image-box', class:'container', text:'center'},
             { name: "imagem-principal", tag:'img', src:"$data.size.s1024" },
-            { name: "imagem-principal", tag:'img', src:"$data.size.s320", img:'responsive' },
+            { name: "imagem-principal", tag:'img', src:"$data.size.s320", img:'responsive', when:'isMobile' },
 
             {name:'imagem-context', when:'isMobile'},
             {name:'imagem-context-item'},
@@ -537,8 +537,8 @@ var concrete_interface = [
             {name: "group-submit-box-body-groups-item", md:12, when:'groupToAdd,groupShow'},
             {name: "group-submit-box-body-groups-thumb", tag:'img', img:'circle', pull:'left', src:'getThumbnail($data.id, $data.iconserver, $data.iconfarm)'},
             {name: "group-submit-box-body-groups-name", value:'$data.name' },
-            {name: "group-submit-box-body-groups-status", tag:'button', events: {click: 'addGroup'}, value:'Request', btn:'default'},
-            {name: "group-submit-box-body-groups-status", tag:'button', events: {click: 'addGroup'}, value:'Request', btn:'warning', when: 'needApprove'},
+            {name: "group-submit-box-body-groups-status", tag:'button', events: {click: 'addGroup'}, value:'"Request"', btn:'default'},
+            {name: "group-submit-box-body-groups-status", tag:'button', events: {click: 'addGroup'}, value:'"Request"', btn:'warning', when: 'needApprove'},
             {name: "group-submit-box-body-groups-status", tag:'span', events: {click: 'addGroup'}, value:'Waiting', class:'disabled', btn:'warning', when: 'waitingApprove'},
             {name: "group-submit-box-body-groups-status", tag:'span', events: {click: 'addGroup'}, value:'Added', class:'disabled', btn:'success', when: 'approved'},
 
