@@ -79,6 +79,10 @@ server.get('/api/:folder/:id', function (req, res, next) {
     });
 });
 
+server.get('/docs', function(req, res, next){
+   res.redirect('http://mestrado.amazingworks.com.br/documentacao/'); 
+});
+
 
 var http = require('http');
 var httpServer = http.createServer(server);
