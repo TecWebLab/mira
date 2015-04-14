@@ -17,10 +17,11 @@ define([
     'mira/widgets/bootstrap-footer',
     'mira/widgets/bootstrap-form',
     'mira/widgets/profile',
-    'mira/widgets/freebase'
+    'mira/widgets/freebase',
+    'mira/widgets/tecweb'
     ],function (Helper, SimpleHtml, Map, Input, Head, Meta, Title, ImageHtml,
                 BootstrapBase, BootstrapModal, BootstrapCarousel, BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
-                BootstrapForm, Profile, Freebase
+                BootstrapForm, Profile, Freebase, TecWeb
     ) {
 
     var pathToWidget = function(name){
@@ -58,7 +59,8 @@ define([
         BootstrapNavigationList: BootstrapNavigation.List,
         BootstrapNavigationListItem: BootstrapNavigation.ListItem,
         BootstrapFormGroupButton: BootstrapForm.GroupButton,
-        FreebaseTypes: Freebase.Types
+        FreebaseTypes: Freebase.Types,
+        TecWebRodape: TecWeb.Rodape
     };
 
     return  {

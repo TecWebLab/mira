@@ -386,8 +386,7 @@ var concrete_interface = [
 
             { name: 'oauth', widget: 'SimpleHtml', tag:'button', value:'"Flickr"', events: {click: 'request_oauth'} },
 
-            { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
-            { name: 'footer-content', widget: 'BootstrapFooter' }
+          { name: "footer", widget:'TecWebRodape' }
         ]
     },{
 
@@ -427,7 +426,7 @@ var concrete_interface = [
             { name: 'commons_img', tag: 'img', img:'responsive', class:'thumbnail', src:'$data.size.s320', when:'isMobile' },
 
 
-            { name: "footer" }
+          { name: "footer", widget:'TecWebRodape' }
         ]
     },{
         name: 'user',
@@ -445,7 +444,8 @@ var concrete_interface = [
             { name: 'photo_item', tag:'a', href:'navigate("/photo?photo_id=" + $data.id)' },
             { name: 'photo_title' },
             { name: 'photo_src', tag:'img', src:'$data.size.s500'},
-            { name: 'photo_src', tag:'img', src:'$data.size.s320', img:'responsive', when:'isMobile'}
+            { name: 'photo_src', tag:'img', src:'$data.size.s320', img:'responsive', when:'isMobile'},
+          { name: "footer", widget:'TecWebRodape' }
         ]
     },{
 
@@ -542,7 +542,7 @@ var concrete_interface = [
             {name: "group-submit-box-body-groups-status", tag:'span', events: {click: 'addGroup'}, value:'Waiting', class:'disabled', btn:'warning', when: 'waitingApprove'},
             {name: "group-submit-box-body-groups-status", tag:'span', events: {click: 'addGroup'}, value:'Added', class:'disabled', btn:'success', when: 'approved'},
 
-            { name: "footer" }
+            { name: "footer", widget:'TecWebRodape' }
         ]
     }
 ];

@@ -39,7 +39,7 @@ var interface_abstracts = [
                     }
                   ]
                  }]
-                }
+                }, 'footer'
             ]}
         ]
     }
@@ -76,7 +76,8 @@ var concrete_interface = [
         { name: 'remover', widget:'BootstrapIcon', value:'remove',  events: { click: 'remover' } },
         { name: 'imagem_tarefa', widget:'MapStatic', size:'450x200', value:'$data.tarefa.substring($data.tarefa.indexOf("@"))', class:'thumbnail', when:'hasLocation' },
         { name: 'tarefa', class:'lead', value:'$bind', md:'8', events: { click:'habilitar_edicao' } },
-        { name: 'tarefa', widget:'BootstrapFormControl', md:8, input:{ value:'$bind', events:{ keydown:'editar' } }, when:'inEdition' }
+        { name: 'tarefa', widget:'BootstrapFormControl', md:8, input:{ value:'$bind', events:{ keydown:'editar' } }, when:'inEdition' },
+          { name: "footer", widget:'TecWebRodape' }
     ]}
 ];
 

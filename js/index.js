@@ -7,7 +7,8 @@ var exemplos = [
     {name: "Imobiliária", href:"/?app=example/imovel"},
     {name: "Futebol", href:"/?app=example/futebol"},
     {name: "Flickr", href:"/?app=example/flickr"},
-    {name: "Todo", href:"/?app=example/todo"}
+    {name: "Todo", href:"/?app=example/todo"},
+    {name: "Europédia", href:"/?app=example/europedia"}
 ];
 
 var rules = [];
@@ -20,9 +21,11 @@ var interface_abstracts = [
         widgets : [
             { 'header': {'content': ['title', 'description', 'examples',
                 { name: 'apps', datasource:exemplos, children: 'app' },
-                'docs', 'docs_link'
+                'builder', 'builder_link',
+                'docs', 'docs_link',
+                'repository', 'repository_codeplex', 'repository_github'
             ]}},
-            {'footer': ['footer-content']}
+            {'footer': ['footer-tecweb', 'footer-puc']}
         ]
     }
 ];
@@ -30,7 +33,7 @@ var interface_abstracts = [
 var head = [
     {name: 'main_css', widget:'Head', href:'css/bootstrap.css', tag: 'style'},
     {name: 'viewport', widget:'Meta', content:'width=device-width, initial-scale=1'},
-    {name: 'title', widget:'Title', value: '"MIRA | Model Interface for REST Application"'}
+    {name: 'title', widget:'Title', value: '"MIRA | Model Interface for REST Applications"'}
 ];
 
 var concrete_interface = [
@@ -47,11 +50,18 @@ var concrete_interface = [
         { name: 'apps', widget: 'BootstrapSimple', class:'btn-toolbar' },
         { name: 'app', widget: 'BootstrapSimple', tag:'a', btn:'primary,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', href:'$data.href', value:'$data.name' },
 
-        { name: 'docs', widget: 'BootstrapSimple', tag:'h3', value:'"Please, visit our documentations"' },
-        { name: 'docs_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Documentations"', href:'"http://mestrado.amazingworks.com.br/documentacao"'},
+        { name: 'docs', widget: 'BootstrapSimple', tag:'h3', value:'"Documentation available at"' },
+        { name: 'docs_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Docs"', href:'"http://mira.tecweb.inf.puc-rio.br/docs"'},
 
-        //{ name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container'},
-        //{ name: 'footer-content', widget: 'BootstrapFooter' }
+        { name: 'builder', widget: 'BootstrapSimple', tag:'h3', value:'"Builder of Abstract Interface available at"' },
+        { name: 'builder_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Builder"', href:'"http://ebertti.github.io/mira-ui/"'},
+
+
+        { name: 'repository', widget: 'BootstrapSimple', tag:'h3', value:'"Please, visit our documentations"' },
+        { name: 'repository_codeplex', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"CodePlex"', href:'"http://mira.codeplex.com"'},
+        { name: 'repository_github', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Github"', href:'"https://github.com/TecWebLab/mira"'},
+
+        { name: 'footer', widget: 'TecWebRodape'}
     ]}
 ];
 

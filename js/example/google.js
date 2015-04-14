@@ -83,9 +83,7 @@ var concrete_interface = [
 
         { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
         { name: 'texto', widget: 'SimpleHtml', tag:'h1', value:'"Pagina nao encontrada"' },
-
-        { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
-        { name: 'footer-content', widget: 'BootstrapFooter' }
+          { name: "footer", widget:'TecWebRodape' }
     ]}
     ,{
         name: 'user',
@@ -105,9 +103,7 @@ var concrete_interface = [
         { name: 'circulos_title', widget: 'SimpleHtml', tag: 'h3', class:'clearfix', value:'"Circulos"'},
         { name: 'circulos', widget: 'SimpleHtml', tag: 'div'},
         { name: 'circulo', widget: 'SimpleHtml', tag: 'a', href: 'navigate($data.url)', value:'$data.name'},
-
-        { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
-        { name: 'footer-content', widget: 'BootstrapFooter' }
+          { name: "footer", widget:'TecWebRodape' }
     ]}
 ];
 
