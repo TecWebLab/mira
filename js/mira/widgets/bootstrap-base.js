@@ -100,7 +100,8 @@ define([
             options.tag = options.tag || 'span';
             options.class  = options.class || '';
             var new_options = _.omit(options, 'value', 'icon');
-            new_options.class = get_bootstrap_class(new_options, "glyphicon glyphicon-" + (options.value || options.icon) + ' ' + options.class);
+            var icon = Helper.build_value((options.value || options.icon), $context);
+            new_options.class = get_bootstrap_class(new_options, "glyphicon glyphicon-" + icon + ' ' + options.class);
             SimpleHtml($parent, name, $context, new_options, callback, ignored_options);
 
         }

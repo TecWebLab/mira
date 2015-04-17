@@ -49,6 +49,7 @@ requirejs([
         }).object().value();
 
     require([query.app || 'index'], function (App) {
+        window.app.name = query.app;
         window.app[query.app] = new App();
         window.app.query = query;
         Backbone.history.start();

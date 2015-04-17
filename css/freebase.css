@@ -15,7 +15,13 @@
     margin: 10px;
     height: 100px;
     max-height: 100px;
+    overflow: hidden;
 }
+.item:hover {
+    margin: 10px;
+    min-height: 100px;
+}
+
 
 #meta {
     margin-top: 10px;

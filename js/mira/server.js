@@ -9,18 +9,8 @@ var request = require('request');
 var optimist = require('optimist');
 var fs = require('fs');
 
-
-var app = optimist.argv.app;
-
 var Rule = require('./models/rule.js');
 var Selection = require('./models/selection.js');
-var MiraApp = require(app || '../index.js');
-
-// defaults
-MiraApp.ajaxSetup = MiraApp.ajaxSetup || {};
-MiraApp.ajaxSetup.headers = MiraApp.ajaxSetup.headers || {};
-MiraApp.ajaxSetup.headers['User-Agent'] = MiraApp.ajaxSetup.headers['User-Agent'] ||
-    "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.3 Safari/537.36";
 
 // start do servidor
 var server = express();
@@ -29,16 +19,35 @@ server.use(morgan());
 // criando servidor para arquivos estaticos
 server.use(express.static(path.normalize(__dirname + '/../..'),  { maxAge: 60 * 60 * 1000 }));
 
-var rules = new Rule.Collection(MiraApp.rules, {parse:true});
-var selection = new Selection.Collection(MiraApp.selection, {parse:true});
 
 server.route('/server.js').all(function(req, res, next){
-    var options = _.extend({
-        json: true,
-        url: req.param('URI')
-    }, MiraApp.ajaxSetup || {});
 
-    request(options, function (error, response, body) {
+    var app = '../index.js';
+    if(req.query.app){
+      app = '../' + req.query.app + '.js';
+    }
+
+    var MiraApp = require(app);
+    MiraApp.ajaxSetup = MiraApp.ajaxSetup || {};
+    MiraApp.ajaxSetup.headers = MiraApp.ajaxSetup.headers || {};
+    MiraApp.ajaxSetup.headers['User-Agent'] = MiraApp.ajaxSetup.headers['User-Agent'] ||
+    "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.3 Safari/537.36";
+    var rules = new Rule.Collection(MiraApp.rules, {parse:true});
+    var selection = new Selection.Collection(MiraApp.selection, {parse:true});
+
+    var extra = _.omit(req.query, 'url', 'data', 'type', 'app');
+
+
+    var options = _.extend({
+        json: true
+    }, _.pick(req.query, 'data', 'type'),
+      extra,
+      MiraApp.ajaxSetup);
+
+    var rst = request(req.query.url, options, function (error, response, body) {
+        res.send(body);
+        /*
+
         var abstract_select = null;
         selection.each(function(select){
             if(select.get('when')){
@@ -50,9 +59,11 @@ server.route('/server.js').all(function(req, res, next){
         });
 
         if (!error && response.statusCode == 200) {
-            res.send(abstract_select);
+            res.send({}abstract_select);
         }
+        */
     });
+    console.log(rst);
 });
 
 server.get('/api/:folder', function (req, res, next) {

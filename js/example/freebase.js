@@ -127,7 +127,7 @@ var concrete_interface = [
         { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
         { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
         { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
-        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
+        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"', events:{'click': 'do_search'} },
 
         { name: 'footer', widget: 'SimpleHtml', tag:'div', class:'container' },
         { name: 'footer-content', widget: 'BootstrapFooter' }
@@ -141,7 +141,7 @@ var concrete_interface = [
         { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
         { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
         { name: 'search_field', widget: 'Input', tag:'input', class:'form-control input-lg', value:'busca', placeholder:'"Escreve o que deseja buscar"' },
-        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
+        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"', events:{'click': 'do_search'} },
 
         { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
         { name: 'warning', widget: 'SimpleHtml', tag:'div', class:'alert alert-warning', value:'"Pagina nao encontrada"' },
@@ -158,7 +158,7 @@ var concrete_interface = [
         { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
         { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
         { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
-        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
+        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"', events:{'click': 'do_search'} },
 
         { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
         { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
@@ -182,7 +182,7 @@ var concrete_interface = [
             { name: 'search_group', widget: 'BootstrapSimple', tag:'div', class:'form_center', input:'group', form:'center', sm:'8' },
 
             { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Freebase"' },
-            { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
+            { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"', events:{'click': 'do_search'} },
 
             { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
             { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
@@ -219,7 +219,7 @@ var concrete_interface = [
             { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
             { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
             { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
-            { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"' },
+            { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"', events:{'click': 'do_search'} },
 
             { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
             { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
@@ -240,14 +240,17 @@ var ajaxSetup = {
         'key': 'AIzaSyC6xDllQ_3e8Q3KWOlguRkg22ZlEekCaDY'
     }
 };
-window.icons = icons;
-window.do_search = function(event){
-    event.preventDefault();
-    var search = document.getElementById('search_field');
-    window.busca = search.value;
-    window.location.href = navigate('https://www.googleapis.com/freebase/v1/search?query=' + encodeURIComponent(search.value));
+var conf = {
+  icons: icons,
+  events: {
+    do_search: function(options){
+      options.$event.preventDefault();
+      var search = document.getElementById('search_field');
+      window.busca = search.value;
+      window.location.href = navigate('https://www.googleapis.com/freebase/v1/search?query=' + encodeURIComponent(search.value));
+    }
+  }
 };
-
 
 if(typeof define === 'function') {
     define([
@@ -258,8 +261,9 @@ if(typeof define === 'function') {
     ], function ($, $bootstrap, Mira) {
 
         return function Google() {
-            var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+            var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection, conf);
             $.ajaxSetup(ajaxSetup);
+            app.useServer();
         };
 
     });

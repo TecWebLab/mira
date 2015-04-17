@@ -27,6 +27,10 @@ define([
             }
             $parent.append(element);
 
+            if(options.events) {
+                Helper.build_events($button, options.events, $context);
+            }
+
             if(callback){
                 callback({
                     $children: $element,

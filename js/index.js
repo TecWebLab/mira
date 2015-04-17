@@ -8,7 +8,7 @@ var exemplos = [
     {name: "Futebol", href:"/?app=example/futebol"},
     {name: "Flickr", href:"/?app=example/flickr"},
     {name: "Todo", href:"/?app=example/todo"},
-    {name: "Europédia", href:"/?app=example/europedia"}
+    {name: "Europeana", href:"/?app=example/europeana"}
 ];
 
 var rules = [];
@@ -57,7 +57,7 @@ var concrete_interface = [
         { name: 'builder_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Builder"', href:'"http://ebertti.github.io/mira-ui/"'},
 
 
-        { name: 'repository', widget: 'BootstrapSimple', tag:'h3', value:'"Please, visit our documentations"' },
+        { name: 'repository', widget: 'BootstrapSimple', tag:'h3', value:'"Source code available at"' },
         { name: 'repository_codeplex', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"CodePlex"', href:'"http://mira.codeplex.com"'},
         { name: 'repository_github', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Github"', href:'"https://github.com/TecWebLab/mira"'},
 

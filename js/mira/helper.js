@@ -51,11 +51,17 @@
                             $element: $element,
                             $event: $event
                         });
+
                         if(_.isFunction(value)){
                             value(all_context);
+                        } else if(context.$env
+                            && context.$env.events
+                            && context.$env.events[value]) {
+                                context.$env.events[value](all_context);
                         } else {
                             window[value](all_context);
                         }
+
                     } catch (ex){
                         console.error('error event', name, $element, context, ex);
                     }
@@ -103,7 +109,7 @@
 
         toQueryString: function(val, namePrefix) {
             /*jshint eqnull:true */
-            var splitChar = Backbone.Router.arrayValueSplit;
+            var splitChar = encodeURIComponent(Backbone.Router.arrayValueSplit);
             function encodeSplit(val) { return String(val).replace(splitChar, encodeURIComponent(splitChar)); }
 
             if (!val) {
@@ -146,7 +152,7 @@
 
         navigate: function (uri, params) {
             if(params) {
-                return '#?URI=' + uri + '&' + esse.toQueryString(params);
+                return '#?URI=' + uri + '?' + esse.toQueryString(params);
             }
             return '#?URI=' + uri;
         },

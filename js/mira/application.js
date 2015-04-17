@@ -15,7 +15,7 @@ define([
 
         __name__ : 'Application',
 
-        initialize: function (interface_abstracts, interface_concretes, rules_lib, selection_rules) {
+        initialize: function (interface_abstracts, interface_concretes, rules_lib, selection_rules, conf) {
             Mira = requirejs('mira/init');
             var abstract = new Mira.Abstract.Collection(interface_abstracts, {parse:true});
             var concretes = new Mira.Concrete.Collection(interface_concretes, {parse:true});
@@ -24,7 +24,7 @@ define([
             this.interface = new Mira.Interface(abstract, concretes, rules, selection, this);
             window.mira = this;
             window.navigate = Mira.Helper.navigate;
-
+            this.conf = conf || {};
             _.bindAll(this, 'selected');
         },
 
@@ -61,13 +61,38 @@ define([
             this.$env.device.features = Modernizr;
 
             this.$env.collections = {};
+            this.$env.events = this.conf.events || {};
 
             this.trigger('build_env', this.$env);
 
             return this.$env;
+        },
+
+        useServer: function(endpoint){
+          endpoint = endpoint || '/server.js';
+
+          var original = Backbone.$.ajax;
+
+          Backbone.$.ajax = function(options) {
+
+            var new_options = _.omit(options, 'data', 'type', 'url');
+
+            var data = _.pick(options, 'data', 'type', 'url');
+
+            _.extend(data, {
+              app: window.app.name
+            });
+
+            _.extend(new_options, {
+              data: data,
+              type: 'get',
+              url: endpoint
+            });
+
+            return original.apply(Backbone.$, [new_options]);
+          };
+
         }
-
-
 
     });
 
