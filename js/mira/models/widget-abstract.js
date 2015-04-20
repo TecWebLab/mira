@@ -68,12 +68,35 @@
             return map_selected
         },
 
-        buildWidget: function($parent, concrete, $data, $env, callback){
+        buildWidget: function($parent, concrete, $data, $env, callback) {
+            var esse = this;
+            var $bindl = this.getBind($data.attributes, $env);
+            var next = function ($bind) {
+                var map = esse.getRender(concrete, $data, $env, $bind);
+                if (map && esse.isVisible($data, $env, $bind)) {
+                    map.getHtml($parent, $data, $env, $bind, callback);
+                }
+            };
+
+            if (this.get('select')) {
+                $.ajax({
+                    url: $env.request.uri.source,
+                    select: this.get('select'),
+                    success: function (data) {
+                        next(data);
+                    }
+                });
+            } else {
+                next($bindl);
+            }
+
+            /*
             var $bind = this.getBind($data.attributes, $env);
             var map = this.getRender(concrete, $data, $env, $bind);
-            if(map && this.isVisible($data, $env, $bind)) {
+            if (map && this.isVisible($data, $env, $bind)) {
                 map.getHtml($parent, $data, $env, $bind, callback);
-            }
+
+            }*/
         },
 
         registerCollection: function($env, collection){
@@ -86,6 +109,11 @@
             } else {
                 $env.collections[this.get('name')] = collection;
             }
+        },
+
+        requestSelect: function(){
+
+
         },
 
         buildChildren: function($parent, concrete, $data, $env){
@@ -111,7 +139,7 @@
                     view.render();
 
                 });
-            } else {
+            }  else {
                 this.get('children').each(function (widget, i) {
                     widget.getHtml($parent, concrete, $data, $env);
                 }, this);

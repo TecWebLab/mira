@@ -75,12 +75,13 @@ define([
 
           Backbone.$.ajax = function(options) {
 
-            var new_options = _.omit(options, 'data', 'type', 'url');
+            var new_options = _.omit(options, 'data', 'type', 'url', 'select');
 
             var data = _.pick(options, 'data', 'type', 'url');
 
             _.extend(data, {
-              app: window.app.name
+              app: window.app.name,
+                select: options.select || undefined
             });
 
             _.extend(new_options, {
