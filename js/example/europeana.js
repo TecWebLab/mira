@@ -35,7 +35,8 @@ var rules = [{
 
 var icons = {
     'IMAGE': 'picture',
-    'TEXT': 'font'
+    'TEXT': 'font',
+    'SOUND': 'music'
 };
 
 var selection = [
@@ -95,8 +96,8 @@ var concrete_interface = [
 
         { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
         { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
-        { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
-        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"', events:{'click': 'do_search'} },
+        { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Please type search term"' },
+        { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Search"', events:{'click': 'do_search'} },
 
           { name: 'footer', widget: 'TecWebRodape'}
     ]},{
@@ -108,8 +109,8 @@ var concrete_interface = [
 
       { name: 'search_form', widget: 'SimpleHtml', tag:'form', onsubmit:'do_search(event);' },
       { name: 'search_group', widget: 'SimpleHtml', tag:'div', class:'input-group form_center col-sm-8' },
-      { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Escreve o que deseja buscar"' },
-      { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Buscar"', events:{'click': 'do_search'} },
+      { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Please type search term"' },
+      { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Search"', events:{'click': 'do_search'} },
 
       { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
       { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
