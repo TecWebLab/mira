@@ -11,6 +11,12 @@ var exemplos = [
     {name: "Europeana", href:"/?app=example/europeana"}
 ];
 
+var thanks = [
+    {name: "W3C Brazil Office", href:"http://www.w3c.br"},
+    {name: "NiC.br", href:"http://w3c.br"},
+    {name: "Microsoft Brasil Open Source", href:"http://www.microsoft.com/brasil/opensource/projects.aspx"}
+];
+
 var rules = [];
 
 var selection = [];
@@ -23,7 +29,9 @@ var interface_abstracts = [
                 { name: 'apps', datasource:exemplos, children: 'app' },
                 'builder', 'builder_link',
                 'docs', 'docs_link',
-                'repository', 'repository_codeplex', 'repository_github'
+                'repository', 'repository_codeplex', 'repository_github',
+                'thanks_title',
+                {name: 'thanks', datasource:thanks, children: {'item':'thankyou'}}
             ]}},
             {'footer': ['footer-tecweb', 'footer-puc']}
         ]
@@ -53,13 +61,17 @@ var concrete_interface = [
         { name: 'docs', widget: 'BootstrapSimple', tag:'h3', value:'"Documentation available at"' },
         { name: 'docs_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Docs"', href:'"http://mira.tecweb.inf.puc-rio.br/docs"'},
 
-        { name: 'builder', widget: 'BootstrapSimple', tag:'h3', value:'"Builder of Abstract Interface available at"' },
+        { name: 'builder', widget: 'BootstrapSimple', tag:'h3', value:'"Abstract Interface Builder available at"' },
         { name: 'builder_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Builder"', href:'"http://ebertti.github.io/mira-ui/"'},
 
 
         { name: 'repository', widget: 'BootstrapSimple', tag:'h3', value:'"Source code available at"' },
         { name: 'repository_codeplex', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"CodePlex"', href:'"http://mira.codeplex.com"'},
         { name: 'repository_github', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Github"', href:'"https://github.com/TecWebLab/mira"'},
+        { name: 'thanks_title', widget: 'BootstrapSimple', tag:'h3', class:'small', value:'This work was partially suported by:'},
+        { name: 'thanks', widget: 'BootstrapSimple', tag:'ul', class:'list-inline'},
+        { name: 'item', widget: 'BootstrapSimple', tag:'li'},
+        { name: 'thankyou', widget: 'BootstrapSimple', tag:'a', value:'$data.name', href:'$data.href'},
 
         { name: 'footer', widget: 'TecWebRodape'}
     ]}
