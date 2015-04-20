@@ -13,7 +13,7 @@ var exemplos = [
 
 var thanks = [
     {name: "W3C Brazil Office", href:"http://www.w3c.br"},
-    {name: "NiC.br", href:"http://w3c.br"},
+    {name: "NiC.br", href:"http://nic.br"},
     {name: "Microsoft Brasil Open Source", href:"http://www.microsoft.com/brasil/opensource/projects.aspx"}
 ];
 
