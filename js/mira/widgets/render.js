@@ -16,12 +16,13 @@ define([
     'mira/widgets/bootstrap-navigation',
     'mira/widgets/bootstrap-footer',
     'mira/widgets/bootstrap-form',
+    'mira/widgets/audio',
     'mira/widgets/profile',
     'mira/widgets/freebase',
     'mira/widgets/tecweb'
     ],function (Helper, SimpleHtml, Map, Input, Head, Meta, Title, ImageHtml,
                 BootstrapBase, BootstrapModal, BootstrapCarousel, BootstrapImageBox, BootstrapNavigation, BootstrapFooter,
-                BootstrapForm, Profile, Freebase, TecWeb
+                BootstrapForm, Audio, Profile, Freebase, TecWeb
     ) {
 
     var pathToWidget = function(name){
@@ -51,6 +52,7 @@ define([
         BootstrapIcon: BootstrapBase.Icon,
         BootstrapImageBox: BootstrapImageBox,
         BootstrapFooter: BootstrapFooter,
+        AudioPlayer: Audio.Player,
         ProfileContainer: Profile.Container,
         ProfileImage: Profile.Image,
         ProfileDetail: Profile.Detail,

@@ -28,8 +28,10 @@ define([
             if(model) {
                 this.model = model;
             }
-            this.listenTo(this.model, 'change', this.render, this);
-            this.listenTo(this.model, 'destroy', this.remove, this);
+            if (this.model){
+                this.listenTo(this.model, 'change', this.render, this);
+                this.listenTo(this.model, 'destroy', this.remove, this);
+            }
         },
 
         render: function(){

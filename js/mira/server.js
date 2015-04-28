@@ -83,7 +83,6 @@ server.route('/server.js').all(function(req, res, next){
 
 
             if (req.query.select) {
-                console.log(req.query.property);
 
                 new rdfstore.Store(function (err, store) {
                     store.load("application/ld+json", body, function (err, results) {

@@ -23,7 +23,7 @@ define([
         full_render: function(abstract, concrete, $data, $env){
             this.abstract = abstract;
             this.concrete = concrete;
-            this.setModel(new Base.Model($data));
+            this.setModel($data);
             this.$env = $env;
 
             this.render()

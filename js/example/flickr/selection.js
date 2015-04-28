@@ -4,17 +4,19 @@
     if (typeof define === 'function' && define.amd) {
         define([
             'mira/base/init',
+            'mira/models/api',
             'mira/helper',
             'hello'
         ], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory(
             require('../base/init.js'),
+            require('../models/api.js'),
             require('../helper.js'),
             require('../libs/hello.js')
         );
     }
-}(this, function (Base, Helper, Hello) {
+}(this, function (Base, Api, Helper, Hello) {
     var Model = Base.Model.extend({
         __name__ : 'Selection.Model'
     });
@@ -27,7 +29,8 @@
             if($env.request.params){
                 if($env.request.params.URI){
                     var esse = this;
-                    Hello('flickr').api($env.request.params.URI, $env.request.params.params).then(function($data) {
+                    Hello('flickr').api($env.request.params.URI, $env.request.params.params).then(function(data) {
+                        var $data = new Api.Model(data);
                         var abstract = 'not_found';
                         var concrete = abstract;
                         esse.each(function(selection){

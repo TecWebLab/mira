@@ -4,15 +4,17 @@
     if (typeof define === 'function' && define.amd) {
         define([
             'mira/base/init',
+            'mira/models/api',
             'mira/helper'
         ], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory(
             require('../base/init.js'),
+            require('../models/api.js'),
             require('../helper.js')
         );
     }
-}(this, function (Base, Helper) {
+}(this, function (Base, Api, Helper) {
     var Model = Base.Model.extend({
         __name__ : 'Selection.Model'
     });
@@ -25,11 +27,12 @@
             if($env.request.params){
                 if($env.request.params.URI){
                     var esse = this;
-                    $.get($env.request.params.URI, function($data){
+                    $.get($env.request.params.URI, function(data){
+                        var $data = new Api.Model(data);
                         var abstract = 'not_found';
                         var concrete = abstract;
                         esse.each(function(selection){
-                            if(Helper.evaluate(selection.get('when'), $data, $env)){
+                            if(Helper.evaluate(selection.get('when'), $data.attributes, $env, $data)){
                                 abstract = selection.get('abstract');
                                 concrete = selection.get('concrete') || selection.get('abstract')
                             }
@@ -38,7 +41,7 @@
                     })
                 }
             } else {
-                callback('landing', 'landing', null, $env)
+                callback('landing', 'landing', new Api.Model(), $env)
             }
         }
     });

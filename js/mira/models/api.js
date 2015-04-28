@@ -12,7 +12,21 @@
     }
 }(this, function (Base) {
     var Model = Base.Model.extend({
-        __name__ : 'Api.Model'
+        __name__ : 'Api.Model',
+
+        rdf_prop: function(){
+            var rdf_prop_arguments = arguments;
+            var ret = [];
+            _.each(this.attributes['@graph'], function(item_graph){
+                _.each(item_graph, function(value, key){
+                    if(_.indexOf(rdf_prop_arguments, key) != -1){
+                        ret.push(value);
+                    }
+                })
+            });
+
+            return ret;
+        }
     });
 
     var Collection =  Base.Collection.extend({

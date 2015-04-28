@@ -61,7 +61,7 @@
             var maps = concrete.get('maps').where({'name': this.get('name')});
             var map_selected = null;
             _.each(maps, function(map){
-                if(map.isVisible($data, $env)) {
+                if(map.isVisible($data, $env, $bind)) {
                     map_selected = map;
                 }
             }, this);

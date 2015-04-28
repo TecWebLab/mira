@@ -62,6 +62,7 @@ define([
 
             this.$env.collections = {};
             this.$env.events = this.conf.events || {};
+            this.$env.methods = this.conf.methods || {};
 
             this.trigger('build_env', this.$env);
 

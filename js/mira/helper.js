@@ -77,19 +77,20 @@
         },
 
         buildObjectToValidate: function ($data, $env, $bind, options) {
+            var $dataObj = $data;
             if ($data instanceof Backbone.Model) {
                 $data = $data.attributes;
             }
             options || (options = {});
             return _.extend({}, {
+                $dataObj: $dataObj,
                 $data: $data,
                 $env: $env,
                 $bind: $bind
             }, options)
         },
 
-        evaluate: function (when, $data, $env, $bind) {
-            var $dataObj = $data;
+        evaluate: function (when, $data, $env, $dataObj, $bind) {
             if ($data instanceof Backbone.Model) {
                 $data = $data.attributes;
             }
