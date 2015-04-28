@@ -215,15 +215,15 @@ var concrete_interface = [
 
             { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
             { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
-            { name: 'result_panel', tag:'div', xs:'12' },
-            { name: 'result_panel', when:'hasDbpedia', tag:'div', xs:'8' },
+            { name: 'result_panel', tag:'div', md:'12' },
+            { name: 'result_panel', when:'hasDbpedia', tag:'div', xs:'12', sm:12, md:8, lg:8 },
             { name: 'result-box', tag:'div', class:'well' },
 
             { name: 'result-extra-info' },
             { name: 'result-extra-info', when:'isMobile', widget:'Collapsed', title:{value:'Click for more info'} },
 
             { name:"result-title", tag:'h3', value:'$dataObj.rdf_prop("dc:title")[0]' },
-            { name:"result-media-link", tag:'a', href:'$dataObj.rdf_prop("edm:isShownAt")[0]["@id"]', xs:4},
+            { name:"result-media-link", tag:'a', href:'$dataObj.rdf_prop("edm:isShownAt")[0]["@id"]', xs:12, sm:12, md:4, lg:4},
             { name:"result-media", tag:'img', img:'thumbnail', src:'$dataObj.rdf_prop("edm:object")[0]["@id"]' },
             { name:"result-contributor", tag:'h4', value: 'Contributor'},
             { name:"result-date", tag: 'h4', value:'@Date'},
@@ -248,11 +248,11 @@ var concrete_interface = [
             { name:"result-country-value", value:'$dataObj.rdf_prop("edm:country")[0]'},
             { name:"result-player", when:'isSound,hasPreview', widget:'AudioPlayer', source:'$dataObj.rdf_prop("edm:isShownBy")[0]["@id"]'},
 
-            { name:"sidebar-dbpedia", xs:4},
+            { name:"sidebar-dbpedia", xs:12, sm:12, md:4, lg:4},
 
             {name: 'dbpedia-item'},
             {name: 'dbpedia-logo', tag:'img', src:'"imgs/dbpedia_logo.png"'},
-            {name: 'dbpedia-title', tag: 'h3', value:'$data[].dbpedia_rdf_resource("http://dbpedia.org/property/name")'},
+            //{name: 'dbpedia-title', tag: 'h3', value:'dbpedia_rdf_resource("http://dbpedia.org/property/name")'},
             {name: 'dbpedia-link', tag: 'a', href:'navigate("http://dbpedia.org/")', value:'link'},
             {name: 'dbpedia-thumbs'},
 
