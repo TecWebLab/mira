@@ -17,7 +17,7 @@ var rules = [{
         validate: '$dataObj.rdf_prop("edm:isShownBy").length > 0'
     },{
         name: 'isSound',
-        validate: '$dataObj.rdf_prop("edm:type")[0] != "SOUND"'
+        validate: '$dataObj.rdf_prop("edm:type")[0] == "SOUND"'
     },{
         name: 'hasName',
         validate: '$data.name != ""'
@@ -51,7 +51,9 @@ var rules = [{
 var icons = {
     'IMAGE': 'picture',
     'TEXT': 'font',
-    'SOUND': 'music'
+    'SOUND': 'music',
+    'VIDEO': 'film',
+    '3D': 'asterisk'
 };
 
 var selection = [
@@ -131,20 +133,21 @@ var interface_abstracts = [
                             when: 'hasDbpedia',
                             datasource:'url:<%= $env.methods.get_datasource_dbpedia_uri($dataObj.rdf_prop("dc:contributor")) %>',
                             children:[
-                                {name: 'dbpedia-logo'},
-                                {name: 'dbpedia-title'},
-                                {name: 'dbpedia-link'},
-                                {name: 'dbpedia-thumbs', children:[
-                                    {name: 'dppedia-imgs',
-                                        when: 'isAuthorOfSomething',
-                                        datasource:'$dataObj.dbpedia_prop("http://dbpedia.org/ontology/author")',
-                                        children:[
-                                            {name: 'dppedia-img-link'},
-                                            {name: 'dppedia-img'}
-                                        ]
-                                    }]
-                                }
-                            ]
+                                {name: 'dbpedia-item', children:[
+                                    {name: 'dbpedia-logo'},
+                                    {name: 'dbpedia-title'},
+                                    {name: 'dbpedia-link'},
+                                    {name: 'dbpedia-thumbs', children:[
+                                        {name: 'dppedia-imgs',
+                                            when: 'isAuthorOfSomething',
+                                            datasource:'$dataObj.dbpedia_rdf_resource("http://dbpedia.org/ontology/author")',
+                                            children:[
+                                                {name: 'dppedia-img-link'},
+                                                {name: 'dppedia-img'}
+                                            ]
+                                        }]
+                                    }
+                            ]}]
                         }
                     ]}
             ]},
@@ -243,12 +246,13 @@ var concrete_interface = [
             { name:"result-language-value", value:'$dataObj.rdf_prop("dc:language")[0]' },
             { name:"result-provider-value", value:'$dataObj.rdf_prop("edm:dataProvider")[0]' },
             { name:"result-country-value", value:'$dataObj.rdf_prop("edm:country")[0]'},
-            { name:"result-player", widget:'AudioPlayer', source:'$dataObj.rdf_prop("edm:isShownBy")[0]["@id"]'},
+            { name:"result-player", when:'isSound,hasPreview', widget:'AudioPlayer', source:'$dataObj.rdf_prop("edm:isShownBy")[0]["@id"]'},
 
             { name:"sidebar-dbpedia", xs:4},
 
+            {name: 'dbpedia-item'},
             {name: 'dbpedia-logo', tag:'img', src:'"imgs/dbpedia_logo.png"'},
-            {name: 'dbpedia-title', tag: 'h3', value:'title ak'},
+            {name: 'dbpedia-title', tag: 'h3', value:'$data[].dbpedia_rdf_resource("http://dbpedia.org/property/name")'},
             {name: 'dbpedia-link', tag: 'a', href:'navigate("http://dbpedia.org/")', value:'link'},
             {name: 'dbpedia-thumbs'},
 
@@ -315,7 +319,7 @@ if(typeof define === 'function') {
             $.ajaxSetup(ajaxSetup);
             app.useServer();
 
-            Mira.Api.Model.dbpedia_rdf_resource = function(){
+            Mira.Api.Model.prototype.dbpedia_rdf_resource = function(){
                 var dbpedia_rdf_arguments = arguments;
                 var resources = [];
                 _.each(this.attributes, function(parent_value, parent_key){
