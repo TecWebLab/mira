@@ -7,10 +7,10 @@ var rules = [{
         name: 'isJsonLD',
         validate: '$data["@context"] != null'
     },{
-        name: 'isResultNotBig',
+        name: 'isResultFew',
         validate: '$env.$data.items.length <= 10'
     },{
-        name: 'isResultBig',
+        name: 'isResultMany',
         validate: '$env.$data.items.length > 10'
     },{
         name: 'hasDbpedia',
@@ -131,9 +131,10 @@ var interface_abstracts = [
                             datasource:'url:<%= $env.methods.get_datasource_dbpedia_uri($dataObj.rdf_prop("dc:contributor")) %>',
                             children:[
                                 {name: 'dbpedia-item', children:[
-                                    {name: 'dbpedia-logo'},
+                                    {name: 'dbpedia-link', children: [
+                                        {name: 'dbpedia-logo'}
+                                    ]},
                                     {name: 'dbpedia-title'},
-                                    {name: 'dbpedia-link'},
                                     {name: 'dbpedia-thumbs', children:[
                                         {name: 'dppedia-imgs',
                                             when: 'isAuthorOfSomething',
@@ -191,12 +192,10 @@ var concrete_interface = [
       { name: 'results', tag:'div', class:'row' },
       { name: 'result_panel', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
       { name: 'result_item', tag:'div', class:'item well' },
-      { name: 'result_item', when:'isResultBig', tag:'div', class:'item-small well' },
       { name: 'result_link', tag:'a', href:'navigate(replace_for_ld($data.link))' },
       { name: 'result_icon', widget: 'BootstrapIcon', when:'hasIcon', class:'pull-left', icon:'icons[$data.type]' },
-      { name: 'result_thumb', when:'hasImage,isResultNotBig', class:'col-md-11', tag:'img', src:'$data.edmPreview[0]' },
+      { name: 'result_thumb', when:'hasImage', class:'col-md-11', tag:'img', src:'$data.edmPreview[0]' },
       { name: 'result_title', tag:'h4', value:'$data.title[0]' },
-      { name: 'result_title', when:'isResultBig', widget: 'SimpleHtml', tag:'h5', value:'$data.title[0]' },
       { name: 'result_details', tag:'span', value:'$data.edmConceptPrefLabelLangAware.en.join(", ")', when:'hasEN' },
 
       { name: 'footer', widget: 'TecWebRodape'}
@@ -221,8 +220,8 @@ var concrete_interface = [
             { name: 'result-extra-info' },
             { name: 'result-extra-info', when:'isMobile', widget:'Collapsed', title:{value:'Click for more info'} },
 
-            { name:"result-title", tag:'h3', value:'$dataObj.rdf_prop("dc:title")[0]' },
-            { name:"result-media-link", tag:'a', href:'$dataObj.rdf_prop("edm:isShownAt")[0]["@id"]', xs:12, sm:12, md:4, lg:4},
+            { name:"result-title", tag:'h2', value:'$dataObj.rdf_prop("dc:title")[0]' },
+            { name:"result-media-link", tag:'a', pull:'right', href:'$dataObj.rdf_prop("edm:isShownAt")[0]["@id"]', xs:12, sm:12, md:4, lg:4},
             { name:"result-media", tag:'img', img:'thumbnail', src:'$dataObj.rdf_prop("edm:object")[0]["@id"]' },
             { name:"result-contributor", tag:'h4', value: 'Contributor'},
             { name:"result-date", tag: 'h4', value:'@Date'},
@@ -250,9 +249,8 @@ var concrete_interface = [
             { name:"sidebar-dbpedia", xs:12, sm:12, md:4, lg:4},
 
             {name: 'dbpedia-item'},
-            {name: 'dbpedia-logo', tag:'img', src:'"imgs/dbpedia_logo.png"'},
-            //{name: 'dbpedia-title', tag: 'h3', value:'dbpedia_rdf_resource("http://dbpedia.org/property/name")'},
-            {name: 'dbpedia-link', tag: 'a', href:'navigate("http://dbpedia.org/")', value:'link'},
+            {name: 'dbpedia-logo', tag:'img', src:'"imgs/dbpedia_logo.png"', img:'responsive'},
+            {name: 'dbpedia-link', tag:'a', md:6, href:'$env.methods.get_datasource_dbpedia_uri($dataObj.rdf_prop("dc:contributor"))'},
             {name: 'dbpedia-thumbs'},
 
             { name: 'footer', widget: 'TecWebRodape'}

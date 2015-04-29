@@ -16,22 +16,9 @@
 }
 
 .item-small {
-    margin: 10px;
-    height: 100px;
-    overflow: hidden;
+    margin-left: 10px;
 }
 
-.item-small .glyphicon {
-    font-size: 20px;
-    margin-right: 10px;
-    margin-bottom: 20px;
-}
-.item-small a, .item-small a:hover {
-    color: black;
-    text-decoration: none;
-    max-height: 200px;
-    overflow: hidden;
-}
 
 .item {
     margin: 10px;
@@ -59,6 +46,10 @@ h3.group:first-letter {
     text-transform:uppercase;
 }
 
+h2 {
+ font-weight: 700;
+}
+
 #meta {
     margin-top: 10px;
 }
@@ -74,7 +65,15 @@ h3.group:first-letter {
     margin-right: 5px;
 }
 
+#dbpedia-link {
+    margin-top: 30px;
+}
+
 .label {
     margin: 5px;
-    display: inline-block;
+    /* display: inline-block; */
+}
+
+.prop-value {
+
 }
