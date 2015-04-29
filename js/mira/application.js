@@ -39,10 +39,20 @@ define([
         },
 
         selected: function(abstract_name, concrete_name, $data, $env){
-            $env.$data = $data;
+            this.buildEnvData($env, $data);
             var abstract = this.interface.abstracts.get(abstract_name);
             var concrete = this.interface.concrets.get(concrete_name);
             abstract.handle(concrete, $data, $env);
+        },
+
+        buildEnvData: function($env, $data){
+            if($data instanceof Mira.Base.Model){
+                $env.$data = $data.attributes;
+                $env.$dataObj = $data;
+            } else {
+                $env.$data = $data;
+                $env.$dataObj = new Mira.Api.Model($data);
+            }
         },
 
         buildEnv: function(params){

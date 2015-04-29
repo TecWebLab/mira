@@ -15,14 +15,28 @@
     margin: 0 auto;
 }
 
+.item-small {
+    margin: 10px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.item-small .glyphicon {
+    font-size: 20px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+.item-small a, .item-small a:hover {
+    color: black;
+    text-decoration: none;
+    max-height: 200px;
+    overflow: hidden;
+}
+
 .item {
     margin: 10px;
     height: 300px;
     overflow: hidden;
-}
-
-#meta {
-    margin-top: 10px;
 }
 
 .item .glyphicon {
@@ -43,6 +57,10 @@
 
 h3.group:first-letter {
     text-transform:uppercase;
+}
+
+#meta {
+    margin-top: 10px;
 }
 
 .label_group {

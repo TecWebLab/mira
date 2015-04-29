@@ -7,11 +7,20 @@ var rules = [{
         name: 'isJsonLD',
         validate: '$data["@context"] != null'
     },{
+        name: 'isResultNotBig',
+        validate: '$env.$data.items.length <= 10'
+    },{
+        name: 'isResultBig',
+        validate: '$env.$data.items.length > 10'
+    },{
         name: 'hasDbpedia',
         validate: '$env.methods.get_datasource_dbpedia_uri($dataObj.rdf_prop("dc:contributor")) != null'
     },{
         name: 'isMobile',
         validate: '$env.device.mobile == true'
+    },{
+        name: 'isDesktop',
+        validate: '$env.device.desktop == true'
     },{
         name: 'hasPreview',
         validate: '$dataObj.rdf_prop("edm:isShownBy").length > 0'
@@ -25,26 +34,14 @@ var rules = [{
         name: 'hasType',
         validate: '$data.notable != null && $data.notable.name != ""'
     },{
-        name:'hasPT',
-        validate: '$data.edmConceptPrefLabelLangAware != null && $data.edmConceptPrefLabelLangAware.pt != null'
+        name:'hasEN',
+        validate: '$data.edmConceptPrefLabelLangAware != null && $data.edmConceptPrefLabelLangAware.en != null'
     },{
         name: 'hasImage',
         validate: '$data.edmPreview != null'
     },{
         name: 'hasIcon',
         validate: '$data.type != null && icons[$data.type] != undefined'
-    },{
-        name: 'isSecure',
-        validate: '$env.request.protocol == "https:"'
-    },{
-        name: 'isTopicDesktopOrTablet',
-        validate: '$data.property != null && ($env.device.desktop || $env.device.tablet)'
-    },{
-        name: 'isTopicMobile',
-        validate: '$data.property != null && !($env.device.desktop || $env.device.tablet)'
-    },{
-        name: 'isProperty',
-        validate: '_.keys($data.property).length == 1'
     }
 ];
 
@@ -190,15 +187,17 @@ var concrete_interface = [
       { name: 'search_field', widget: 'SimpleHtml', tag:'input', class:'form-control input-lg', placeholder:'"Please type search term"' },
       { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Search"', events:{'click': 'do_search'} },
 
-      { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container-fluid' },
-      { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
-      { name: 'result_panel', widget: 'SimpleHtml', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
-      { name: 'result_item', widget: 'SimpleHtml', tag:'div', class:'item well' },
-      { name: 'result_link', widget: 'SimpleHtml', tag:'a', href:'navigate(replace_for_ld($data.link))' },
+      { name: 'content',tag:'div', class:'container-fluid' },
+      { name: 'results', tag:'div', class:'row' },
+      { name: 'result_panel', tag:'div', class:'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
+      { name: 'result_item', tag:'div', class:'item well' },
+      { name: 'result_item', when:'isResultBig', tag:'div', class:'item-small well' },
+      { name: 'result_link', tag:'a', href:'navigate(replace_for_ld($data.link))' },
       { name: 'result_icon', widget: 'BootstrapIcon', when:'hasIcon', class:'pull-left', icon:'icons[$data.type]' },
-      { name: 'result_thumb', class:'col-md-11', tag:'img', when:'hasImage', src:'$data.edmPreview[0]' },
-      { name: 'result_title', widget: 'SimpleHtml', tag:'h4', value:'$data.title[0]' },
-      { name: 'result_details', widget: 'SimpleHtml', tag:'span', value:'$data.edmConceptPrefLabelLangAware.pt.join(", ")', when:'hasPT' },
+      { name: 'result_thumb', when:'hasImage,isResultNotBig', class:'col-md-11', tag:'img', src:'$data.edmPreview[0]' },
+      { name: 'result_title', tag:'h4', value:'$data.title[0]' },
+      { name: 'result_title', when:'isResultBig', widget: 'SimpleHtml', tag:'h5', value:'$data.title[0]' },
+      { name: 'result_details', tag:'span', value:'$data.edmConceptPrefLabelLangAware.en.join(", ")', when:'hasEN' },
 
       { name: 'footer', widget: 'TecWebRodape'}
     ]},{
@@ -216,7 +215,7 @@ var concrete_interface = [
             { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
             { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
             { name: 'result_panel', tag:'div', md:'12' },
-            { name: 'result_panel', when:'hasDbpedia', tag:'div', xs:'12', sm:12, md:8, lg:8 },
+            { name: 'result_panel', when:'hasDbpedia,isDesktop', tag:'div', xs:'12', sm:12, md:8, lg:8 },
             { name: 'result-box', tag:'div', class:'well' },
 
             { name: 'result-extra-info' },
