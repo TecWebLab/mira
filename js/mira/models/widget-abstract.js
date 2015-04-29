@@ -45,7 +45,7 @@
             return true;
         },
 
-        getBind: function($data, $env){
+        getBind: function($data, $dataObj, $env){
             if(this.get('bind')){
                 try{
                     return eval(this.get('bind'))
@@ -70,7 +70,7 @@
 
         buildWidget: function($parent, concrete, $data, $env, callback) {
             var esse = this;
-            var $bindl = this.getBind($data.attributes, $env);
+            var $bindl = this.getBind($data.attributes, $data, $env);
             var next = function ($bind) {
                 var map = esse.getRender(concrete, $data, $env, $bind);
                 if (map && esse.isVisible($data, $env, $bind)) {
@@ -118,7 +118,7 @@
 
         buildChildren: function($parent, concrete, $data, $env){
             var esse = this;
-            var $bind = this.getBind($data.attributes, $env);
+            var $bind = this.getBind($data.attributes, $data, $env);
             if(this.get('datasource')){
                 var itemWidget = this.get('children').at(0);
                 this.requestData($data, $env, $bind, function(collection){
