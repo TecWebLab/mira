@@ -93,61 +93,63 @@ var interface_abstracts = [
                         {name: 'search_field'},
                         {name:'search_button'}
                     ]
-                }]
-            }]},
+                    }]
+                }]},
             {name:'content', children: [
-                { name: "results", children: [
-                        {name: 'result_panel', children: [
-                                { name:"result-box", children:[
-                                    { name: 'result-media-link', children: [
-                                        {name: "result-media"}]
-                                    },
-                                    { name:"result-title"},
-                                    { name:"result-contributor"},
-                                    { name:"result-contributor-value"},
-                                    { name:"result-date"},
-                                    { name:"result-date-value"},
-                                    { name:"result-format"},
-                                    { name:"result-format-value"},
-                                    { name:'result-player'},
-                                    { name:"result-extra-info", children:[
-                                        { name:"result-subject"},
-                                        { name:"result-subject-value"},
-                                        { name:"result-identifier"},
-                                        { name:"result-identifier-value"},
-                                        { name:"result-language"},
-                                        { name:"result-language-value"},
-                                        { name:"result-provider"},
-                                        { name:"result-provider-value"},
-                                        { name:"result-country" },
-                                        { name:"result-country-value" }
-                                    ]}
-                                ]
-                                }
-                            ]
-                        },{
-                            name: 'sidebar-dbpedia',
-                            when: 'hasDbpedia',
-                            datasource:'url:<%= $env.methods.get_datasource_dbpedia_uri($dataObj.rdf_prop("dc:contributor")) %>',
-                            children:[
-                                {name: 'dbpedia-item', children:[
-                                    {name: 'dbpedia-link', children: [
-                                        {name: 'dbpedia-logo'}
-                                    ]},
-                                    {name: 'dbpedia-title'},
-                                    {name: 'dbpedia-thumbs', children:[
-                                        {name: 'dppedia-imgs',
-                                            when: 'isAuthorOfSomething',
-                                            datasource:'$dataObj.dbpedia_rdf_resource("http://dbpedia.org/ontology/author")',
-                                            children:[
-                                                {name: 'dppedia-img-link'},
-                                                {name: 'dppedia-img'}
-                                            ]
-                                        }]
-                                    }
-                            ]}]
+                { name: "item", children: [
+                    {name: 'item_panel', children: [
+                        { name:"item-box", children:[
+                            { name: 'item-media-link',
+                                bind:'$dataObj.rdf_prop("edm:isShownAt")[0]["@id"]',
+                                children: [
+                                    {name: "item-media", bind:'$dataObj.rdf_prop("edm:object")[0]["@id"]'}]
+                            },
+                            { name:"item-title", bind:'$dataObj.rdf_prop("dc:title")[0]'},
+                            { name:"item-contributor"},
+                            { name:"item-contributor-value", bind:'$dataObj.rdf_prop("dc:contributor")[0]'},
+                            { name:"item-date"},
+                            { name:"item-date-value", bind:'$dataObj.rdf_prop("dc:date")[0]'},
+                            { name:"item-format"},
+                            { name:"item-format-value", bind:'$dataObj.rdf_prop("dcterms:extent")[0]'},
+                            { name:'item-player', when:'isSound,hasPreview', bind:'$dataObj.rdf_prop("edm:isShownBy")[0]["@id"]'},
+                            { name:"item-extra-info", children:[
+                                { name:"item-subject"},
+                                { name:"item-subject-value", bind:'$dataObj.rdf_prop("dc:subject")[0]'},
+                                { name:"item-identifier"},
+                                { name:"item-identifier-value", bind:'$dataObj.rdf_prop("dc:identifier")[0]'},
+                                { name:"item-language"},
+                                { name:"item-language-value", bind:'$dataObj.rdf_prop("dc:language")[0]'},
+                                { name:"item-provider"},
+                                { name:"item-provider-value", bind:'$dataObj.rdf_prop("edm:dataProvider")[0]'},
+                                { name:"item-country" },
+                                { name:"item-country-value" , bind:'$dataObj.rdf_prop("edm:country")[0]'}
+                            ]}
+                        ]
                         }
-                    ]}
+                    ]
+                    },{
+                        name: 'sidebar-dbpedia',
+                        when: 'hasDbpedia',
+                        datasource:'url:<%= $env.methods.get_datasource_dbpedia_uri($dataObj.rdf_prop("dc:contributor")) %>',
+                        children:[
+                            {name: 'dbpedia-item', children:[
+                                {name: 'dbpedia-link', children: [
+                                    {name: 'dbpedia-logo'}
+                                ]},
+                                {name: 'dbpedia-title'},
+                                {name: 'dbpedia-thumbs', children:[
+                                    {name: 'dppedia-imgs',
+                                        when: 'isAuthorOfSomething',
+                                        datasource:'$dataObj.dbpedia_rdf_resource("http://dbpedia.org/ontology/author")',
+                                        children:[
+                                            {name: 'dppedia-img-link'},
+                                            {name: 'dppedia-img'}
+                                        ]
+                                    }]
+                                }
+                            ]}]
+                    }
+                ]}
             ]},
             {name: 'footer'}
         ]
@@ -212,39 +214,37 @@ var concrete_interface = [
             { name: 'search_button', widget: 'BootstrapFormGroupButton', class:'btn-warning', value:'"Search"', events:{'click': 'do_search'} },
 
             { name: 'content', widget: 'SimpleHtml', tag:'div', class:'container' },
-            { name: 'results', widget: 'SimpleHtml', tag:'div', class:'row' },
-            { name: 'result_panel', tag:'div', md:'12' },
-            { name: 'result_panel', when:'hasDbpedia,isDesktop', tag:'div', xs:'12', sm:12, md:8, lg:8 },
-            { name: 'result-box', tag:'div', class:'well' },
+            { name: 'item', widget: 'SimpleHtml', tag:'div', class:'row' },
+            { name: 'item_panel', tag:'div', md:'12' },
+            { name: 'item_panel', when:'hasDbpedia,isDesktop', tag:'div', xs:'12', sm:12, md:8, lg:8 },
+            { name: 'item-box', tag:'div', class:'well' },
 
-            { name: 'result-extra-info' },
-            { name: 'result-extra-info', when:'isMobile', widget:'Collapsed', title:{value:'Click for more info'} },
+            { name: 'item-extra-info' },
+            { name: 'item-extra-info', when:'isMobile', widget:'Collapsed', title:{value:'Click for more info'} },
 
-            { name:"result-title", tag:'h2', value:'$dataObj.rdf_prop("dc:title")[0]' },
-            { name:"result-media-link", tag:'a', pull:'right', href:'$dataObj.rdf_prop("edm:isShownAt")[0]["@id"]', xs:12, sm:12, md:4, lg:4},
-            { name:"result-media", tag:'img', img:'thumbnail', src:'$dataObj.rdf_prop("edm:object")[0]["@id"]' },
-            { name:"result-contributor", tag:'h4', value: 'Contributor'},
-            { name:"result-date", tag: 'h4', value:'@Date'},
-            { name:"result-type", tag: 'h4', value:'Type'},
-            { name:"result-subject", tag: 'h4', value:'Subject'},
-            { name:"result-identifier", tag: 'h4', value:'Identifier'},
-            { name:"result-partof", tag: 'h4', value:'Part Of'},
-            { name:"result-format", tag:'h4', value:'Format' },
-            { name:"result-language", tag: 'h4', value: 'Language'},
-            { name:"result-provider", tag: 'h4', value:'Provider'},
-            { name:"result-country", tag: 'h4', value:'Country Provider'},
-            { name:"result-contributor-value", value:'$dataObj.rdf_prop("dc:contributor")[0]' },
-            { name:"result-contributor-value", value:'$dataObj.rdf_prop("dc:contributor")[1]', when:'$dataObj.rdf_prop("dc:contributor").length > 1' },
-            { name:"result-date-value", value:'$dataObj.rdf_prop("dc:date")[0]' },
-            { name:"result-type-value", value:'$dataObj.rdf_prop("dc:type")[0]' },
-            { name:"result-format-value", value:'$dataObj.rdf_prop("dcterms:extent")[0]' },
-            { name:"result-subject-value", value:'$dataObj.rdf_prop("dc:subject")[0]' },
-            { name:"result-identifier-value", value:'$dataObj.rdf_prop("dc:identifier")[0]' },
-            { name:"result-partof-value", value:'$dataObj.rdf_prop("dcterms:isPartOf")[0]' },
-            { name:"result-language-value", value:'$dataObj.rdf_prop("dc:language")[0]' },
-            { name:"result-provider-value", value:'$dataObj.rdf_prop("edm:dataProvider")[0]' },
-            { name:"result-country-value", value:'$dataObj.rdf_prop("edm:country")[0]'},
-            { name:"result-player", when:'isSound,hasPreview', widget:'AudioPlayer', source:'$dataObj.rdf_prop("edm:isShownBy")[0]["@id"]'},
+            { name:"item-title", tag:'h2', value:'$bind' },
+            { name:"item-media-link", tag:'a', pull:'right', href:'$bind', xs:12, sm:12, md:4, lg:4},
+            { name:"item-media", tag:'img', img:'thumbnail', src:'$bind' },
+            { name:"item-contributor", tag:'h4', value: 'Contributor'},
+            { name:"item-date", tag: 'h4', value:'@Date'},
+            { name:"item-subject", tag: 'h4', value:'Subject'},
+            { name:"item-identifier", tag: 'h4', value:'Identifier'},
+            { name:"item-partof", tag: 'h4', value:'Part Of'},
+            { name:"item-format", tag:'h4', value:'Format' },
+            { name:"item-language", tag: 'h4', value: 'Language'},
+            { name:"item-provider", tag: 'h4', value:'Provider'},
+            { name:"item-country", tag: 'h4', value:'Country Provider'},
+            { name:"item-contributor-value", value:'$bind' },
+            { name:"item-contributor-value", value:'$dataObj.rdf_prop("dc:contributor")[1]', when:'$dataObj.rdf_prop("dc:contributor").length > 1' },
+            { name:"item-date-value", value:'$bind' },
+            { name:"item-type-value", value:'$bind' },
+            { name:"item-format-value", value:'$bind' },
+            { name:"item-subject-value", value:'$bind' },
+            { name:"item-identifier-value", value:'$bind' },
+            { name:"item-language-value", value:'$bind' },
+            { name:"item-provider-value", value:'$bind' },
+            { name:"item-country-value", value:'$bind'},
+            { name:"item-player", widget:'AudioPlayer', source:'$dataObj.rdf_prop("edm:isShownBy")[0]["@id"]'},
 
             { name:"sidebar-dbpedia", xs:12, sm:12, md:4, lg:4},
 
