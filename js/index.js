@@ -1,14 +1,14 @@
 "use strict";
 
 var exemplos = [
-    {name: "Freebase", href:"/?app=example/freebase"},
-    {name: "Google", href:"/?app=example/google"},
-    {name: "Github", href:"/?app=example/github"},
-    {name: "Imobiliária", href:"/?app=example/imovel"},
-    {name: "Futebol", href:"/?app=example/futebol"},
-    {name: "Flickr", href:"/?app=example/flickr"},
-    {name: "Todo", href:"/?app=example/todo"},
-    {name: "Europeana", href:"/?app=example/europeana"}
+    {name: "Freebase", href:"/?app=example/freebase", source:'https://github.com/TecWebLab/mira/blob/master/js/example/freebase.js'},
+    {name: "Google", href:"/?app=example/google", source:'https://github.com/TecWebLab/mira/blob/master/js/example/google.js'},
+    {name: "Github", href:"/?app=example/github", source:'https://github.com/TecWebLab/mira/blob/master/js/example/github.js'},
+    {name: "Imobiliária", href:"/?app=example/imovel", source:'https://github.com/TecWebLab/mira/blob/master/js/example/imovel.js'},
+    {name: "Futebol", href:"/?app=example/futebol", source:'https://github.com/TecWebLab/mira/blob/master/js/example/futebol.js'},
+    {name: "Flickr", href:"/?app=example/flickr", source:'https://github.com/TecWebLab/mira/blob/master/js/example/flickr.js'},
+    {name: "Todo", href:"/?app=example/todo", source:'https://github.com/TecWebLab/mira/blob/master/js/example/todo.js'},
+    {name: "Europeana", href:"/?app=example/europeana", source:'https://github.com/TecWebLab/mira/blob/master/js/example/europeana.js'}
 ];
 
 var thanks = [
@@ -27,6 +27,8 @@ var interface_abstracts = [
         widgets : [
             { 'header': {'content': ['title', 'description', 'examples',
                 { name: 'apps', datasource:exemplos, children: 'app' },
+                'examples_sources',
+                { name: 'links', datasource:exemplos, children: 'link' },
                 'builder', 'builder_link',
                 'docs', 'docs_link',
                 'repository', 'repository_codeplex', 'repository_github',
@@ -44,8 +46,7 @@ var head = [
     {name: 'title', widget:'Title', value: '"MIRA | Model Interface for REST Applications"'}
 ];
 
-var concrete_interface = [
-    {
+var concrete_interface = [{
         name: 'landing',
         head: head,
         maps: [
@@ -54,9 +55,13 @@ var concrete_interface = [
         { name: 'content', widget: 'BootstrapSimple', class:'container' },
         { name: 'title', widget: 'BootstrapSimple', tag:'h1', value:'"MIRA"' },
         { name: 'description', widget: 'BootstrapSimple', tag:'p', value:'"Model Interface for REST Application"' },
-        { name: 'examples', widget: 'BootstrapSimple', tag:'p', value:'"Try some examples"' },
+        { name: 'examples', widget: 'BootstrapSimple', tag:'h3', value:'"Try some examples"' },
         { name: 'apps', widget: 'BootstrapSimple', class:'btn-toolbar' },
-        { name: 'app', widget: 'BootstrapSimple', tag:'a', btn:'primary,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', href:'$data.href', value:'$data.name' },
+        { name: 'app', widget: 'BootstrapSimple', tag:'a', btn:'primary,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', href:'$data.source', value:'$data.name' },
+        { name: 'examples_sources', widget: 'BootstrapSimple', tag:'h3', value:'"Source code for examples available at"' },
+
+        { name: 'links', widget: 'BootstrapSimple', class:'btn-toolbar' },
+        { name: 'link', widget: 'BootstrapSimple', tag:'a', btn:'success,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', href:'$data.source', value:'$data.name' },
 
         { name: 'docs', widget: 'BootstrapSimple', tag:'h3', value:'"Documentation available at"' },
         { name: 'docs_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Docs"', href:'"http://mira.tecweb.inf.puc-rio.br/docs"'},
