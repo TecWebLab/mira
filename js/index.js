@@ -57,7 +57,7 @@ var concrete_interface = [{
         { name: 'description', widget: 'BootstrapSimple', tag:'p', value:'"Model Interface for REST Application"' },
         { name: 'examples', widget: 'BootstrapSimple', tag:'h3', value:'"Try some examples"' },
         { name: 'apps', widget: 'BootstrapSimple', class:'btn-toolbar' },
-        { name: 'app', widget: 'BootstrapSimple', tag:'a', btn:'primary,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', href:'$data.source', value:'$data.name' },
+        { name: 'app', widget: 'BootstrapSimple', tag:'a', btn:'primary,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', href:'$data.href', value:'$data.name' },
         { name: 'examples_sources', widget: 'BootstrapSimple', tag:'h3', value:'"Source code for examples available at"' },
 
         { name: 'links', widget: 'BootstrapSimple', class:'btn-toolbar' },
