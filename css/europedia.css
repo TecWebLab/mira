@@ -2,6 +2,10 @@
     background: url('../imgs/freebase_fundo.png') repeat;
 }
 
+.altura-maxima {
+    max-height: 110px;
+}
+
 #logo {
     margin: 30px;
 }

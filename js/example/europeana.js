@@ -106,7 +106,7 @@ var interface_abstracts = [
               },
               { name:"item-title", bind:'$dataObj.rdf_prop("dc:title")[0]'},
               { name:"item-contributor"},
-              { name:"item-contributor-value", bind:'$dataObj.rdf_prop("dc:contributor")[0]'},
+              { name:"item-contributor-value", bind:'$dataObj.rdf_prop("dc:contributor")'},
               { name:"item-date"},
               { name:"item-date-value", bind:'$dataObj.rdf_prop("dc:date")[0]'},
               { name:"item-format"},
@@ -137,13 +137,10 @@ var interface_abstracts = [
                   {name: 'dbpedia-logo'}
                 ]},
                 {name: 'dbpedia-title'},
-                {name: 'dbpedia-thumbs', children:[
-                  {name: 'dppedia-imgs',
-                    when: 'isAuthorOfSomething',
-                    datasource:'$dataObj.dbpedia_rdf_resource("http://dbpedia.org/ontology/author")',
+                {name: 'dbpedia-thumbs', datasource:'$dataObj.dbpedia_rdf_resource("http://dbpedia.org/ontology/author")', children:[
+                  {name: 'dppedia-img-deref', datasource:'url:<%= $env.methods.get_datasource_dbpedia_uri($data.obj) %>',
                     children:[
-                      {name: 'dppedia-img-link'},
-                      {name: 'dppedia-img'}
+                      {name: 'dppedia-img', bind:'$dataObj.dbpedia_rdf_resource("http://dbpedia.org/ontology/thumbnail")[0].value[0].value'}
                     ]
                   }]
                 }
@@ -156,6 +153,7 @@ var interface_abstracts = [
     ]
   }
 ];
+
 
 var head = [
     {name: 'main_css', widget:'Head', href:'css/bootstrap.css', tag: 'style'},
@@ -235,8 +233,8 @@ var concrete_interface = [
       { name:"item-language", tag: 'h4', value: 'Language'},
       { name:"item-provider", tag: 'h4', value:'Provider'},
       { name:"item-country", tag: 'h4', value:'Country Provider'},
-      { name:"item-contributor-value", value:'$bind' },
-      { name:"item-contributor-value", value:'$dataObj.rdf_prop("dc:contributor")[1]', when:'$dataObj.rdf_prop("dc:contributor").length > 1' },
+      { name:"item-contributor-value", value:'$bind[0]' },
+      { name:"item-contributor-value", value:'$bind[1]', when:'$bind.length > 1' },
       { name:"item-date-value", value:'$bind' },
       { name:"item-type-value", value:'$bind' },
       { name:"item-format-value", value:'$bind' },
@@ -251,8 +249,11 @@ var concrete_interface = [
 
       {name: 'dbpedia-item'},
       {name: 'dbpedia-logo', tag:'img', src:'"imgs/dbpedia_logo.png"', img:'responsive'},
-      {name: 'dbpedia-link', tag:'a', md:6, href:'$env.methods.get_datasource_dbpedia_uri($dataObj.rdf_prop("dc:contributor"))'},
-      {name: 'dbpedia-thumbs'},
+      {name: 'dbpedia-link', tag:'a', md:6, href:'$dataObj.dbpedia_rdf_resource("http://dbpedia.org/ontology/author")[0].value[0].value'},
+      //{name: 'dbpedia-title', value:'$dataObj.dbpedia_rdf_resource("http://dbpedia.org/ontology/author")'},
+      {name: 'dbpedia-thumbs', md:12 },
+      {name: 'dppedia-img-deref' },
+      {name: 'dppedia-img', tag:'img', src:'$bind', md:4, img:'responsive,thumbnail', class:'altura-maxima' },
 
       { name: 'footer', widget: 'TecWebRodape'}
     ]}
@@ -280,21 +281,24 @@ var conf = {
     }
   },
   methods: {
-      get_datasource_dbpedia_uri: function (values) {
-          var dbpedia = null;
-          _.each(values, function (value) {
-              if (value['@id'] && value['@id'].indexOf("http://dbpedia.org/resource") == 0) {
-                  dbpedia = value['@id'].replace('resource', 'data') + '.json';
-
-                  /*
-                  dbpedia =  'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=DESCRIBE+%3C' +
-                      value['@id'] +
-                      '%3E&output=application%2Fld%2Bjson';
-                  */
-              }
-          });
-          return dbpedia
+    get_datasource_dbpedia_uri: function (values) {
+      var dbpedia = null;
+      if(_.isString(values) && values.indexOf("http://dbpedia.org/resource") == 0){
+        return values.replace('resource', 'data') + '.json';
       }
+      _.each(values, function (value) {
+        if (value['@id'] && value['@id'].indexOf("http://dbpedia.org/resource") == 0) {
+          dbpedia = value['@id'].replace('resource', 'data') + '.json';
+
+          /*
+           dbpedia =  'http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=DESCRIBE+%3C' +
+           value['@id'] +
+           '%3E&output=application%2Fld%2Bjson';
+           */
+        }
+      });
+      return dbpedia
+    }
   }
 };
 
@@ -303,71 +307,80 @@ var replace_for_ld = function(uri){
 };
 
 if(typeof define === 'function') {
-    define([
-        // Load our app module and pass it to our definition function
-        "jquery",
-        "bootstrap",
-        'mira/init',
-        'mira/widgets/bootstrap-base'
-    ], function ($, $bootstrap, Mira, BootstrapBase) {
+  define([
+    // Load our app module and pass it to our definition function
+    "jquery",
+    "bootstrap",
+    'mira/init',
+    'mira/widgets/bootstrap-base'
+  ], function ($, $bootstrap, Mira, BootstrapBase) {
 
-        return function Europeana() {
-            var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection, conf);
-            Mira.Widget.setDefault('BootstrapSimple');
-            $.ajaxSetup(ajaxSetup);
-            app.useServer();
+    return function Europeana() {
+      var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection, conf);
+      Mira.Widget.setDefault('BootstrapSimple');
+      $.ajaxSetup(ajaxSetup);
+      app.useServer();
 
-            Mira.Api.Model.prototype.dbpedia_rdf_resource = function(){
-                var dbpedia_rdf_arguments = arguments;
-                var resources = [];
-                _.each(this.attributes, function(parent_value, parent_key){
-                    _.each(parent_value, function(value, key){
-                        if(_.indexOf(dbpedia_rdf_arguments, value) != -1){
-                            resources.push(parent_key);
-                        }
-                    })
-                });
-                return resources;
-            };
+      Mira.Api.Model.prototype.dbpedia_rdf_resource = function(){
+        var dbpedia_rdf_arguments = arguments;
+        var resources = [];
 
-            Mira.Widget.register({
-                Collapsed: function($parent, name, $context, options, callback) {
-                    var $content;
+        for(var parent_key in this.attributes){
+            var parent_value = this.attributes[parent_key];
 
-                    options.title = _.defaults(options.title || {}, {
-                        tag:'h3',
-                        events: {}
-                    });
+          for(var children_key in parent_value){
+            var children_value = parent_value[children_key];
+            if(_.indexOf(dbpedia_rdf_arguments, children_key) != -1){
+              resources.push({
+                obj: parent_key,
+                prop: children_key,
+                value: children_value
+              });
+            }
+          }
+        }
 
-                    options.content = _.defaults(options.content || {}, {
-                        tag:'div',
-                        class: 'collapse'
-                    });
+        return resources;
+      };
 
-                    var title_events = {
-                        click: function(options){
-                            $content.collapse({toggle:true});
-                        }
-                    };
+      Mira.Widget.register({
+        Collapsed: function($parent, name, $context, options, callback) {
+          var $content;
 
-                    options.title.events = _.defaults(options.title.events, title_events);
+          options.title = _.defaults(options.title || {}, {
+            tag:'h3',
+            events: {}
+          });
 
-                    BootstrapBase.Simple($parent, name, $context, options, function(ret){
+          options.content = _.defaults(options.content || {}, {
+            tag:'div',
+            class: 'collapse'
+          });
 
-                        BootstrapBase.Simple(ret.$children, name + '-title', $context, options.title);
+          var title_events = {
+            click: function(options){
+              $content.collapse({toggle:true});
+            }
+          };
 
-                        BootstrapBase.Simple(ret.$children, name + '-content', $context, options.content, function(ret2){
-                            $content = ret2.$element;
-                            if(callback){
-                                callback(ret2);
-                            }
-                        });
+          options.title.events = _.defaults(options.title.events, title_events);
 
-                    });
-                }
+          BootstrapBase.Simple($parent, name, $context, options, function(ret){
+
+            BootstrapBase.Simple(ret.$children, name + '-title', $context, options.title);
+
+            BootstrapBase.Simple(ret.$children, name + '-content', $context, options.content, function(ret2){
+              $content = ret2.$element;
+              if(callback){
+                callback(ret2);
+              }
             });
-        };
-    });
+
+          });
+        }
+      });
+    };
+  });
 } else {
 
     exports.ajaxSetup = ajaxSetup;

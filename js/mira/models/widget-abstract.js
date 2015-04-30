@@ -164,7 +164,7 @@
             return endpoint_build;
         },
 
-        buildParentDataDatasource: function($data){
+        buildParentDataDatasource: function($data, $dataObj, $bind){
             return eval(this.get('datasource'));
         },
 
@@ -188,7 +188,7 @@
                     }
                 });
             } else {
-                var data = this.buildParentDataDatasource(parentData.attributes);
+                var data = this.buildParentDataDatasource(parentData.attributes, parentData, $bind);
                 if(data instanceof Backbone.Collection){
                     collection = data;
                 } else {
