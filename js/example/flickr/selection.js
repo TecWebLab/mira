@@ -43,7 +43,7 @@
                     });
                 }
             } else {
-                callback('landing', 'landing', null, $env)
+                callback('landing', 'landing', new Api.Model(), $env)
             }
         }
     });
