@@ -18,7 +18,7 @@ Baixe o repositório em uma pasta de sua preferência.
 
         index.html   # faz a referencia para a carga da aplicação
 
-É importante que esta a pasta `path/to/mira/` possa ser servida e acessível por um servidor de arquivos estáticos como Apache, nginx e etc.
+É importante que esta pasta `path/to/mira/` possa ser servida e acessível por um servidor de arquivos estáticos como Apache, nginx e etc.
 
 Agora basta ir no navegador e acessar a URL:
 
@@ -66,9 +66,9 @@ O arquivo **index.html** é o arquivo que inicia o MIRA.
 Ele carrega o [require.js](http://requirejs.org) e chama o modulo `js/config.js`.
 
 Este módulo tem as configurações de caminhos para outros módulos e também carrega o modulo da aplicação informada pelo
-parâmetro `app`, se nenhum valor for informado, ele carrega o modulo `js/index.js`
+parâmetro `app`, se nenhum valor for informado, ele carrega o módulo `js/index.js`
 
-# Modulo principal da aplicação | Main
+# Módulo principal da aplicação | Main
 
 No módulo que será definido os modelos da aplicação, como o `js/index.js`, deverá possuir a chamada para a função principal
 para que o MIRA saiba que modelos utilizar para montar sua interface:
@@ -78,7 +78,7 @@ para que o MIRA saiba que modelos utilizar para montar sua interface:
 
         define([
             // Local para se carregar as bibliotecas JavaScript que deseja utilizar,
-            // alem daquelas que são padrão do MIRA
+            // além daquelas que são padrão do MIRA
             "jquery",
             "bootstrap",
             "mira/init"
@@ -121,7 +121,7 @@ Caso queira alterar o path de alguma biblioteca para usar algum CDN ou outra ver
 
 ## Pastas
 
-Logo a seguir, será explicado o que contem cada pasta
+Logo a seguir, será explicado o que contém cada pasta
 
 ### css/
 

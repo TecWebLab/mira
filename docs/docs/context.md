@@ -21,7 +21,7 @@ Caso contrário, esta variável não será definida.
 
 ## `$env`
 
-Contem todas as informações além das informações retornadas pela API, como informações da requisição, do dispositivo, das
+Contém todas as informações além das informações retornadas pela API, como informações da requisição, do dispositivo, das
 funcionalidades do dispositivo.
 
     { request: Object, device: Object, $data: null }
@@ -95,7 +95,7 @@ Uma String contendo a URL navegada.
 
 Um Object contento a mesma estrutura de informações do `$env.request`, mas para a URI informada como parâmetro.
 
-Se for uma navegação para a interface landing, esta propriedade não contem informações.
+Se for uma navegação para a interface landing, esta propriedade não contém informações.
 
 ### `$env.request.params`
 
@@ -110,7 +110,7 @@ Exemplo para *http://localhost/#var1=exemplo&var3=example*
 
 ## `$env.device`
 
-Contem informações para descobrir qual é o tipo de dispositivo que está acessando a aplicação.
+Contém informações para descobrir qual é o tipo de dispositivo que está acessando a aplicação.
 
 Estas informações também são adicionadas no DOM da página na tag HTML, assim, o designer pode utilizar estas informações
 para compor seu CSS.
@@ -153,7 +153,7 @@ Veja mais informações sobre na documentação do [Device.js](http://matthewhud
 
 ## `$env.device.features`
 
-Contem informações sobre as funcionalidades que o dispositivo que está acessando a aplicação disponibiliza para o seu
+Contém informações sobre as funcionalidades que o dispositivo que está acessando a aplicação disponibiliza para o seu
 usuário.
 
 Estas informações também são adicionadas no DOM da página na tag HTML, assim, o designer pode utilizar estas informações

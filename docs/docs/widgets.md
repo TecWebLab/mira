@@ -13,7 +13,7 @@ Caso deseje alterar o widget padrão, você pode fazer isto após o start da apl
 
 ## name
 
-Noma do widget, este nome será utilizado para fazer referencia a qual Widget Abstrato deverá ser mapeado por este Widget Concreto.
+Nome do widget, este nome será utilizado para fazer referência a qual Widget Abstrato deverá ser mapeado por este Widget Concreto.
 
 ## when
 
@@ -59,13 +59,13 @@ Será renderizado:
 
 ## Head
 
-Feito para carregar a referencia de ícones, estilos css.
+Feito para carregar a referência de ícones, estilos css.
 
 Deve ser utilizado apenas no `head` da interface concreta.
 
 ### Parâmetros
 
-O parâmetros que não estão listados e forem informados durante o mapeamento, serão
+Os parâmetros que não estão listados e forem informados durante o mapeamento, serão
 atribuídos como atributos da tag html criada.
 
 #### tag
@@ -88,7 +88,7 @@ Deve ser utilizado apenas no `head` da interface concreta.
 
 ### Parâmetros
 
-Qualquer parâmetro informado alem dos padrões, sera atribuídos ao meta criado.
+Qualquer parâmetro informado além dos padrões, serão atribuídos a meta criado.
 
 ### Exemplo
 

@@ -59,7 +59,7 @@ os elementos filhos na estrutura dos widgets abstratos. Este `$children` será o
 
 # Registrando
 
-Após o start da aplicação no modulo que foi informado na url como `app`, será feito o registro dos seus widgets customizados
+Após o start da aplicação no módulo que foi informado na url como `app`, será feito o registro dos seus widgets customizados
 
     return function Index() {
         var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
