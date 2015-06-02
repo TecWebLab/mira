@@ -21,7 +21,7 @@ Cada interface abstrata é composta por 3 parâmetros:
 
 ### name
 
-Nome da interface concreta, este nome será utilizado pela* (só PELO ou só NO) no parâmetro `concrete` de elementos da 
+Nome da interface concreta, este nome será utilizado pelo parâmetro `concrete` de elementos da 
 [Seleção de Interface](interface-selection.md).
 
 Se na seleção de interface nenhum parâmetro `concrete` for informado, a seleção de interface assumirá que o nome

@@ -1,6 +1,6 @@
 # Interface Abstrata
 
-É o esqueleto da interface, onde definimos a ordem, origem dos dados e hierarquia dos elementos para que virão* (venham) a ser
+É o esqueleto da interface, onde definimos a ordem, origem dos dados e hierarquia dos elementos para que venham a ser
 mapeados pela [Interface Concreta](concrete-interface.md).
 
     var abstracts = [ 
@@ -64,7 +64,7 @@ Você pode utilizar uma regra geral ou escrever uma expressão que deverá ser a
 
     { name: 'preco' when:'$data.preco != null'}
 
-De preferência a escrever as regras na estrutura de regras do framework, assim será mais fácil de reaproveitar e dar manutenção* (manutenções) as regras.
+De preferência a escrever as regras na estrutura de regras do framework, assim será mais fácil de reaproveitar e dar manutenções as regras.
 
 [Mais informações sobre regras](rules.md)
 
