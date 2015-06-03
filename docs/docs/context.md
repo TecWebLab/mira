@@ -1,6 +1,6 @@
 # Variáveis de Contexto
 
-O MIRA disponibiliza algumas variáveis que podem ser usadas durante a validação de regras e atribuir valores a atributos
+O MIRA disponibiliza algumas variáveis que podem ser usadas durante a validação de condições e atribuir valores a atributos
 de [Widgets Abstratos](abstract-interface.md#widgets-abstratos) e [Widgets Concretos](widgets.md).
 
 ## `$data`

@@ -40,7 +40,7 @@ Exemplo do módulo da aplicação:
         ], function Main($, $bootstrap, Mira, rules, selection, abstract, concrete) {
 
             return function MyApplication() {
-                this.mira = new Mira.Application(abstract, concrete, rules, selection);
+                this.mira = new Mira.Application(abstract, concrete, rules, selection, conf);
             };
 
         });
@@ -48,7 +48,7 @@ Exemplo do módulo da aplicação:
 
 Exemplo modelos separados em módulos
 
-### rules.js
+### condition.js
 
     define([], function () {
         return [
@@ -125,7 +125,7 @@ As declarações de funções devem ser feitas dentro da função [Main](start.m
         }
 
         return function MyApplication() {
-            this.mira = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+            this.mira = new Mira.Application(interface_abstracts, concrete_interface, rules, selection, conf);
         };
 
     }
@@ -133,7 +133,7 @@ As declarações de funções devem ser feitas dentro da função [Main](start.m
 Desta forma, a função estará disponível em qualquer contexto da aplicação, como neste exemplo:
 
     var rules = [{
-        name: 'regra_com_com_funcao',
+        name: 'condicao_com_com_funcao',
         validate: 'my_function() && my_function_with_args($data)'
     }]
 
@@ -144,24 +144,3 @@ Desta forma, a função estará disponível em qualquer contexto da aplicação,
             { name:'simples', type:'SimpleHtml', value:'my_function_with_args($data)'}
         ]
     }]
-
-
-
-# Eventos
-
-Nos Widgets Concretos é possível registrar eventos e utilizar funções que foram criadas pelo projetista:
-
-Veja a lista de eventos neste link: [http://www.w3schools.com/jsref/dom_obj_event.asp](http://www.w3schools.com/jsref/dom_obj_event.asp)
-
-Os mais comuns:
-
-* **onclick**: É disparado quando o usuário faz um click com o mouse em cima do elemento html.
-* **onmouseover**: É disparado quando o usuário passa o mouse por cima do elemento html.
-* **onkeydown**: É disparado quando o usuário aperta uma tecla do teclado quando o foco está no elemento html.
-
-Exemplo:
-
-    {name: 'widget_name', type: 'SimpleHtml', tag: 'button', onclick: 'my_function(event);', value:'click'}
-
-# Alterando Requisição na API
-

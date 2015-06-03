@@ -63,13 +63,13 @@ Tipo do widget concreto
 
 *Opcional*
 
-Informar a regra que deve ser avaliada para que este widget concreto seja mapeado com o widget abstrato na interface.
+Informar a condição que deve ser avaliada para que este widget concreto seja mapeado com o widget abstrato na interface.
 
-Você pode utilizar uma regra geral ou escrever uma expressão que deverá ser avaliada.
+Você pode utilizar uma condição geral ou escrever uma expressão que deverá ser avaliada.
 
-De preferência a escrever as regras na estrutura de regras do framework.
+De preferência a escrever as condição na estrutura de condição do framework.
 
-[Mais informações sobre regras](rules.md)
+[Mais informações sobre condições](conditions.md)
 
 ### value
 
@@ -105,7 +105,7 @@ Interface concreta mapeando widgets concretos para uma interface de busca na est
             { name: 'footer-content', widget: 'BootstrapFooter' }
     ]}];
 
-Mapeamento widgets de acordo regras
+Mapeamento widgets de acordo com condições
 
     ...
     maps: [

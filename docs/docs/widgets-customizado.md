@@ -6,15 +6,19 @@ Nesta sessão será apresentado como o designer deverá criar e como registrar e
 
 Será criada uma `function` que receberá os seguintes parâmetros, e estes não podem ter seus nome modificados: `$parent`, `name`, `$data`, `$env`, `options`
 
-    function($parent, name, $data, $env, options){
+    function($parent, name, $context, options, callback) {
         var element = document.createElement('h1');
         element.innerHTML = 'Mira';
         element.id = name;
         var $element = $(element);
         $parent.append(element);
-        return {
-            $children: $element,
-            html: element.innerHTML
+        
+        if(callback){
+            callback({
+                 $children: $element,
+                 $element: $element,
+                 html: element.innerHTML
+             })
         }
     }
 
@@ -34,17 +38,11 @@ Nome que deverá ser adicionado como id do elemento html.
 
     <div id="nome_do_mapeamento"></div>
 
-### `$data`
+### `$context`
 
 Dado do contexto atual que está sendo renderizado o widget.
 
-Veja mais informações em [Variáveis de Contexto](context.md#data)
-
-### `$env`
-
-Informações do ambiente que está sendo executada a interface.
-
-Veja mais informações em [Variáveis de Contexto](context.md#env)
+Veja mais informações em [Variáveis de Contexto](context.md#context)
 
 ### `options`
 
@@ -52,10 +50,11 @@ Todos os atributos do mapeamento na estrutura de interface concreta
 
     { name: "widget": widget:"SimpleHtml", tag:"h1", value:"Mira" }
 
-### `return`
+### `callback`
 
-Deverá ser retornado um `object` com os atributos `$children` e `html`, onde `$children` será o objeto JQuery que será utilizado para renderizar
-os elementos filhos na estrutura dos widgets abstratos. Este `$children` será o `$parent` dos filhos da estrutura.
+Deverá ser chamado com um `object` com os atributos `$children`, `$element` e `html`, 
+onde `$children` será o objeto JQuery que será utilizado para renderizar, os elementos filhos na estrutura dos widgets abstratos. 
+Este `$children` será o `$parent` dos filhos da estrutura. E `$element` que é o elemento atual do widget que acabou de ser renderizado.
 
 # Registrando
 
@@ -70,9 +69,13 @@ Após o start da aplicação no módulo que foi informado na url como `app`, ser
                 element.id = name;
                 var $element = $(element);
                 $parent.append(element);
-                return {
-                    $children: $element,
-                    html: element.innerHTML
+                
+                if(callback){
+                    callback({
+                         $children: $element,
+                         $element: $element,
+                         html: element.innerHTML
+                     })
                 }
             }
         })
@@ -86,15 +89,15 @@ O MIRA disponibiliza algumas funções para ajudar na construção de widgets cu
 
 ### Mira.Helper.build_context
 
-Recebe os valores de `$data`, `$env`, `options` e gera um objeto de context para ser utilizado pelas outras funções do helper
+Recebe os valores de `$context`, `options` e gera um objeto de context para ser utilizado pelas outras funções do helper
 
 ### Mira.Helper.build_value
 
-Recebe uma `string` com o `context` e caso sejam informações de contexto, ele fará um build do valor, ou apenas retornara a string.
+Recebe uma `string` com o `$context` e caso sejam informações de contexto, ele fará um build do valor, ou apenas retornara a string.
 
 ### Mira.Helper.build_object_with_context
 
-Recebe um `object` e o `context` e faz a chamada de todos os seus valores com a função `build_value`
+Recebe um `object` e o `$context` e faz a chamada de todos os seus valores com a função `build_value`
 
 ### Mira.Helper.build_attributes
 

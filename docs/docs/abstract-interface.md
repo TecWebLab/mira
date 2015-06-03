@@ -54,19 +54,19 @@ Nome do widget abstrato, este nome será utilizado no mapeamento de widgets conc
 
 *Opcional*
 
-Informar a regra que deve ser avaliada para que este widget seja exibido na interface.
+Informar a condição que deve ser avaliada para que este widget seja exibido na interface.
 
-Caso queira usar duas regras, você pode colocar uma seguida da outra separada por `,`
+Caso queira usar duas condições, você pode colocar uma seguida da outra separada por `,`
 
     { name: 'ambiente_seguro_mobile', when: 'isSecure,isMobile'}
 
-Você pode utilizar uma regra geral ou escrever uma expressão que deverá ser avaliada.
+Você pode utilizar uma condição geral ou escrever uma expressão que deverá ser avaliada.
 
     { name: 'preco' when:'$data.preco != null'}
 
-De preferência a escrever as regras na estrutura de regras do framework, assim será mais fácil de reaproveitar e dar manutenções as regras.
+De preferência a escrever as condições na estrutura de condições do framework, assim será mais fácil de reaproveitar e dar manutenções as condições.
 
-[Mais informações sobre regras](rules.md)
+[Mais informações sobre condições](conditions.md)
 
 ### datasource
 

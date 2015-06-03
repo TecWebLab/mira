@@ -8,11 +8,12 @@ include_search: true
 pages:
  - [index.md, Home]
  - [start.md, Iniciando um Projeto]
- - [rules.md, Regras]
+ - [conditions.md, Condições]
  - [interface-selection.md, Seleção de Interface]
  - [abstract-interface.md, Interface Abstrata]
  - [concrete-interface.md, Interface Concreta]
  - [widgets.md, Widgets Concretos]
+ - [events.md, Condições]
  - [widgets-customizado.md, Widgets Customizados]
  - [context.md, Variáveis de Contexto]
  - [tips.md, Dicas]

@@ -1,8 +1,8 @@
-# Regras
+# Condições
 
-O projetista tem a possibilidade de centralizar as regras que serão utilizadas posteriormente pela aplicação.
+O projetista tem a possibilidade de centralizar as condições que serão utilizadas posteriormente pela aplicação.
 
-    var rules = [
+    var condition = [
         {
             name: 'rule_name',
             validate: 'expression_to_evaluate'
@@ -11,13 +11,13 @@ O projetista tem a possibilidade de centralizar as regras que serão utilizadas 
     ];
 
  
-Cada objeto da regra é composta por 2 parâmetros:
+Cada objeto da condição é composta por 2 parâmetros:
 
 ## Parâmetros
 
 ### name
 
-Nome da regra, este nome será utilizado pelo no parâmetro `when` de elementos da
+Nome da condição, este nome será utilizado pelo no parâmetro `when` de elementos da
 [Seleção de Interface](interface-selection.md), 
 [Interface Abstrata](concrete-interface.md) e
 [Interface Concreta](abstract-interface.md).

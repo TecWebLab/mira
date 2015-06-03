@@ -6,9 +6,9 @@ Um framework baseado em padrões que permitirá à uma aplicação qualquer defi
 A funcionalidade da aplicação será ativada através de interfaces **REST**.
 
 Através de um modelo composto por [Interface Abstrata](concrete-interface.md) e [Interface Concreta](abstract-interface.md),
-o projetista da aplicação poderá montar a interface da sua aplicação e ainda utilizar [Regras](rules.md) para
-a [Seleção de Interface](interface-selection.md) e mapeamento de [Widgets](widgets.md) compondo sua interface de acordo
-com suas definições e adaptando-a para diversos ambientes e dispositivos.
+o projetista da aplicação poderá montar a interface da sua aplicação e ainda utilizar [Condições](conditions.md) para
+a [Seleção de Interface](interface-selection.md) e mapeamento de [Widgets](widgets.md) e [Eventos](events.md) para 
+compor sua interface de acordo com suas definições e adaptando-a para diversos ambientes e dispositivos.
 
 ## Sequência de execução
 
@@ -48,7 +48,7 @@ A partir do parâmetro URI desta URL, será feita uma requisição AJAX para a A
 
     $.get("https://www.googleapis.com/freebase/v1/search?query=PUC")
 
-Neste momento é feita a seleção das interfaces abstrata e concreta baseada nas regras de seleção mapeadas. Toda a estrutura
+Neste momento é feita a seleção das interfaces abstrata e concreta baseada nas condições de seleção mapeadas. Toda a estrutura
 de widgets abstratos e concreta é montada com base nos modelos da aplicação e a interface é exibida para o usuário que está
 navegando na aplicação.
 
@@ -58,9 +58,9 @@ navegando na aplicação.
 
 ## Estruturas
 
-### Regras
+### Condições
 
-O projetista tem a possibilidade de centralizar as regras que serão utilizadas posteriormente pela aplicação.
+O projetista tem a possibilidade de centralizar as condições que serão utilizadas posteriormente pela aplicação.
 
     var rules = [{
         name: 'isUser',
@@ -70,14 +70,14 @@ O projetista tem a possibilidade de centralizar as regras que serão utilizadas 
         validate: '$data.watchers_count > 0'
     }];
 
-[Mais informações de construção de regras](rules.md)
+[Mais informações de construção de condições](conditions.md)
 
 ----
  
 ### Seleção de Interface
 
 Quando há uma navegação para uma URI, será feita a seleção de interface de acordo com os dados retornados pela URI sempre
-utilizando as regras definidas pelo projetista.
+utilizando as condições definidas pelo projetista.
 
     var selection = [
         {

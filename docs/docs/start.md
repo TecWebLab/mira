@@ -85,7 +85,7 @@ para que o MIRA saiba que modelos utilizar para montar sua interface:
         ], function Main($, $bootstrap, Mira) {
 
             return function MyApplication() {
-                this.mira = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+                this.mira = new Mira.Application(interface_abstracts, concrete_interface, rules, selection, conf);
             };
 
         });

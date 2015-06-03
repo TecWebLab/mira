@@ -19,18 +19,18 @@ Nome do widget, este nome será utilizado para fazer referência a qual Widget A
 
 *Opcional*
 
-Regra que deverá ser verdadeira para que este Widget Concreto mapeie o Widget Abstrato.
+Condição que deverá ser verdadeira para que este Widget Concreto mapeie o Widget Abstrato.
 
-Caso queira usar duas regras, você pode colocar uma seguida da outra separada por `,`, neste caso, todas as regras infomadas deverão retornar `true`
+Caso queira usar duas condições, você pode colocar uma seguida da outra separada por `,`, neste caso, todas as condições infomadas deverão retornar `true`
 para que esta seleção seja a escolhida.
 
     { name: 'ambiente_seguro_mobile', when: 'isSecure,isMobile'}
 
-Você pode utilizar uma regra geral ou escrever uma expressão que deverá ser avaliada.
+Você pode utilizar uma condição geral ou escrever uma expressão que deverá ser avaliada.
 
     { name: 'preco' when:'$data.preco != null'}
 
-De preferência a escrever as regras na estrutura de regras do framework, assim será mais fácil de reaproveitar e dar manutenção as regras.
+De preferência a escrever as condições na estrutura de condições do framework, assim será mais fácil de reaproveitar e dar manutenção as condições.
 
 # Comuns
 
@@ -129,35 +129,25 @@ Conjunto de widgets que utilizando da estrutura criada pelo framework de CSS, o 
 O parâmetros que não estão listados e form informados durante o mapeamento, serão
 atribuídos como atributos da tag html.
 
-#### xs
-
-Funcionalidade de Grid do Bootstrap, Para telas extra largas como desktop
-
 #### sm
 
-Para telas pequenas, como smartphone
+Funcionalidade de grid do Bootstrap, para telas pequenas, como smartphone
 
 #### md
 
-Para telas médias, como tablets
+Funcionalidade de grid do Bootstrap, para telas médias, como tablets
 
 #### lg
 
-Para telas largas, como notebooks
+Funcionalidade de grid do Bootstrap, para telas largas, como notebooks
+
+#### xs
+
+Funcionalidade de grid do Bootstrap, para telas extra largas como desktop
 
 #### print
 
 O que será exibido na hora de imprimir o documento em uma impressora ou PDF
-
-
-## BootstrapIcon
-
-## BootstrapImageBox
-
-## BootstrapFooter
-
-### Lista de Parâmetros:
-
 
 #### img
 #### text
@@ -171,3 +161,39 @@ O que será exibido na hora de imprimir o documento em uma impressora ou PDF
 #### input
 #### sr
 #### has
+
+## Outros widgets com base no Bootstrap
+
+* BootstrapSimple
+* BootstrapFormControl
+* BootstrapModalDialog
+* BootstrapModalHeader
+* BootstrapModalBody
+* BootstrapModalFooter
+* BootstrapPanelBody
+* BootstrapCarousel
+* BootstrapCarouselItem
+* BootstrapIcon
+* BootstrapImageBox
+* BootstrapFooter
+* BootstrapNavigation
+* BootstrapNavigationList
+* BootstrapNavigationListItem
+* BootstrapFormGroupButton
+
+## Outros widget
+
+* MapStatic
+* MapDynamic
+* Input
+* Head
+* Meta
+* Title
+* ImageHtml
+* AudioPlayer
+* ProfileContainer
+* ProfileImage
+* ProfileDetail
+* ProfileCount
+* TecWebRodape
+
