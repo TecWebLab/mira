@@ -81,16 +81,18 @@ define([
                     $map: map
                 };
 
+                var attributes = _.omit(map.attributes, 'children');
+
                 return widgets[widget_name].call(
                     map,
                     $parent,
                     map.get('name'),
                     $context,
-                    _.clone(map.attributes),
+                    attributes,
                     callback
                 );
             } else {
-                console.error('Widget Concreto not Founded', widget_name, map);
+                console.error('Widget Concrete not Founded', widget_name, map);
             }
         },
         register: function(custom_widgets){

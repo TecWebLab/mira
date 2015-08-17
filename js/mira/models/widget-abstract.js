@@ -45,6 +45,12 @@
             return true;
         },
 
+        canHasMapChildren: function(map){
+            if(!this.get('children').length){
+                return map.hasChildren();
+            }
+        },
+
         getBind: function($data, $dataObj, $env){
             if(this.get('bind')){
                 try{
@@ -74,7 +80,15 @@
             var next = function ($bind) {
                 var map = esse.getRender(concrete, $data, $env, $bind);
                 if (map && esse.isVisible($data, $env, $bind)) {
-                    map.getHtml($parent, $data, $env, $bind, callback);
+
+                    var map_callback = callback;
+                    if(esse.canHasMapChildren(map)){
+                        map_callback = function(ret){
+                            map.buildChildren(ret.$children, $data, $env, $bind, callback);
+                        }
+                    }
+
+                    map.getHtml($parent, $data, $env, $bind, map_callback);
                 }
             };
 

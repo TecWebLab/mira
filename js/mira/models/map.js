@@ -10,6 +10,11 @@ define([
     var Model = Base.Model.extend({
         __name__ : 'Map.Model',
 
+        parse: function(data){
+            data.children = new Collection(data.children || [], {parse:true});
+            return data;
+        },
+
         getHtml: function($parent, $data, $env, $bind, callback){
             return Render.call(this, $parent, $data, $env, $bind, callback);
         },
@@ -23,6 +28,22 @@ define([
                 return Helper.evaluate(this.get('when'), $data.attributes, $env, $data, $bind);
             }
             return true;
+        },
+
+        hasChildren: function(){
+            return this.get('children').length;
+        },
+
+        buildChildren: function($parent, $data, $env, $bind, callback){
+
+            this.get('children').each(function(map){
+                map.getHtml($parent, $data, $env, $bind, function(ret){
+                    if(map.hasChildren()){
+                        map.buildChildren(ret.$children, $data, $env, $bind, callback)
+                    }
+                    callback(ret);
+                });
+            }, this);
         }
 
     });
