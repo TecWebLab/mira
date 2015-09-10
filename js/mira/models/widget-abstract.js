@@ -164,6 +164,13 @@
             var esse = this;
             var anchor = Helper.buildAnchor();
             var temp = Helper.buildAnchor();
+
+            var structure = concrete.findStructure(this.get('name'));
+            if(structure){
+                structure.prepare(this.get('children'));
+                esse = structure;
+            }
+
             $parent.append(anchor);
             this.buildWidget(temp, concrete, $data, $env, function(options){
                 esse.buildChildren(options.$children, concrete, $data, $env);

@@ -3,8 +3,9 @@
 define([
     'underscore',
     'mira/base/init',
-    'mira/models/map'
-], function (_, Base, Map) {
+    'mira/models/map',
+    'mira/models/structure'
+], function (_, Base, Map, Structure) {
 
     var Model = Base.Model.extend({
         __name__ : 'Concrete.Model',
@@ -15,6 +16,7 @@ define([
         parse: function(data){
             data.head = new Map.Collection(data.head, {parse:true});
             data.maps = new Map.Collection(data.maps, {parse:true});
+            data.structure = new Structure.Collection(data.structure, {parse:true});
             return data;
         },
 
@@ -25,6 +27,11 @@ define([
                     map.getHtml($head, $data, $env);
                 }
             });
+        },
+
+        findStructure: function(name, abstracts){
+            var structure = this.get('structure').findWhere({'name': name});
+            return structure;
         }
     });
 
