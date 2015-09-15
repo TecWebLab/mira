@@ -135,16 +135,23 @@
             var $bind = this.getBind($data.attributes, $data, $env);
             if(this.get('datasource')){
                 var itemWidget = this.get('children').at(0);
-                this.requestData($data, $env, $bind, function(collection){
 
+                this.requestData($data, $env, $bind, function(collection){
                     esse.registerCollection($env, collection);
+                    var $bind1 = itemWidget.getBind($data.attributes, $data, $env);
+
+                    var structure = concrete.findStructure(itemWidget.get('name'));
+                    if(structure){
+                        structure.prepare(itemWidget.get('children'));
+                        itemWidget = structure;
+                    }
 
                     var view = new MiraView.Collection({
                         collection: collection,
                         model: $data,
                         $el: $parent,
                         $env: $env,
-                        $bind: $bind,
+                        $bind: $bind1,
                         widget: this,
                         concrete: concrete,
                         itemWidget: itemWidget

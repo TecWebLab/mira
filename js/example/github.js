@@ -50,14 +50,14 @@ var interface_abstracts = [
             {'navigation': {name:'navigation-list', children:['navigation-list-item'], datasource:sourceUsers}},
             { name: "content",
               children: [
-                  {'user': ['avatar', {'detail': ['name', 'login', 'bio', 'blog', 'company', 'location']}]},
+                  {'user': ['avatar', 'name', 'login', 'bio', 'blog', 'company', 'location']},
                   { 'seguidores_panel': ['seguidores_title',
                   { name: "seguidores", datasource: "url:<%= $data.followers_url %>", cache: false,
                       children: {"seguidor": ['avatar_seguidor']}
                   }, 'seguidores_mais']},
                   {'repositorios_panel' : ['repositorios_title',
                   { name: "repositorios", datasource: "url:<%= $data.repos_url %>",
-                      children: {"repositorio": ['nome', 'descricao', {box: ['star', 'watch']}]}
+                      children: {"repositorio": ['nome', 'descricao', 'star', 'watch']}
                   }]}
               ]
             },
@@ -113,6 +113,12 @@ var concrete_interface = [
             {name: 'viewport', widget:'Meta', content:'width=device-width, initial-scale=1'},
             {name: 'title', widget:'Title', value: '"GitHub de " + ($data.name || $data.login)'}
         ],
+
+        structure:[
+            {'user': ['avatar', {'detail': ['name', 'login', 'bio', 'blog', 'company', 'location']}]},
+            {"repositorio": ['nome', 'descricao', {box: ['star', 'watch']}]}
+        ],
+
         maps: [
         { name: 'navigation', widget: 'BootstrapNavigation', value:'"GitHub"'},
         { name: 'navigation-list', widget: 'BootstrapNavigationList'},
@@ -149,7 +155,7 @@ var concrete_interface = [
 ];
 
 var ajaxSetup = {
-    headers: { "Authorization": "token f4ed0e86730b094fca1bb0d7003515b61c5afd14" }
+
 };
 
 if(typeof define === 'function') {
