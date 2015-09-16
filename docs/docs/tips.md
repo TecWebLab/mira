@@ -2,6 +2,13 @@
 
 Dicas para uso do MIRA
 
+# Alterando widget concreto padrão.
+
+O widget concreto padrão é o SimpleHtml, mas você pode alterar para qualquer outro. Basta executar o seguinte metodo após a inicialização da aplicação.
+
+    var app = new Mira.Application(interface_abstracts, concrete_interface, rules, selection);
+    Mira.Widget.setDefault('BootstrapSimple');
+
 # Modelos distribuído em módulos
 
 Na declaração da função principal, poderá ser feito a requisição dos módulos para o MIRA, assim, o projetista poderá

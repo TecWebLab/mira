@@ -3,6 +3,10 @@
 O MIRA disponibiliza algumas variáveis que podem ser usadas durante a validação de condições e atribuir valores a atributos
 de [Widgets Abstratos](abstract-interface.md#widgets-abstratos) e [Widgets Concretos](widgets.md).
 
+## `$bind`
+
+Valor mapeado pelo atributo `bind` na definição dos widget abstrato.
+
 ## `$data`
 
 Nesta variável se encontra as informações retornadas pela requisição feita a URI da API REST que foi informada por parâmetro
@@ -30,18 +34,18 @@ funcionalidades do dispositivo.
 
 Informações que variam de acordo com o requisição feita ao MIRA.
 
-Exemplo para navegação para esta URI: *http://mestrado.amazingworks.com.br/?app=github#?URI=https://api.github.com/users/ebertti*
+Exemplo para navegação para esta URI: *http://mira.tecweb.inf.puc-rio.br/?app=example/github#?URI=https://api.github.com/users/ebertti*
 
     hash: "#?URI=https://api.github.com/users/ebertti"
-    host: "mestrado.amazingworks.com.br"
-    hostname: "mestrado.amazingworks.com.br"
-    href: "http://mestrado.amazingworks.com.br/?app=github#?URI=https://api.github.com/users/ebertti"
-    origin: "http://mestrado.amazingworks.com.br"
+    host: "mira.tecweb.inf.puc-rio.br"
+    hostname: "mira.tecweb.inf.puc-rio.br
+    href: "http://mira.tecweb.inf.puc-rio.br/?app=example/github#?URI=https://api.github.com/users/ebertti"
+    origin: "mira.tecweb.inf.puc-rio.br"
     params: { URI : "https://api.github.com/users/ebertti" }
     pathname: "/"
     port: ""
     protocol: "http:"
-    search: "?app=github"
+    search: "?app=example/github"
     uri:
         file: "ebertti"
         hash: ""

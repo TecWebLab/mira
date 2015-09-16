@@ -32,6 +32,21 @@ Você pode utilizar uma condição geral ou escrever uma expressão que deverá 
 
 De preferência a escrever as condições na estrutura de condições do framework, assim será mais fácil de reaproveitar e dar manutenção as condições.
 
+## children
+
+*Válido apenas se o widget-abstrato for folha na estrutura de widgets da interface abstrata.*
+
+Adicionar mais widgets concretos como filho do widget-abstrato mapeado.
+
+    /** abstrato **/
+    { name: 'link', bind:'$data.link' }
+
+    /** mapeamento **/
+    { name: 'link', tag: 'a', href: '$bind', children: [
+        { name: 'image', tag: 'img', src: '$bind' },
+        { name: 'leia_mais', tag: 'span', value: 'Leia Mais' }
+    ]}
+
 # Comuns
 
 ## SimpleHtml

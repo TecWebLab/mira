@@ -34,6 +34,7 @@ O widget abstrato compõem a estrutura de interface abstrata
 
     {
         name: 'widget_name',
+        bind: '$data.property'
         when: ''
         datasource: 'url_or_property',
         parser: '',
@@ -49,6 +50,10 @@ Um widget abstrato é composto pelos parâmetros:
 ### name
 
 Nome do widget abstrato, este nome será utilizado no mapeamento de widgets concretos na interface concreta.
+
+### bind
+
+Mapeamento do dado retornado a ser utilizado pelo mapeamento de widgets concretos na interface concreta.
 
 ### when
 

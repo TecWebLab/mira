@@ -9,13 +9,16 @@ selecionada durante a [Seleção de Interface](interface-selection.md)
             head: [ 
                 ...
             ],
+            structure:[
+                ...
+            ]
             maps: [
                 ...
             ]
         }
     ]
     
-Cada interface abstrata é composta por 3 parâmetros:
+Cada interface abstrata é composta por 4 parâmetros:
 
 ## Parâmetros
 
@@ -31,6 +34,10 @@ da interface concreta será o mesmo que da interface abstrata.
 
 Uma lista de widgets concretos que não compõem a estrutura da interface, mas sim, suas configurações,
 dependências como `css`, `favicon` e até mesmo, no caso de uma página HTML, o `title` da página.
+
+### structure
+
+Uma lista de widgets abstratos que terão a organização de seus filhos redefinida.
 
 ### maps
 
@@ -109,9 +116,9 @@ Mapeamento widgets de acordo com condições
 
     ...
     maps: [
-        { name: 'element', widget: 'SimpleHtml', tag: 'h1', value:'$data.name', class: 'big', when:'isDesktop' },
-        { name: 'element', widget: 'SimpleHtml', tag: 'h1', value:'$data.name', class: 'medium', when:'isTablet' },
-        { name: 'element', widget: 'SimpleHtml', tag: 'h1', value:'$data.name', class: 'small', when:'isMobile' }
+        { name: 'element', widget: 'SimpleHtml', tag: 'h1', value:'$bind', class: 'big', when:'isDesktop' },
+        { name: 'element', widget: 'SimpleHtml', tag: 'h1', value:'$bind', class: 'medium', when:'isTablet' },
+        { name: 'element', widget: 'SimpleHtml', tag: 'h1', value:'$bind', class: 'small', when:'isMobile' }
     ]
     
 Alterando titulo da página com informações vindas do modelo

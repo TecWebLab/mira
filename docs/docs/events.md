@@ -27,6 +27,7 @@ Todas as funções que tratam eventos, recebem um parâmetro chamado `options`, 
  atributos:
 
 * `$env`: Informações sobre o contexto da aplicação, como request, device e dado carregado pelo request da URI.
+* `$bind`: Informações sobre o contexto da aplicação, como request, device e dado carregado pelo request da URI.
 * `$data`: Dados de leitura do objeto carregado da URI ou do contexto de um datasource de um Widget Abstrato
 * `$dataObj`: Objeto para manipular informações dos dados que foram carregados da URI ou do contesto de um datasource de um Widget Abstrato
 * `$element`: Elemento HTML do contexto do evento
