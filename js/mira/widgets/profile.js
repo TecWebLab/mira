@@ -7,7 +7,7 @@ define([
 ], function ($, _, Helper) {
 
     var template = '<div class="row">\
-        <div class="col-md-8">\
+        <div class="col-md-12">\
         <div class="panel panel-default">\
         <div class="panel-body">\
         <div class="js_child">\
@@ -52,7 +52,7 @@ define([
         Image:function($parent, name, $context, options, callback){
             var element = document.createElement('div');
             element.id = name;
-            element.className = options.class || 'col-xs-12 col-sm-4 text-center';
+            element.className = options.class || 'col-xs-12 col-sm-3 text-center';
             var image = document.createElement('img');
             image.className = 'center-block img-circle img-responsive';
             if(options.value) {
