@@ -39,6 +39,26 @@ dependências como `css`, `favicon` e até mesmo, no caso de uma página HTML, o
 
 Uma lista de widgets abstratos que terão a organização de seus filhos redefinida.
 
+    /** interface abstrata **/
+    
+    {name:'pai', children: [
+        {name:'filho1'},
+        {name:'filho2'},
+        {name:'filho3'}
+    ]}
+    
+    /** interface concreta **/
+    
+    structure:[
+        {name:'pai', children: [
+            {name:'filho1'},
+            {name:'agrupador', children: [
+                {name:'filho2'},
+                {name:'filho3'}
+            ]}
+        ]}
+    ]
+
 ### maps
 
 Uma lista de widgets concretos utilizados para mapear os widgets abstratos. Gerando a interface para o usuário que
