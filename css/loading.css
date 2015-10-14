@@ -1,5 +1,3 @@
-@import "animate.css";
-
 html, body{
     height:100%;
     margin:0;
@@ -22,15 +20,7 @@ h1 {
     text-align:center;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-    -webkit-animation-duration: 4s !important;
-    -webkit-animation-iteration-count: infinite;
-
     color: #009a09;
-    background-image: -webkit-linear-gradient(92deg, #1e4977, #86c7ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-animation: hue 1s infinite linear;
-
 }
 
 small{
