@@ -45,7 +45,7 @@ E pode rodar o seguinte comando para rodar sua aplicação:
     
 Agora basta ir no navegador e acessar a URL:
 
-    http://localhost/
+    http://localhost:3000/
 
 Se nenhuma URI de uma API REST for informada para a aplicação, será exibida a interface `landing` para o usuário.
 
@@ -113,7 +113,7 @@ Neste módulo temos uma aplicação de exemplo para se usar como modelo para sua
 Você pode escrever sua aplicação neste módulo ou criar uma nova aplicação com o nome que desejar na mesma pasta.
 A URL para acessar sua aplicação será:
 
-    http://localhost/?app=file_name
+    http://localhost:3000/?app=file_name
 
 ### js/config.js
            

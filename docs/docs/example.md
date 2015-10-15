@@ -300,7 +300,7 @@ Para funcionar, ele precisa estar em um ambiente HTTPS.
                         scope: 'email profile https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/plus.circles.read https://www.googleapis.com/auth/plus.login',
                         response_type: 'token',
                         client_id: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
-                        redirect_uri: 'https://localhost/?app=google'
+                        redirect_uri: 'https://localhost:3000/?app=google'
                     };
                     var url = "https://accounts.google.com/o/oauth2/auth?" + $.param(params);
                     window.location.href = url;

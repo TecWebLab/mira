@@ -42,7 +42,7 @@ O MIRA irá exibir este widget desta forma no HTML exibido:
 
 Quando o usuário da aplicação clicar no `link`, o MIRA irá mudar o endereço do navegador para:
 
-    http://localhost/#?URI=https://www.googleapis.com/freebase/v1/search?query=PUC
+    http://localhost:3000/#?URI=https://www.googleapis.com/freebase/v1/search?query=PUC
 
 A partir do parâmetro URI desta URL, será feita uma requisição AJAX para a API REST:
 
@@ -197,6 +197,6 @@ pela Interface Concreta.
 
 Navegando para uma URI da API REST do GitHub
 
-    http://localhost/?app=example/github#?URI=https://api.github.com/users/ebertti
+    http://localhost:3000/?app=example/github#?URI=https://api.github.com/users/ebertti
 
 ![Screenshot do exemplo](img/screenshot.png)

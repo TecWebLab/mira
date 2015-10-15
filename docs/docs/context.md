@@ -105,7 +105,7 @@ Se for uma navegação para a interface landing, esta propriedade não contém i
 
 Um Object contendo informações decompostas do que é informado na variável $env.request.hash
 
-Exemplo para *http://localhost/#var1=exemplo&var3=example*
+Exemplo para *http://localhost:3000/#var1=exemplo&var3=example*
 
         {
             var1 : 'exemplo'
