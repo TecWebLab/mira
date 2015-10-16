@@ -17,7 +17,7 @@ var Selection = require('./models/selection.js');
 
 // start do servidor
 var server = express();
-server.set('port', 3000);
+server.set('port', 3001);
 // para exibir o log
 server.use(morgan());
 // criando servidor para arquivos estaticos
