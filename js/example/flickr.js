@@ -604,7 +604,7 @@ if(typeof define === 'function') {
                 if(!$env.$login){
                     $env.$login = hello.getAuthResponse('flickr');
                 }
-                if(!$env.$login.info){
+                if($env.$login && !$env.$login.info){
                     Hello('flickr').api('/me').then(function(data){
                         $env.$login.info = data;
                     })
