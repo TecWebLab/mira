@@ -1,14 +1,14 @@
 "use strict";
 
 var exemplos = [
-    {name: "Freebase", href:"/?app=example/freebase", source:'https://github.com/TecWebLab/mira/blob/master/js/example/freebase.js'},
-    {name: "Google", href:"/?app=example/google", source:'https://github.com/TecWebLab/mira/blob/master/js/example/google.js'},
-    {name: "Github", href:"/?app=example/github", source:'https://github.com/TecWebLab/mira/blob/master/js/example/github.js'},
-    {name: "Imobiliária", href:"/?app=example/imovel", source:'https://github.com/TecWebLab/mira/blob/master/js/example/imovel.js'},
-    {name: "Futebol", href:"/?app=example/futebol", source:'https://github.com/TecWebLab/mira/blob/master/js/example/futebol.js'},
-    {name: "Flickr", href:"/?app=example/flickr", source:'https://github.com/TecWebLab/mira/blob/master/js/example/flickr.js'},
-    {name: "Todo", href:"/?app=example/todo", source:'https://github.com/TecWebLab/mira/blob/master/js/example/todo.js'},
-    {name: "Europeana", href:"/?app=example/europeana", source:'https://github.com/TecWebLab/mira/blob/master/js/example/europeana.js'}
+    {name: "Freebase", href:"?app=example/freebase", source:'https://github.com/TecWebLab/mira/blob/master/js/example/freebase.js'},
+    {name: "Google", href:"?app=example/google", source:'https://github.com/TecWebLab/mira/blob/master/js/example/google.js'},
+    {name: "Github", href:"?app=example/github", source:'https://github.com/TecWebLab/mira/blob/master/js/example/github.js'},
+    {name: "Imobiliária", href:"?app=example/imovel", source:'https://github.com/TecWebLab/mira/blob/master/js/example/imovel.js'},
+    {name: "Futebol", href:"?app=example/futebol", source:'https://github.com/TecWebLab/mira/blob/master/js/example/futebol.js'},
+    {name: "Flickr", href:"?app=example/flickr", source:'https://github.com/TecWebLab/mira/blob/master/js/example/flickr.js'},
+    {name: "Todo", href:"?app=example/todo", source:'https://github.com/TecWebLab/mira/blob/master/js/example/todo.js'},
+    {name: "Europeana", href:"?app=example/europeana", source:'https://github.com/TecWebLab/mira/blob/master/js/example/europeana.js'}
 ];
 
 var thanks = [
