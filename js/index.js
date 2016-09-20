@@ -64,8 +64,9 @@ var concrete_interface = [{
         { name: 'link', widget: 'BootstrapSimple', tag:'a', btn:'success,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', href:'$data.source', value:'$data.name' },
 
         { name: 'docs', widget: 'BootstrapSimple', tag:'h3', value:'"Documentation available at"' },
-        { name: 'docs_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Docs"', href:'"http://mira.tecweb.inf.puc-rio.br/docs"'},
-        { name: 'docs_link_github', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Docs"', href:'"https://github.com/TecWebLab/mira/blob/master/docs/docs"'},
+        { name: 'docs_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Docs"', href:'"http://mestrado.amazingworks.com.br/documentacao/"'},
+        { name: 'docs_link_github', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Docs Github"', href:'"https://github.com/TecWebLab/mira/blob/master/docs/docs"'},
+        { name: 'docs_link_readthedocs', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Docs ReadTheDocs"', href:'"http://mira.readthedocs.io/docs/"'},
 
         { name: 'builder', widget: 'BootstrapSimple', tag:'h3', value:'"Abstract Interface Builder available at"' },
         { name: 'builder_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Builder"', href:'"http://ebertti.github.io/mira-ui/"'},
