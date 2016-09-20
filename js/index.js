@@ -30,7 +30,7 @@ var interface_abstracts = [
                 'examples_sources',
                 { name: 'links', datasource:exemplos, children: 'link' },
                 'builder', 'builder_link',
-                'docs', 'docs_link',
+                'docs', 'docs_link', 'docs_link_github',
                 'repository', 'repository_codeplex', 'repository_github',
                 'thanks_title',
                 {name: 'thanks', datasource:thanks, children: {'item':'thankyou'}}
@@ -65,6 +65,7 @@ var concrete_interface = [{
 
         { name: 'docs', widget: 'BootstrapSimple', tag:'h3', value:'"Documentation available at"' },
         { name: 'docs_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Docs"', href:'"http://mira.tecweb.inf.puc-rio.br/docs"'},
+        { name: 'docs_link_github', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Docs"', href:'"https://github.com/TecWebLab/mira/blob/master/docs/docs"'},
 
         { name: 'builder', widget: 'BootstrapSimple', tag:'h3', value:'"Abstract Interface Builder available at"' },
         { name: 'builder_link', widget: 'BootstrapSimple', tag:'a', btn:'info,lg', xs:'block', sm:'inline', md:'inline', lg:'inline', value:'"Builder"', href:'"http://ebertti.github.io/mira-ui/"'},
